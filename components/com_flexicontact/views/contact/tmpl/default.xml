@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+
+<layout title="COM_FLEXICONTACT_VIEW_TITLE_CONTACT_R">
+	<message></message>
+</layout>
+
+<fields name="params">
+<fieldset name="basic">
+	<field name="toPrimary" type="text" default="" label="COM_FLEXICONTACT_V_EMAIL_TO" description="" />
+	<field name="ccAddress" type="text" default="" label="COM_FLEXICONTACT_V_EMAIL_CC" description="" />
+	<field name="bccAddress" type="text" default="" label="COM_FLEXICONTACT_V_EMAIL_BCC" description="" />
+	<field name="@spacer" type="spacer" default="" label="" description="" />
+	<field name="form_width" type="text" default="" label="COM_FLEXICONTACT_V_WIDTH"  />
+	<field name="page_hdr" type="text" default="" label="COM_FLEXICONTACT_V_PAGE_TITLE" description="COM_FLEXICONTACT_V_PAGE_TITLE_DESC" />
+</fieldset>
+</fields>
+</metadata>

@@ -1,0 +1,72 @@
+.qtip.pmMessagesModal:not(.qtip-modal) {
+	max-width: 90%;
+	z-index: 10000 !important;
+}
+
+.qtip.pmMessagesModal:not(.qtip-modal):not(.pmMessagesModalLoad) {
+	width: 600px !important;
+}
+
+.qtip.pmMessagesModal .pmMessagesRows {
+	overflow: auto;
+}
+
+.qtip.pmMessagesModal:not(.qtip-modal) .pmMessagesRows {
+	max-height: 600px;
+}
+
+.cb_template .pmMessagesRow {
+	cursor: pointer;
+}
+
+.cb_template .pmMessagesRow.pmMessagesRowRead {
+	opacity: 0.6;
+}
+
+.cb_template .pmMessagesRow.pmMessagesRowRead:hover {
+	opacity: 1;
+}
+
+.cb_template .pmMessages .pmMessagesRowImg img,
+.cb_template .pmMessages .pmMessagesRowImg .cbImgPict,
+.cb_template .pmMessages .pmMessagesRowImg .cbImgPictInitial.cbImgPict,
+.cb_template .pmMessage .pmMessageHeaderImg img,
+.cb_template .pmMessage .pmMessageHeaderImg .cbImgPict,
+.cb_template .pmMessage .pmMessageHeaderImg .cbImgPictInitial.cbImgPict {
+	width: 60px;
+	max-width: none;
+}
+
+.cb_template select.pmMessageEditConn {
+	width: 2.75em;
+	height: 100%;
+}
+
+.cb_template .pmMessageEditConn .selection,
+.cb_template .pmMessageEditToGroup .select2-results__options > .select2-results__option:first-child {
+	display: none;
+}
+
+.cb_template .form-control.pmMessageEditTo {
+	width: 20em;
+}
+
+.cb_template .pmMessagesRowMsgIntro,
+.cb_template .pmMessageContent {
+	outline: none;
+}
+
+.cb_template .pmMessageReplyText {
+	border-left-width: 3px !important;
+}
+
+.cb_template .pmMessageEditMessage {
+	position: relative;
+}
+
+.cb_template .pmMessageEditMessage textarea + .pmMessageEditLimit {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	opacity: 0.6;
+}

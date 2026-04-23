@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="editprivatemessageperms" type="params" ui="admin" label="Permissions" icon="gears" description="" viewformatting="div">
+			<toolbarmenu>
+				<menu name="apply" action="apply" task="act=apply" label="Save" />
+				<menu name="save" action="save" task="act=save" label="Save &amp; Close" />
+				<menu name="cancel" action="linkAction" task="cancel" link="cb_action:privatemessages" label="Cancel" />
+			</toolbarmenu>
+			<param name="permissions_access" type="permissions" assetname="com_comprofiler.plugin.pms" label="" display="2lines">
+				<permission name="pms.usermessages" label="Manage User Messages" description="Allows viewing of private user messages." />
+			</param>
+		</view>
+	</views>
+</cbxml>

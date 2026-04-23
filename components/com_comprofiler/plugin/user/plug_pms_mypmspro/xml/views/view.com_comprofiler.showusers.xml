@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="showusers" type="params" ui="admin" label="User Management" icon="users" viewformatting="none">
+			<tablebrowser name="usersbrowser" table="#__comprofiler" class="\CB\Database\Table\UserTable" permissionasset="com_users">
+				<toolbarmenu>
+					<menu insert-node-after="reconfirm" name="privatemessage" task="envelope" link="javascript:cbDoListTask(this, 'sendprivatemessage','usersbrowser[subtask]','sendprivatemessage','cbusersbrowserid');" label="Private Message">
+						<attributes>
+							<attribute name="action">
+								<if name="" nametype="data:bool" operator="!=" value="1" valuetype="const:bool" type="condition">
+									<left>
+										<param name="" type="private" class="\CB\Plugin\PMS\UddeIM" method="isUddeIM" />
+									</left>
+									<then>
+										<param name="" default="linkAction" translate-default="no" type="string" />
+									</then>
+								</if>
+							</attribute>
+						</attributes>
+					</menu>
+				</toolbarmenu>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

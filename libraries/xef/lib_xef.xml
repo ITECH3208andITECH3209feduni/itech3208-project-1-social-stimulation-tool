@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="library" version="2.5" method="upgrade">
+    <name>lib_xef</name>
+    <libraryname>xef</libraryname>
+    <description>
+        Expert Extension Framework (XEF) – A rapid extension development framework for all ThemeXpert extensions.
+    </description>
+    <creationDate>08/28/13</creationDate>
+    <author>Parvez Akther</author>
+    <authorEmail>parvez@themexpert.com</authorEmail>
+    <authorUrl>http://themexpert.com/</authorUrl>
+    <copyright>Copyright (C) 2011 - 2011 ThemeXpert</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3</license>
+    <version>1.3.1</version>
+
+    <files>
+        <folder>assets</folder>
+        <folder>fields</folder>
+        <folder>libs</folder>
+        <folder>sources</folder>
+        <file>lib_xef.xml</file>
+        <file>index.html</file>
+        <file>LICENSE.txt</file>
+        <file>bootstrap.php</file>
+        <file>xef.php</file>
+        <file>utility.php</file>
+    </files>
+
+</extension>

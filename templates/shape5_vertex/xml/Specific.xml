@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<specific>
+	<version>2.0</version> 
+    <languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.tpl_shape5_vertex.ini</language>
+	</languages>
+	<config>
+		<fields>
+            <fieldset name="s50" label="TPL_FIELD_TS_LABEL">
+                <field name="s51spacer_notice" label="&lt;span style=&quot;display:block;&quot;&gt;Make sure to hover your mouse over each title in this column for a full description of what each field does.&lt;/span&gt;" type="spacer" />
+             
+				<field name="xml_s5_page_bg" type="text:6:6" default="F0F0F0" label="TPL_PAGE_BG_LABEL" description="TPL_PAGE_BG_DESC" />
+				
+				<field name="xml_s5_shadow_color" type="text:6:6" default="BDBDBD" label="TPL_SHADOW_COLOR_LABEL" description="TPL_SHADOW_COLOR_DESC" />
+				
+				<field name="xml_s5_highlight" type="text:6:6" default="73A0CF" label="TPL_HIGHLIGHT_LABEL" description="TPL_HIGHLIGHT_DESC" />
+				
+				<field name="xml_s5_fonts_highlight" type="select:list" default="Oswald" label="TPL_FONTS_HIGHLIGHT_LABEL" description="TPL_FONTS_HIGHLIGHT_DESC"></field>
+				
+				<field name="xml_s5_facebook" type="text" default="" label="TPL_FACEBOOK_LABEL" description="TPL_FACEBOOK_DESC" />
+				
+				<field name="xml_s5_twitter" type="text" default="" label="TPL_TWITTER_LABEL" description="TPL_TWITTER_DESC" />
+				
+				<field name="xml_s5_google" type="text" default="" label="TPL_GOOGLE_LABEL" description="TPL_GOOGLE_DESC" />
+				
+				<field name="xml_s5_linked_in" type="text" default="" label="TPL_LINKED_IN_LABEL" description="TPL_LINKED_IN_DESC" />
+				
+				<field name="xml_s5_rss" type="text" default="" label="TPL_RSS_LABEL" description="TPL_RSS_DESC" />
+				
+				<field name="xml_s5_logo_height" type="text" default="130" label="TPL_LOGO_HEIGHT_LABEL" description="TPL_LOGO_HEIGHT_DESC" />
+				
+				<field name="xml_s5_logo_width" type="text" default="400" label="TPL_LOGO_WIDTH_LABEL" description="TPL_LOGO_WIDTH_DESC" />
+				
+				<field name="xml_s5_small_menu" type="select:list" default="no" label="TPL_SMALL_MENU_LABEL" description="TPL_SMALL_MENU_DESC">
+					<option value="yes">TPL_SMALL_MENU_01</option>
+					<option value="no">TPL_SMALL_MENU_02</option>
+				</field>
+				
+				<field name="xml_s5_uppercase" type="select:list" default="yes" label="TPL_UPPERCASE_LABEL" description="TPL_UPPERCASE_DESC">
+					<option value="yes">TPL_UPPERCASE_01</option>
+					<option value="no">TPL_UPPERCASE_02</option>
+				</field>
+				
+            </fieldset>
+		</fields>
+	</config>	
+</specific>

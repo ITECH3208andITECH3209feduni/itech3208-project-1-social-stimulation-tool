@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   	<fieldset name="main" class="lad-fieldset">
+    
+		<field name="user_subject" type="text" label="COM_FLEXICONTACT_USER_SUBJECT" default="" 
+			description="COM_FLEXICONTACT_USER_SUBJECT_DESC" />
+			
+        <field name="user_template" label ="COM_FLEXICONTACT_EMAIL_TEXT" type="editor" rows="10" cols="100"
+            filter="raw" buttons="true" hide="readmore,pagebreak,article,module,menu,contact,field" class="width-auto" />
+            
+   	</fieldset>
+        
+</form>

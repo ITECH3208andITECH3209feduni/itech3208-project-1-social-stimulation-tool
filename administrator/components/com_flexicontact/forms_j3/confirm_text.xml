@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   	<fieldset name="main" class="lad-fieldset">
+    
+		<field name="confirm_link" type="linkpreview" label="COM_FLEXICONTACT_LINK" default="" 
+			class="lad-field-inline input-xxlarge" description="COM_FLEXICONTACT_CONFIRM_LINK_DESC" />
+			
+        <field name="confirm_text" label="COM_FLEXICONTACT_CONFIG_CONFIRM_NAME" type="editor" rows="10" cols="100"
+            filter="raw" buttons="true" hide="readmore,pagebreak,article,module,menu,contact,field" class="width-auto" />
+            
+   	</fieldset>
+        
+</form>

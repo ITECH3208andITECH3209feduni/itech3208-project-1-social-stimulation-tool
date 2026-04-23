@@ -1,0 +1,77 @@
+/* Flexicontact 12.13 */
+
+div.fc_outer   {border:1px solid lightgray;padding:10px;background-color:#f9f9f9;border-radius:3px}
+div.fc_line {box-sizing:border-box;margin-top:2px}
+div.fc_line label {box-sizing:border-box;display:inline-block;min-height:32px;padding:0;margin:0 1% 0 0;vertical-align: top;
+    font: normal normal normal 14px Arial, Tahoma, sans-serif;line-height:32px}
+div.fc_line input.fc_input {box-sizing:border-box;display:inline-block;height:32px !important;padding:4px 6px;margin:0;vertical-align: top;
+    font: normal normal normal 15px Arial, Tahoma, sans-serif}
+div.fc_line textarea.fc_input {box-sizing:border-box;display:inline-block;line-height: normal;margin:0;padding:4px 6px;min-height:32px;height:auto !important;
+    font: normal normal normal 15px Arial, Tahoma, sans-serif}
+div.fc_line select.fc_input {box-sizing:border-box;display:inline-block;padding: 4px;margin:0;width:auto;height:32px !important;
+    font: normal normal normal 15px Arial, Tahoma, sans-serif}
+
+/* field appearance */      
+
+div.fc_line input.fc_input, div.fc_line select.fc_input, div.fc_line textarea.fc_input {border:1px solid lightgray;border-radius:4px;transition:border-color 0.4s ease 0s}
+div.fc_line input.fc_input:hover, div.fc_line textarea.fc_input:hover, div.fc_line select.fc_input:hover {outline:none;border-color:#999}
+div.fc_line input.fc_input:focus, div.fc_line textarea.fc_input:focus, div.fc_line select.fc_input:focus {outline:none;border-color:#0079C1;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,.075)}
+
+div.fc_line input:focus:invalid, div.fc_line textarea:focus:invalid, div.fc_line select:focus:invalid {
+    border-color:#277ac2;box-shadow:none}
+  
+div.fc_line.fc_err .fc_input {border-color:#277ac2}
+div.fc_line.fc_err .fc_input:focus {border-color:gray;box-shadow:none}
+div.fc_line.fc_err label:after {content:"*";color:red;padding-left:2px}
+
+/* error messages */
+
+.fc_error     {display:block;font-size:small;color:#277ac2;margin-left:22%}
+.fc_top_error {margin-bottom:10px}
+  
+/* image captcha */
+
+.fc_image_inner      {text-align: center}
+.fc_image_inner img  {display:inline;transition:all .2s}
+.fc_inactive         {border-radius:5px;border:2px solid transparent}
+.fc_active           {border-radius:5px;border:2px solid #277ac2;box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.63)}
+
+/* captcha plugin */
+
+div.fc_line.fc_jcap  {text-align:center}
+#fcjcap              {display:inline-block}
+
+/* form layout */
+
+div.fc_line label.fc_left          {text-align:right;width:20%}
+div.fc_line input[type="checkbox"] {margin:0 1% 0 0}
+div.fc_line input[type="text"],
+div.fc_line input[type="email"]    {width:75%;max-width:100%}
+div.fc_line textarea.fc_input      {width:75%;max-width:100%}
+
+/* Send button */
+
+div.fc_send input.fc_button {display:inline-block;box-sizing:border-box;background-color:#0079C1;border:none;
+    width:auto;margin:2px 5px;padding:10px 35px;font-size:16px;color:white !important;
+    text-align:center;-webkit-appearance:none;cursor:pointer;transition:all .2s}
+div.fc_send input.fc_button:hover    {background-color:#0285D2}
+div.fc_send input.fc_button:disabled {opacity:.4;cursor:not-allowed}
+
+/* responsive */
+
+@media screen and (max-width: 800px) 
+{
+    div.fc_line label.fc_left {display:block;text-align:left;width:auto;min-height:0}
+    div.fc_line input.fc_input[type="text"], div.fc_line input.fc_input[type="email"], div.fc_line textarea.fc_input {width:100%}
+    .fc_error {margin-left:0}
+    div.fc_send {margin-top: 15px;text-align:center}
+    div.fc_send input.fc_button {margin:0;min-width:50%}
+    div.fc_outer {max-width:calc(100% - 20px) !important}
+    div.fc_lcb {margin-top:5px}
+}
+
+@media screen and (max-width: 600px) 
+{
+    div.fc_send input.fc_button {width:100%}
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5.0" client="administrator" method="upgrade">
+
+	<name>Reset Hits module</name>
+	<author>Joomill.nl</author>
+    	<version>2.0.2</version>
+		<license>http://www.gnu.org/licenseses/gpl-2.0.html GNU/GPL</license>
+	    <description><![CDATA[
+  <div align="center">
+    <table border="0" width="90%">
+	    <tr>
+		    <td width="100%" colspan="2"><h3>Simple Reset Module</h3>
+		      <div align="center"> <a href="http://extensions.joomill.nl" target="_blank"><img border="0" src="http://extensions.joomill.nl/banner.jpg" alt="Joomill" /></a></div>
+				
+		    </td>
+	    <tr>
+		    <td width="100%" colspan="2">
+		      <p align="center"><strong>Important!</strong> You have to <em>manually</em> enable this module.
+		Go to <a href="index.php?option=com_modules&client=1&filter_type=mod_simplereset">Extensions, Module Manager and click the Administrator link</a> (<u>not</u> the Site link).
+		Set the position to &quot;cpanel&quot;, enable this module and you're set!</p></td>
+	    </tr>
+
+    </table>
+  </div>]]></description>
+	
+	<files>
+		<filename module="mod_simplereset">mod_simplereset.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.mod_simplereset.ini</language>
+		<language tag="fr-FR">fr-FR.mod_simplereset.ini</language>
+		<language tag="nl-NL">nl-NL.mod_simplereset.ini</language>
+		<language tag="de-DE">de-DE.mod_simplereset.ini</language>
+		<language tag="es-ES">es-ES.mod_simplereset.ini</language>
+		<language tag="hu-HU">hu-HU.mod_simplereset.ini</language>
+		<language tag="pt-BR">pt-BR.mod_simplereset.ini</language>
+		<language tag="sl-SI">sl-SI.mod_simplereset.ini</language>
+		<language tag="sv-SE">sv-SE.mod_simplereset.ini</language>
+		<language tag="th-TH">th-TH.mod_simplereset.ini</language>
+	</languages>
+
+
+</extension>

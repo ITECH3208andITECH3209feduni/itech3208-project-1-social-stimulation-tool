@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="sendprivatemessage" type="params" ui="admin" label="Private Message" icon="envelope" viewformatting="div">
+			<toolbarmenu>
+				<menu name="apply" action="apply" task="act=apply" label="Save" />
+				<menu name="cancel" action="linkAction" task="cancel" link="cb_action:users" label="Close" />
+			</toolbarmenu>
+			<extend toxpathnode="/cbxml/views/view[@name=&quot;sendprivatemessage&quot;]" fromxpathnode="/*/views/view/*[not(self::toolbarmenu)]" file="/components/com_comprofiler/plugin/user/plug_pms_mypmspro/xml/views/view.com_comprofiler.editprivatemessage" mandatory="true" />
+		</view>
+	</views>
+</cbxml>

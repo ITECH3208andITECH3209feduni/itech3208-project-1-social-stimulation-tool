@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="editprivatemessage" type="params" ui="admin" label="Message" icon="envelope" viewformatting="div">
+			<toolbarmenu>
+				<menu name="apply" action="apply" task="act=apply" label="Save" />
+				<menu name="save" action="save" task="act=save" label="Save &amp; Close" />
+				<menu name="savenew" action="custom" task="act=savenew" label="Save &amp; New" icon="save-new" />
+				<menu name="cancel" action="linkAction" task="cancel" link="cb_action:privatemessages" label="Cancel" />
+			</toolbarmenu>
+			<if name="manage_user_messages" nametype="pluginparams:int" operator="=" value="1" valuetype="const:int" type="condition">
+				<param name="" type="private" method="logAccessed" />
+			</if>
+			<param name="from_user" type="user" label="From" size="5" description="Input the user id of the user sending the message. Set to 0 for guest." validate="required" />
+			<if name="from_user" nametype="param:int" operator="=" value="0" valuetype="const:int" type="showhide">
+				<if name="from_system" nametype="param:int" operator="=" value="0" valuetype="const:int" type="showhide">
+					<param name="from_name" type="string" label="From Name" size="40" description="Input the name of the guest sending the message." validate="required" />
+					<param name="from_email" type="string" label="From Email Address" size="40" description="Input the email address of the guest sending the message." validate="required,email" />
+				</if>
+			</if>
+			<param name="to_user" type="string" label="To" description="Input the user id of the user receiving the message. Set to 0 for all users." validate="required" />
+			<param name="reply_to" type="int" label="Reply To" size="5" description="Optionally input the message id of the message this is replying to." />
+			<param name="message" type="htmlarea" width="350" height="175" cols="35" rows="4" label="Message" description="Optionally input private message to include with invite email." />
+			<param name="from_system" type="yesno" default="1" label="System Message" description="Select if this message should be sent from the system. It will not link back to the from user personally, but the message will still belong to the from user." />
+		</view>
+	</views>
+</cbxml>

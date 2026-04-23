@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="privatemessages" type="params" ui="admin" label="Messages" icon="list" viewformatting="none">
+			<tablebrowser name="privatemessagesbrowser" table="#__comprofiler_plugin_messages" class="\CB\Plugin\PMS\Table\MessageTable">
+				<toolbarmenu>
+					<menu name="new" action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit" action="linkAction" task="edit" link="cbo:editrows/messageid" label="Edit" />
+					<menu name="delete" action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="cancel" action="linkAction" task="cancel" link="cb_action:plugins" label="Close" />
+					<if name="manage_user_messages" nametype="pluginparams:int" operator="=" value="1" valuetype="const:int" type="condition">
+						<menu name="permissions" action="linkAction" task="options" link="cb_action:privatemessageperms" label="Permissions" />
+					</if>
+				</toolbarmenu>
+				<quicksearchfields placeholder="Search Messages..." size="30">
+					<field name="message" />
+					<field name="from_username">
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="from_user" />
+					</field>
+					<field name="from_name" />
+					<field name="from_email" />
+					<field name="to_username">
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="to_user" />
+					</field>
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="from_user" valuetype="sql:int" type="string" label="" blanktext="From" />
+					<filter name="to_user" valuetype="sql:int" type="string" label="" blanktext="To" />
+					<filter name="reply_to" valuetype="sql:int" type="string" label="" blanktext="Reply To" />
+					<filter name="from_system" valuetype="sql:int" type="xml:pms_system" label="" blanktext="- Select System -" />
+					<filter name="datefrom" value="date" valuetype="sql:string" type="datetime" operator="&gt;=" view="datefromto" />
+					<filter name="dateto" value="date" valuetype="sql:string" type="datetime" operator="&lt;=" view="datefromto" />
+					<view name="datefromto" type="params">
+						<fieldset name="daterange" label="Date">
+							<param name="filter_datefrom" type="datetime" default="" label="From" />
+							<param name="filter_dateto" type="datetime" default="" label="To" />
+						</fieldset>
+					</view>
+					<filter name="id" type="field_show_only_if_selected" base="int" default="" label="" blanktext="- Select ID -" />
+				</filters>
+				<if name="manage_user_messages" nametype="pluginparams:int" operator="=" value="1" valuetype="const:int" type="condition">
+					<and name="" type="permission" permission="pms.usermessages" permissionasset="com_comprofiler.plugin.pms" />
+					<else>
+						<where>
+							<column name="" valuetype="sql:expression">
+								<data name="" type="sql:operator" operator="OR">
+									<data name="" type="sql:operator" operator="=">
+										<data name="to_user" type="sql:field" />
+										<data name="0" type="const:int" />
+									</data>
+									<data name="" type="sql:operator" operator="=">
+										<data name="to_user" type="sql:field" />
+										<data name="id" type="user:int" />
+									</data>
+									<data name="" type="sql:operator" operator="=">
+										<data name="from_user" type="sql:field" />
+										<data name="id" type="user:int" />
+									</data>
+									<data name="" type="sql:operator" operator="=">
+										<data name="from_system" type="sql:field" />
+										<data name="1" type="const:int" />
+									</data>
+								</data>
+							</column>
+						</where>
+					</else>
+				</if>
+				<orderby>
+					<ordergroup name="date_asc" label="Date ascending">
+						<field name="date" ordering="ASC" />
+					</ordergroup>
+					<ordergroup name="date_desc" label="Date descending" default="true" translate-default="no">
+						<field name="date" ordering="DESC" />
+					</ordergroup>
+					<ordergroup name="from_user_asc" label="From ascending">
+						<field name="user_comment" type="sql:string" ordering="ASC">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="from_user" />
+						</field>
+						<field name="from_name" ordering="ASC" />
+					</ordergroup>
+					<ordergroup name="from_user_desc" label="From descending">
+						<field name="user_comment" type="sql:string" ordering="DESC">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="from_user" />
+						</field>
+						<field name="from_name" ordering="DESC" />
+					</ordergroup>
+					<ordergroup name="to_user_asc" label="To ascending">
+						<field name="user_comment" type="sql:string" ordering="ASC">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="to_user" />
+						</field>
+					</ordergroup>
+					<ordergroup name="to_user_desc" label="To descending">
+						<field name="user_comment" type="sql:string" ordering="DESC">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="to_user" />
+						</field>
+					</ordergroup>
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto">
+						<field name="" type="rownumber" width="1%" align="center" label="#" responsivehiddenon="xsmall" />
+						<field name="id" type="primarycheckbox" width="1%" align="center" />
+						<field name="from_user" type="group" width="10%" label="From" allowordering="ascending,descending">
+							<if name="from_user" nametype="param:int" operator="!=" value="0" valuetype="const:int" type="condition">
+								<then>
+									<if name="from_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="condition">
+										<then>
+											<field name="from_username" type="string" label="" link="cb_action:privatemessages" parameters="privatemessagesbrowser[filter_from_user]" paramvalues="from_user" />
+										</then>
+										<else>
+											<param name="" default="Deleted" type="string" />
+										</else>
+									</if>
+								</then>
+								<else>
+									<if name="from_system" nametype="param:int" operator="=" value="1" valuetype="const:int" type="condition">
+										<then>
+											<param name="" default="System" type="string" />
+										</then>
+										<else>
+											<if name="from_name" nametype="param:string" operator="!=" value="" valuetype="const:string" type="condition">
+												<then>
+													<param name="from_name" type="string" label="" />
+												</then>
+												<else>
+													<param name="" default="Guest" type="string" />
+												</else>
+											</if>
+										</else>
+									</if>
+								</else>
+							</if>
+						</field>
+						<field name="to_user" type="group" width="10%" label="To" allowordering="ascending,descending">
+							<if name="to_user" nametype="param:int" operator="!=" value="0" valuetype="const:int" type="condition">
+								<then>
+									<if name="to_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="condition">
+										<then>
+											<field name="to_username" type="string" label="" link="cb_action:privatemessages" parameters="privatemessagesbrowser[filter_to_user]" paramvalues="to_user" />
+										</then>
+										<else>
+											<param name="" default="Deleted" type="string" />
+										</else>
+									</if>
+								</then>
+								<else>
+									<param name="" default="All Users" type="string" />
+								</else>
+							</if>
+						</field>
+						<field name="reply_to" type="int" width="5%" parameters="privatemessagesbrowser[filter_id]" paramvalues="reply_to" label="Reply" allowordering="ascending,descending">
+							<attributes>
+								<attribute name="link">
+									<if name="reply_to" nametype="param:int" operator="!=" value="0" valuetype="const:int" type="condition">
+										<param name="" default="cb_action:privatemessages" translate-default="no" type="string" />
+									</if>
+								</attribute>
+							</attributes>
+						</field>
+						<field name="message" type="firstwords" size="80" width="45%" link="cbo:rowedit" parameters="messageid" paramvalues="id" label="Message" allowordering="ascending,descending" />
+						<field name="from_system" type="xml:pms_system" width="5%" align="center" label="System" onclick="toggle" allowordering="ascending,descending" />
+						<field name="date" type="datetime" width="15%" align="center" label="Date" responsivehiddenon="xsmall" allowordering="ascending,descending" />
+						<field name="id" type="int" width="5%" align="center" label="ID" allowordering="ascending,descending" />
+						<field name="from_username" type="hidden">
+							<data name="username" as="from_username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="from_user" />
+						</field>
+						<field name="to_username" type="hidden">
+							<data name="username" as="to_username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="to_user" />
+						</field>
+						<field name="from_name" type="hidden" />
+						<field name="from_email" type="hidden" />
+					</rows>
+				</listfields>
+				<batchprocess>
+					<batch name="from_user" type="text" label="" blanktext="From" />
+					<batch name="to_user" type="text" label="" blanktext="To" />
+					<batch name="reply_to" type="text" label="" blanktext="Reply To" />
+					<batch name="from_system" valuetype="sql:string" type="xml:pms_system" label="" blanktext="- Select System -" />
+				</batchprocess>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

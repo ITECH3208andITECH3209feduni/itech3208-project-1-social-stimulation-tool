@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="pms_system" base="published" valuetype="string">
+			<option value="0" title="Mark as User Message">No</option>
+			<option value="1" title="Mark as System Message">Yes</option>
+		</type>
+	</types>
+</cbxml>

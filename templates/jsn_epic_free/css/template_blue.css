@@ -1,0 +1,80 @@
+/**
+* @author    JoomlaShine.com http://www.joomlashine.com
+* @copyright Copyright (C) 2008 - 2011 JoomlaShine.com. All rights reserved.
+* @license   GNU/GPL v2 http://www.gnu.org/licenses/gpl-2.0.html
+*/
+/* ============================== DEFAULT HTML ============================== */
+a {
+	color: #009aca;
+}
+/* ============================== LAYOUT ============================== */
+/* =============== LAYOUT - OVERALL PAGE =============== */
+#jsn-master {
+	background-color: #172534;
+	background-image: url(../images/colors/blue/bg-master.jpg);
+}
+/* ============================== TYPOGRAPHY ============================== */
+/* =============== TYPOGRAPHY - LINK STYLES =============== */
+/* ----- ACTION LINK ----- */
+.link-action {
+	border-bottom: 1px solid #009ACA;
+}
+.link-action:hover {
+	background-color: #009ACA;
+}
+/* =============== TYPOGRAPHY - TABLE STYLES =============== */
+.sectiontableheader {
+	background-color: #366999;
+}
+/* ============================== MENU ============================== */
+/* =============== MENU - MAIN MENU =============== */
+/* ----- 1st LEVEL ----- */
+div.jsn-modulecontainer ul.menu-mainmenu ul {
+	background-color: #284d73;
+}
+div.jsn-modulecontainer ul.menu-mainmenu ul li a {
+	border-top: 1px solid #366999;
+	border-bottom: 1px solid #162c40;
+	border-left: 1px solid #162c40;
+}
+body.jsn-direction-rtl div.jsn-modulecontainer ul.menu-mainmenu ul li a {
+	border-left: none;
+	border-right: 1px solid #162c40;
+}
+/* ----- HOVER STATE ----- */
+div.jsn-modulecontainer ul.menu-mainmenu ul li:hover > a {
+	border-top-color: #1f3d59;
+	background-color: #1f3d59;
+}
+/* ----- ACTIVE STATE ----- */
+div.jsn-modulecontainer ul.menu-mainmenu ul li.active > a {
+	border-top-color: #1f3d59;
+	background-color: #1f3d59;
+}
+/* =============== MENU - TREE MENU =============== */
+/* ----- CURRENT / HOVER STATE ----- */
+div.richbox-2 ul.menu-treemenu li a:hover,
+div.richbox-2 ul.menu-treemenu li a.current {
+	background-color: #214263;
+}
+/* ============================== MODULE STYLES ============================== */
+/* =============== MODULE STYLES - MODULE BOXES =============== */
+/* ----- MODULE BOX GREY ----- */
+div.box-grey a {
+	color: #40afff;
+}
+/* ----- RICHBOX ----- */
+div.richbox-2 div.jsn-modulecontainer_inner {
+	background: #2B5783 url(../images/colors/blue/richbox-2.png) left bottom repeat-x;
+}
+/* ============================== JOOMLA! DEFAULT EXTENSIONS ============================== */
+/* =============== JOOMLA! EXTENSIONS - MOD_SEARCH =============== */
+#jsn-pos-top div.search input#mod_search_searchword {
+	border: 1px solid #284D73;
+}
+/* =============== JOOMLA! EXTENSIONS - COM_CONTENT =============== */
+/* ----- SECTION / CATEGORY BLOG LAYOUT ----- */
+/* PAGE PAGINATION */
+ul.jsn-pagination li.navigation-page span {
+	background-color: #4786BE;
+}

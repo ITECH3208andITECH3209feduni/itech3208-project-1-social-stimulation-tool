@@ -1,0 +1,155 @@
+// ADMIN STYLES
+// ------------
+//Joomla Default style override all need !important tag
+ul.adminformlist, ul.adminformlist > li{margin: 5px 0 !important; .clearfix();}
+//input[type=text]{margin: 0 !important;}
+.title span{background: none !important;padding-left: 25px !important;}
+fieldset.panelform label[id $='-lbl'],.pre-text{
+    min-width: 130px !important;
+    max-width: 130px !important;
+    padding-right: 20px !important;
+    text-align: right;
+    font-size: 11px;
+    color: #656565;
+    text-shadow: 1px 1px 1px #fff;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+#jform_position{
+  margin: 0; padding: 2px 7px;
+}
+div.blank a.btn{margin-left: -25px;margin-top: 0;}
+div#toolbar-box div.m { padding: 5px 10px 20px 0 !important;}
+#system-message > .message > ul { background-color: transparent !important; border: none !important; margin: 0 20px; padding: 0 !important;}
+#system-message > .message > ul li{text-align: center; font-size: 14px; margin-bottom: 0;}
+div.current fieldset.radio label{margin:0 !important;}
+// Admin UI
+.pane-sliders {
+    .panel{
+      margin: 0 !important;
+      border-bottom: transparent !important;
+      border-top: solid 1px #ccc;
+      border-left: solid 1px #ccc;
+      border-right: solid 1px #ccc;
+
+    }
+    .panel:last-child{ border-bottom: solid 1px #ccc !important;}
+    .panel h3{}
+    .content{}
+}
+input[type=text]{margin: 0;}
+.chzn-container{
+  min-width: 280px;
+  max-width: 280px;
+  .chzn-drop{ min-width: 280px;}
+}
+
+//Content Source list
+.cs-btn:first-letter{text-transform: uppercase}
+.cs-btn span{background: url(../images/content-source-icons-mini.png) no-repeat -4px -6px;padding-left: 21px;line-height: 21px;padding-bottom: 2px;padding-right: 8px;}
+.cs-btn{position: relative;}
+.cs-btn:link{ color: #555;}
+.cs-btn:after{
+    border-bottom-width:  5px;
+    border-right-width: 5px;
+    border-top-width:   5px;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-style: solid;
+    .opacity(75);
+    position: absolute;
+    top: 9px;
+    right: 6px;
+    content: '';
+    display: block;
+}
+.cs-list{
+    li{
+        float: left;
+        position: relative;
+        a{
+            background: url(../images/content-source-icons.png) no-repeat 0 0;
+            width: 106px;
+            padding-top: 83px;
+            display: inline-block;
+            text-align: center;
+            font-size: 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+    }
+    .joomla.notavailable{background-position: 0 -141px;}
+    .k2{background-position: -109px 0;}
+    .k2.notavailable {background-position: -109px -141px;}
+    .easyblog {background-position: -216px 0;}
+    .easyblog.notavailable {background-position: -216px -141px;}
+    .flickr {background-position: -313px 0;}
+    .flickr.notavailable {background-position: -313px -141px;}
+    .youtube {background-position: -404px 0;}
+    .youtube.notavailable {background-position: -404px -141px;}
+
+}
+
+//Applied icon
+#JOOMLA-options a,
+#K2-options a,
+#EASYBLOG-options a,
+#FLICKR-options a,
+#YOUTUBE-options a,
+.cs-btn span{
+    background-image: url(../images/content-source-icons-mini.png);
+    background-repeat: no-repeat;
+    background-position: -5px 0;
+}
+//Joomla Icons
+#JOOMLA-options a{background-position: -8px -53px;}
+.cs-btn.joomla span{background-position: -9px -53px;}
+//K2 Icons
+#K2-options a{background-position: -8px -89px;}
+.cs-btn.k2 span{background-position: -9px -89px;}
+//Easyblog
+#EASYBLOG-options a{background-position: -8px -125px;}
+.cs-btn.easyblog span{background-position: -9px -124px;}
+//Flickr
+#FLICKR-options a{background-position: -8px -160px;}
+.cs-btn.flickr span a{background-position: -9px -160px;}
+//Flickr
+#YOUTUBE-options a{background-position: -8px -18px;}
+.cs-btn.youtube span{background-position: -9px -18px;}
+
+#GENERAL_SETTINGS-options a {
+  background: url(../images/data-source.png) no-repeat 1px 0px;
+}
+#INTERFACE_SETTINGS-options a{background: url(../images/interface.png) no-repeat 1px 0px;}
+#BEHAVIOR_SETTINGS-options a{background: url(../images/behavior.png) no-repeat 1px 0px;}
+#ADVANCE-options a{background: url(../images/advance.png) no-repeat 1px 0px;}
+
+//pre-text
+.pre-text{display: block;text-align: left}
+//Spacer
+.spacer.hasText{
+    .gradientBar(#fff, #f5f5f5) ;
+    color: #6d6d6d;
+    text-shadow: 1px 1px 1px #fff;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 24px;
+    padding: 0 30px;
+    cursor: pointer;
+    margin: 15px -20px;
+    clear:both;
+    text-transform: uppercase;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+
+    span{
+
+    }
+}
+//Field wrap
+.field-wrap{ min-width: 160px;}
+.field-wrap.input-mini{max-width: 110px; min-width: 90px;}
+
+//Tooltip
+.tip-wrap{z-index: 9999;}

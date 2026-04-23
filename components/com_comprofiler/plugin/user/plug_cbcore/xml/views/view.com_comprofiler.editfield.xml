@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="fieldLayoutParams" type="params" ui="admin">
+			<param name="fieldLayout" type="textarea" default="" cols="40" rows="8" label="Profile Value Layout" description="Optionally input substitution supported value layout on profile view. Layout determines how a field value is rendered on display. Substitute in the fields value with [value]. If left blank will default to [value]." cssclass="input-block" />
+			<param name="fieldLayoutEdit" type="textarea" default="" cols="40" rows="8" label="Profile Edit Value Layout" description="Optionally input substitution supported value layout on profile edit view. Layout determines how a field value is rendered on display. Substitute in the fields value with [value]. If left blank will default to [value]." cssclass="input-block" />
+			<param name="fieldLayoutList" type="textarea" default="" cols="40" rows="8" label="Userlist Value Layout" description="Optionally input substitution supported value layout on userlist view. Layout determines how a field value is rendered on display. Substitute in the fields value with [value]. If left blank will default to [value]." cssclass="input-block" />
+			<param name="fieldLayoutSearch" type="textarea" default="" cols="40" rows="8" label="Userlist Search Layout" description="Optionally input substitution supported value layout on userlist search. Layout determines how a field value is rendered on display. Substitute in the fields value with [value]. If left blank will default to [value]." cssclass="input-block" />
+			<param name="fieldLayoutRegister" type="textarea" default="" cols="40" rows="8" label="Registration Value Layout" description="Optionally input substitution supported value layout on registration view. Layout determines how a field value is rendered on display. Substitute in the fields value with [value]. If left blank will default to [value]." cssclass="input-block" />
+			<param name="fieldLayoutContentPlugins" type="yesno" default="0" label="Prepare Layouts using Content Plugins" description="Select Yes if you need CMS Content plugins content.prepare to be triggered on the layouts. Select No if you do not need CMS Content plugins content.prepare to be triggered." />
+			<if name="fieldLayoutContentPlugins" type="showhide" operator="=" value="1" valuetype="const:int">
+				<param name="ContentPluginsWarning" type="group" label="" formatting="none">
+					<param name="" type="spacer" default="Note layouts use user supplied content. This could be an issue for some content plugins. Please use carefully." label="" alertclass="warning" />
+				</param>
+			</if>
+			<param name="fieldLayoutIcons" type="xml:cfg_icons_display" default="" label="Icons Display" description="Optionally override this fields icon display.">
+				<option value="">Normal CB Default</option>
+			</param>
+			<param name="fieldLayoutInputDesc" type="yesno" default="1" label="Input Description" description="Enable or disable if the fields description should be attached to the input. This will display the description as a tooltip when hovering or clicking an input. Note Info Icon or Text will still display regardless of this value." />
+		</view>
+		<view name="fieldTermsParams" type="params" ui="admin">
+			<param name="terms_output" type="list" default="url" translate-default="no" label="Output" description="Select how the terms and conditions is output.">
+				<option value="url">URL</option>
+				<option value="text">Text</option>
+			</param>
+			<param name="terms_type" type="text" default="TERMS_AND_CONDITIONS" translated-default="Terms and Conditions" size="30" label="Type" description="Input the substitution supported type of terms and conditions this field is (e.g. Terms and Conditions, Privacy Policy, etc..). If left blank will default to Terms and Conditions." />
+			<if name="terms_output" type="showhide" operator="=" value="url" valuetype="const:string">
+				<param name="terms_url" type="text" default="" size="40" label="URL" description="Input the substitution supported URL to the terms and conditions page." />
+			</if>
+			<if name="terms_output" type="showhide" operator="=" value="text" valuetype="const:string">
+				<param name="terms_text" type="textarea" default="" cols="40" rows="8" label="Terms and Conditions" description="Input the substitution supported terms and conditions." cssclass="input-block" />
+			</if>
+			<param name="terms_display" type="list" default="modal" translate-default="no" label="Display" description="Select how to display the terms and conditions.">
+				<if name="terms_output" type="showhide" operator="=" value="url" valuetype="const:string">
+					<option value="window">New Window</option>
+				</if>
+				<option value="modal">Modal Window</option>
+				<option value="iframe">iFrame</option>
+			</param>
+			<if name="terms_display" type="showhide" operator="in" value="modal|*|iframe" valuetype="const:string">
+				<param name="terms_width" type="text" default="400" size="5" label="Width" description="Input the size in pixels (e.g. 400) or percent (e.g. 100%) of the width of the terms and conditions iframe or modal window." />
+				<param name="terms_height" type="text" default="200" size="5" label="Height" description="Input the size in pixels (e.g. 200) or percent (e.g. 100%) of the height of the terms and conditions iframe or modal window." />
+			</if>
+			<if name="parent/type" type="condition" operator="=" value="terms" valuetype="const:string">
+				<param name="terms_duration" type="list" default="forever" translate-default="no" label="Duration" description="Select how long consent should last from the date consent was given before the user must give consent again.">
+					<option value="forever">Forever</option>
+					<option value="custom">Custom</option>
+					<option value="+1 MONTH">1 Month</option>
+					<option value="+2 MONTHS">2 Months</option>
+					<option value="+3 MONTHS">3 Months</option>
+					<option value="+4 MONTHS">4 Months</option>
+					<option value="+5 MONTHS">5 Months</option>
+					<option value="+6 MONTHS">6 Months</option>
+					<option value="+7 MONTHS">7 Months</option>
+					<option value="+8 MONTHS">8 Months</option>
+					<option value="+9 MONTHS">9 Months</option>
+					<option value="+10 MONTHS">10 Months</option>
+					<option value="+11 MONTHS">11 Months</option>
+					<option value="+1 YEAR">1 Year</option>
+					<option value="+2 YEARS">2 Years</option>
+					<option value="+3 YEARS">3 Years</option>
+					<option value="+4 YEARS">4 Years</option>
+					<option value="+5 YEARS">5 Years</option>
+					<option value="+6 YEARS">6 Years</option>
+				</param>
+				<if name="terms_duration" type="showhide" operator="=" value="custom" valuetype="const:string">
+					<param name="terms_duration_custom" type="text" default="+1 YEAR" translate-default="no" size="30" label="Custom Duration" description="Input the strtotime relative date (e.g. +1 DAY, +1 YEAR, +2 YEARS). This will be relative to the date consent was given. Leave blank for a forever duration." />
+				</if>
+			</if>
+		</view>
+		<view name="fieldStringValidateParams" type="params" ui="admin">
+			<param name="fieldMinLength" type="text" default="0" label="Minimum Length" description="Minimum length of content (0 = no minimum)" />
+			<param name="fieldValidateExpression" type="list" default="" blanktext="None" label="Validation Rule" description="Type of input authorized. Note Phone Number is also a simple implementation and will not match every phone number format around the world.">
+				<option value="singleword">Single Words (letters only)</option>
+				<option value="multiplewords">Multiple Words (letters only)</option>
+				<option value="singleaznum">Single Alphanumeric Word (letters, numbers, and underscores only)</option>
+				<option value="atleastoneofeach">At least 6 characters with 1 lowercase, 1 uppercase, 1 number, and 1 special</option>
+				<option value="phone">Phone Number</option>
+				<option value="ip">IP Address</option>
+				<option value="mac">MAC Address</option>
+				<option value="vin">VIN</option>
+				<option value="customregex">Custom REGEXP Validation</option>
+			</param>
+			<if name="fieldValidateExpression" type="showhide" operator="=" value="customregex" valuetype="const:text">
+				<param name="pregexp" type="text" default="/^.*$/" translate-default="no" size="60" label="Custom REGEXP Validation" description="Input a custom valid REGEXP to match against (e.g. /^[a-zA-Z]+$/). Regular Expressions must be valid in PHP and in JavaScript to function server side and client side. A language string can be used for localized validation rules. If having trouble with Regular Expressions check out https://regexone.com/ to help you get started or a great online tool like https://regexr.com/." />
+			</if>
+			<if name="fieldValidateExpression" type="showhide" operator="!=" value="" valuetype="const:text">
+				<param name="pregexpsuccess" type="text" default="" size="60" label="Validation Success Message" description="Optionally input a message to display if validation was successful. To display this fields title add [FIELDNAME] to your message." />
+				<param name="pregexperror" type="text" default="NOT_A_VALID_INPUT" translated-default="Not a valid input" size="60" label="Validation Error Message" description="Optionally input a clear and helpful message to display if validation failed. To display this fields title add [FIELDNAME] to your message." />
+			</if>
+			<param name="fieldValidateForbiddenList_register" type="text" default="" size="60" translate-default="no" label="Registration Forbidden Words" description="You can set a list of bad words (separated by comma ,) which are not allowed in this field for registration. Use comma twice (,,) to add comma as bad character.">
+				<attributes>
+					<attribute name="default">
+						<if name="parent/type" type="condition" operator="=" value="webaddress" valuetype="const:string">
+							<then>
+								<param name="" default="mailto:,//.[url],&lt;a,&lt;/a&gt;,&amp;#" translate-default="no" type="string" />
+							</then>
+							<else>
+								<param name="" default="http:,https:,mailto:,//.[url],&lt;a,&lt;/a&gt;,&amp;#" translate-default="no" type="string" />
+							</else>
+						</if>
+					</attribute>
+				</attributes>
+			</param>
+			<param name="fieldValidateForbiddenList_edit" type="text" default="" size="60" label="Profile Edit Forbidden Words" description="You can set a list of bad words (separated by comma ,) which are not allowed in this field when user updates his profile in profile edits. Use comma twice (,,) to add comma as bad character." />
+		</view>
+		<view name="fieldIntValidateParams" type="params" ui="admin">
+			<param name="integer_minimum" type="text" default="0" label="Minimum Value Allowed" description="Enter the minimum value allowed. Default is 0." />
+			<param name="integer_maximum" type="text" default="1000000" label="Maximum Value Allowed" description="Enter the maximum value allowed. Default is 1000000." />
+			<param name="integer_step" type="text" default="1" label="Step Value" description="Enter how much the value should increase or decrease by when using up and down arrows. Default is 1.">
+				<attributes>
+					<attribute name="default">
+						<if name="parent/type" type="condition" operator="=" value="float" valuetype="const:string">
+							<then>
+								<param name="" default="0.01" translate-default="no" type="float" />
+							</then>
+						</if>
+					</attribute>
+					<attribute name="description">
+						<if name="parent/type" type="condition" operator="=" value="float" valuetype="const:string">
+							<then>
+								<param name="" default="Enter how much the value should increase or decrease by when using up and down arrows. Default is 0.01. Specify decimals here to determine how many decimal places to allow (e.g. 0.01, 0.001, 0.1)." type="string" />
+							</then>
+						</if>
+					</attribute>
+				</attributes>
+			</param>
+			<param name="fieldValidateExpression" type="list" default="" blanktext="None" label="Validation Rule" description="Type of input authorized.">
+				<option value="customregex">Custom REGEXP Validation</option>
+			</param>
+			<if name="fieldValidateExpression" type="showhide" operator="=" value="customregex" valuetype="const:text">
+				<param name="pregexp" type="text" default="/^.*$/" translate-default="no" label="Custom REGEXP Validation" description="Input a custom valid REGEXP to match against (e.g. /^[a-zA-Z]+$/). Regular Expressions must be valid in PHP and in JavaScript to function server side and client side. A language string can be used for localized validation rules. If having trouble with Regular Expressions check out https://regexone.com/ to help you get started or a great online tool like https://regexr.com/." />
+			</if>
+			<if name="fieldValidateExpression" type="showhide" operator="!=" value="" valuetype="const:text">
+				<param name="pregexpsuccess" type="text" default="" size="60" label="Validation Success Message" description="Optionally input a message to display if validation was successful. To display this fields title add [FIELDNAME] to your message." />
+				<param name="pregexperror" type="text" default="NOT_A_VALID_INPUT" translated-default="Not a valid input" size="60" label="Validation Error Message" description="Optionally input a clear and helpful message to display if validation failed. To display this fields title add [FIELDNAME] to your message." />
+			</if>
+			<param name="fieldValidateForbiddenList_register" type="text" default="" size="60" label="Registration Forbidden Words" description="You can set a list of values (separated by comma ,) which are not allowed in this field for registration." />
+			<param name="fieldValidateForbiddenList_edit" type="text" default="" size="60" label="Profile Edit Forbidden Words" description="You can set a list of values (separated by comma ,) which are not allowed in this field when user updates his profile in profile edits." />
+		</view>
+	</views>
+</cbxml>

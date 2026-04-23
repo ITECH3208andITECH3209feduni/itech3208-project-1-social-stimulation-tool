@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fields addfieldpath="/administrator/components/com_easyfrontendseo/models/fields">
+        <fieldset name="component">
+            <field type="krdonationcodecheck" />
+            <field name="efseotitle_rights" type="efseotitle" default="COM_EASYFRONTENDSEO_USEPLUGINSETTINGS" label="" description=""/>
+        </fieldset>
+        <fieldset name="donation">
+            <field type="krdonationcodecheck" />
+            <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+        </fieldset>
+        <fieldset name="versioncheck">
+            <field type="krdonationcodecheck" />
+            <field type="krversioncheck" name="krversioncheck" default="efseo|2.5-8" />
+            <field name="versioncheck_enable" type="list" default="1" label="KR_VERSION_CHECK" description="KR_VERSION_CHECKDESC">
+                <option value="1">KR_VERSION_CHECK_ONCESESSION</option>
+                <option value="2">KR_VERSION_CHECK_ONEVERYLOAD</option>
+                <option value="0">JNO</option>
+            </field>
+        </fieldset>
+        <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+            <field type="krdonationcodecheck" />
+            <field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" validate="rules"	filter="rules" component="com_easyfrontendseo" section="component" />
+        </fieldset>
+    </fields>
+</config>

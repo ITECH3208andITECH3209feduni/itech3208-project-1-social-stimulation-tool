@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="editplugin" type="params" ui="admin" label="Plugin" icon="puzzle-piece" description="" viewformatting="div">
+			<toolbarmenu>
+				<menu name="apply" action="apply" task="act=apply" label="Save" />
+				<menu name="save" action="save" task="act=save" label="Save &amp; Close" />
+				<menu name="cancel" action="linkAction" task="cancel" link="cb_action:plugins" label="Cancel" />
+				<menu name="help" action="help" href="https://www.joomlapolis.com/documentation/community-builder/help/plugin-management-edit?pk_campaign=in-cb&amp;pk_kwd=help" label="Help" />
+			</toolbarmenu>
+			<param name="" type="group" label="" display="2lines">
+				<param name="name" type="text" label="Name %s" size="80" validate="required" description="Input the plugins name." />
+			</param>
+			<tabpane name="editpane">
+				<tabpanetab name="global" label="Global" description="">
+					<gridrow gutters="false">
+						<gridcol size="9" cssclass="pr-sm-3">
+							<param name="" type="xpath" file="/components/com_comprofiler/plugin/{raw:type}/{raw:folder}/{raw:element}" path="description" translate="yes" label="Description" display="2lines" />
+							<showview name="params" type="xml" file="/components/com_comprofiler/plugin/{raw:type}/{raw:folder}/{raw:element}" path="views/view[@type=&quot;settings&quot;]/params" mandatory="false">
+								<data name="params" type="sql:string" default="" />
+							</showview>
+						</gridcol>
+						<gridcol size="3">
+							<if name="published" nametype="param:int" operator="=" value="0" valuetype="const:int" type="condition">
+								<then>
+									<param name="published" type="published" default="1" label="Publish" display="2lines" description="Select the publish state of this plugin." />
+								</then>
+								<else>
+									<if name="type" nametype="param:string" operator="=" value="language" valuetype="const:string" type="condition">
+										<then>
+											<param name="published" type="yesno" label="Publish" display="2lines" mode="show" description="Language plugins publish state can not be changed." />
+										</then>
+										<else>
+											<if name="id" nametype="param:string" operator="in" value="1|*|7" valuetype="const:string" type="condition">
+												<then>
+													<param name="published" type="yesno" label="Publish" display="2lines" mode="show" description="Core plugins publish state can not be changed." />
+												</then>
+												<else>
+													<param name="published" type="published" default="1" label="Publish" display="2lines" description="Select the publish state of this plugin." />
+												</else>
+											</if>
+										</else>
+									</if>
+								</else>
+							</if>
+							<param name="viewaccesslevel" type="viewaccesslevel" default="1" blanktext="" label="Access Level" managelevels="false" display="2lines" description="Select the view access level for this plugin. Only users with this view access level will be able to access this plugin and any tabs or fields associated with it." />
+							<param name="ordering" type="ordering" value="name" label="Ordering" display="2lines" description="Select the ordering of this plugin. Order determines what order the plugins will load in.">
+								<orderinggroups>
+									<ordering name="type" type="string" />
+								</orderinggroups>
+							</param>
+							<param name="type" type="text" label="Type" mode="show" display="2lines" description="The type this plugin belongs to." />
+							<param name="folder" type="text" label="Folder" mode="show" display="2lines" description="The folder this plugin is located in." />
+							<param name="element" type="text" label="Element" mode="show" display="2lines" description="The element this plugin is associated with." />
+							<param name="" type="private" method="getPluginVersion" label="Version" default="-" mode="show" display="2lines" description="The current version of this plugin." />
+						</gridcol>
+					</gridrow>
+				</tabpanetab>
+				<if name="type" nametype="param:string" operator="=" value="templates" valuetype="const:string" type="condition">
+					<params name="params" type="params">
+						<tabpanetab name="layout" label="Layout">
+							<tabpane name="editlayoutpane">
+								<tabpanetab name="layoutprofilehome" label="Profile View (Home)">
+									<gridrow gutters="false">
+										<gridcol size="4" cssclass="pr-sm-3">
+											<param name="profile_view_layout_home" type="xml:profile_view_layouts" default="canvas_home" translate-default="no" label="Layout" display="2lines" description="Select the profile layout to display when a user is viewing their own profile." />
+										</gridcol>
+										<gridcol size="4" cssclass="pr-sm-3 pl-sm-3">
+											<param name="profile_view_layout_home_nav" type="xml:tab_position" multiple="true" default="canvas_main_middle" translate-default="no" label="Collect Navigation" display="2lines" description="Optionally select what tab positions to collect tab navigation from. This allows tab navigation to be separated from the tab rendering allowing it to be moved." />
+										</gridcol>
+										<gridcol size="4" cssclass="pl-sm-3">
+											<param name="profile_view_layout_home_scroll" type="yesno" default="1" label="Scroll Navigation" display="2lines" description="Set if tabs should be scrolled into view when using tab navigation. Note this only applies to tabs rendered as menus." />
+										</gridcol>
+									</gridrow>
+									<gridrow gutters="false">
+										<gridcol size="4" cssclass="pr-sm-3">
+											<param name="profile_view_layout_home_main_left" type="xml:list_size" default="3" label="Main Left Size" display="2lines" description="Select the grid size for the left column (cb_left). Set to auto to use whatever space is left. This only applies tab position &lt;strong&gt;Left side (of middle area)&lt;/strong&gt;.">
+												<attributes>
+													<attribute name="default">
+														<param name="mainLayoutLeftSize" nametype="cbconfig" type="int" default="3" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="4" cssclass="pr-sm-3 pl-sm-3">
+											<param name="profile_view_layout_home_main_middle" type="xml:list_size" default="0" label="Main Middle Size" display="2lines" description="Select the grid size for the middle column (cb_middle). Set to auto to use whatever space is left. This only applies tab position &lt;strong&gt;Middle area&lt;/strong&gt;.">
+												<attributes>
+													<attribute name="default">
+														<param name="mainLayoutMiddleSize" nametype="cbconfig" type="int" default="0" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="4" cssclass="pl-sm-3">
+											<param name="profile_view_layout_home_main_right" type="xml:list_size" default="3" label="Main Right Size" display="2lines" description="Select the grid size for the right column (cb_right). Set to auto to use whatever space is left. This only applies tab position &lt;strong&gt;Right side (of middle area)&lt;/strong&gt;.">
+												<attributes>
+													<attribute name="default">
+														<param name="mainLayoutRightSize" nametype="cbconfig" type="int" default="3" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+									</gridrow>
+									<if name="profile_view_layout_home" nametype="param:string" operator="!=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="profile_view_layout_home_preview_fieldset" label="Preview">
+											<if name="profile_view_layout_home" nametype="param:string" operator="=" value="canvas_home" valuetype="const:string" type="showhide">
+												<param name="profile_view_layout_home_preview" type="private" class="cbProfileView" method="drawPreview" value="canvas_home" label="" display="2lines" />
+											</if>
+											<if name="profile_view_layout_home" nametype="param:string" operator="=" value="canvas_other" valuetype="const:string" type="showhide">
+												<param name="profile_view_layout_home_preview_other" type="private" class="cbProfileView" method="drawPreview" value="canvas_other" label="" display="2lines" />
+											</if>
+											<if name="profile_view_layout_home" nametype="param:string" operator="=" value="canvas_other_alt" valuetype="const:string" type="showhide">
+												<param name="profile_view_layout_home_preview_other_alt" type="private" class="cbProfileView" method="drawPreview" value="canvas_other_alt" label="" display="2lines" />
+											</if>
+											<if name="profile_view_layout_home" nametype="param:string" operator="=" value="intranet" valuetype="const:string" type="showhide">
+												<param name="profile_view_layout_home_preview_intranet" type="private" class="cbProfileView" method="drawPreview" value="intranet" label="" display="2lines" />
+											</if>
+										</fieldset>
+									</if>
+									<if name="profile_view_layout_home" nametype="param:string" operator="=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="profile_view_layout_home_custom_fieldset" label="Custom Layout" description="Supply custom substitution and content plugin supported HTML layout to display. This includes support for the following additional substitutions: [viewing] (&quot;self&quot; or &quot;other&quot;), [navigation] (renders all collected tab navigation), and [content_POSITION] (renders tab contents from a specific position)&lt;br&gt;&lt;br&gt;The following positions are available: header, footer, canvas_menu, canvas_main (includes main left, main middle, and main right), canvas_background, canvas_photo, canvas_title, canvas_info, canvas_stats, main_left, main_middle, main_right, main, line_#_column_# (e.g. line_1_column_1, line_1_column_2, line_2_column_1)">
+											<param name="profile_view_layout_home_custom" type="textarea" rows="40" label="" display="2lines" cssclass="input-block" />
+										</fieldset>
+									</if>
+								</tabpanetab>
+								<tabpanetab name="layoutprofileother" label="Profile View (Other)">
+									<gridrow gutters="false">
+										<gridcol size="4" cssclass="pr-sm-3">
+											<param name="profile_view_layout_other" type="xml:profile_view_layouts" default="canvas_other" translate-default="no" label="Layout" display="2lines" description="Select the profile layout to display when a user is viewing a profile other than their own." />
+										</gridcol>
+										<gridcol size="4" cssclass="pr-sm-3 pl-sm-3">
+											<param name="profile_view_layout_other_nav" type="xml:tab_position" multiple="true" label="Collect Navigation" display="2lines" description="Optionally select what tab positions to collect tab navigation from. This allows tab navigation to be separated from the tab rendering allowing it to be moved." />
+										</gridcol>
+										<gridcol size="4" cssclass="pl-sm-3">
+											<param name="profile_view_layout_other_scroll" type="yesno" default="0" label="Scroll Navigation" display="2lines" description="Set if tabs should be scrolled into view when using tab navigation. Note this only applies to tabs rendered as menus." />
+										</gridcol>
+									</gridrow>
+									<gridrow gutters="false">
+										<gridcol size="4" cssclass="pr-sm-3">
+											<param name="profile_view_layout_other_main_left" type="xml:list_size" default="3" label="Main Left Size" display="2lines" description="Select the grid size for the left column (cb_left). Set to auto to use whatever space is left. This only applies tab position &lt;strong&gt;Left side (of middle area)&lt;/strong&gt;.">
+												<attributes>
+													<attribute name="default">
+														<param name="mainLayoutLeftSize" nametype="cbconfig" type="int" default="3" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="4" cssclass="pr-sm-3 pl-sm-3">
+											<param name="profile_view_layout_other_main_middle" type="xml:list_size" default="0" label="Main Middle Size" display="2lines" description="Select the grid size for the middle column (cb_middle). Set to auto to use whatever space is left. This only applies tab position &lt;strong&gt;Middle area&lt;/strong&gt;.">
+												<attributes>
+													<attribute name="default">
+														<param name="mainLayoutMiddleSize" nametype="cbconfig" type="int" default="0" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="4" cssclass="pl-sm-3">
+											<param name="profile_view_layout_other_main_right" type="xml:list_size" default="3" label="Main Right Size" display="2lines" description="Select the grid size for the right column (cb_right). Set to auto to use whatever space is left. This only applies tab position &lt;strong&gt;Right side (of middle area)&lt;/strong&gt;.">
+												<attributes>
+													<attribute name="default">
+														<param name="mainLayoutRightSize" nametype="cbconfig" type="int" default="3" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+									</gridrow>
+									<if name="profile_view_layout_other" nametype="param:string" operator="!=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="profile_view_layout_other_preview_fieldset" label="Preview">
+											<if name="profile_view_layout_other" nametype="param:string" operator="=" value="canvas_home" valuetype="const:string" type="showhide">
+												<param name="profile_view_layout_other_preview" type="private" class="cbProfileView" method="drawPreview" value="canvas_home" label="" display="2lines" />
+											</if>
+											<if name="profile_view_layout_other" nametype="param:string" operator="=" value="canvas_other" valuetype="const:string" type="showhide">
+												<if name="profile_view_layout_other_nav" nametype="param:string" operator="=" value="" valuetype="const:string" type="showhide">
+													<param name="profile_view_layout_other_preview_other" type="private" class="cbProfileView" method="drawPreview" value="canvas_other" label="" display="2lines" />
+												</if>
+												<if name="profile_view_layout_other_nav" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+													<param name="profile_view_layout_other_preview_other_alt" type="private" class="cbProfileView" method="drawPreview" value="canvas_other_alt" label="" display="2lines" />
+												</if>
+											</if>
+											<if name="profile_view_layout_other" nametype="param:string" operator="=" value="intranet" valuetype="const:string" type="showhide">
+												<param name="profile_view_layout_other_preview_intranet" type="private" class="cbProfileView" method="drawPreview" value="intranet" label="" display="2lines" />
+											</if>
+										</fieldset>
+									</if>
+									<if name="profile_view_layout_other" nametype="param:string" operator="=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="profile_view_layout_other_custom_fieldset" label="Custom Layout" description="Supply custom substitution and content plugin supported HTML layout to display. This includes support for the following additional substitutions: [viewing] (&quot;self&quot; or &quot;other&quot;), [navigation] (renders all collected tab navigation), and [content_POSITION] (renders tab contents from a specific position)&lt;br&gt;&lt;br&gt;The following positions are available: header, footer, canvas_menu, canvas_main (includes main left, main middle, and main right), canvas_background, canvas_photo, canvas_title, canvas_info, canvas_stats, main_left, main_middle, main_right, main, line_#_column_# (e.g. line_1_column_1, line_1_column_2, line_2_column_1)">
+											<param name="profile_view_layout_other_custom" type="textarea" rows="40" label="" display="2lines" cssclass="input-block" />
+										</fieldset>
+									</if>
+								</tabpanetab>
+								<tabpanetab name="layoutprofileedit" label="Profile Edit">
+									<gridrow gutters="false">
+										<gridcol size="3" cssclass="pr-sm-3">
+											<param name="profile_edit_layout" type="xml:profile_edit_layouts" default="tabbed" translate-default="no" label="Layout" display="2lines" description="Select the profile layout to display when a user is viewing a profile other than their own.">
+												<attributes>
+													<attribute name="default">
+														<param name="profile_edit_layout" nametype="cbconfig" type="string" default="tabbed" translate-default="no" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="3" cssclass="pr-sm-3 pl-sm-3">
+											<param name="profile_edit_layout_nav" type="yesno" default="0" label="Collect Navigation" display="2lines" description="Set if tab navigation should be collected. This allows tab navigation to be separated from the tab rendering allowing it to be moved." />
+										</gridcol>
+										<gridcol size="3" cssclass="pr-sm-3 pl-sm-3">
+											<param name="profile_edit_layout_scroll" type="yesno" default="0" label="Scroll Navigation" display="2lines" description="Set if tabs should be scrolled into view when using tab navigation. Note this only applies to tabs rendered as menus." />
+										</gridcol>
+										<gridcol size="3" cssclass="pl-sm-3">
+											<param name="profile_edit_layout_legend" type="xml:profile_edit_legend" default="0" label="Legend" display="2lines" description="Select where legend icons should render. These help describe what each icon rendered does.">
+												<attributes>
+													<attribute name="default">
+														<param name="profile_edit_show_icons_explain" nametype="cbconfig" type="int" default="0" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+									</gridrow>
+									<if name="profile_edit_layout" nametype="param:string" operator="!=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="profile_edit_layout_preview_fieldset" label="Preview">
+											<if name="profile_edit_layout" nametype="param:string" operator="=" value="flat" valuetype="const:string" type="showhide">
+												<param name="profile_edit_layout_preview_flat" type="private" class="cbEditView" method="drawPreview" value="flat" label="" display="2lines" />
+											</if>
+											<if name="profile_edit_layout" nametype="param:string" operator="=" value="tabbed" valuetype="const:string" type="showhide">
+												<param name="profile_edit_layout_preview_tabbed" type="private" class="cbEditView" method="drawPreview" value="tabbed" label="" display="2lines" />
+											</if>
+											<if name="profile_edit_layout" nametype="param:string" operator="=" value="vertical" valuetype="const:string" type="showhide">
+												<param name="profile_edit_layout_preview_vertical" type="private" class="cbEditView" method="drawPreview" value="vertical" label="" display="2lines" />
+											</if>
+											<if name="profile_edit_layout" nametype="param:string" operator="=" value="menu" valuetype="const:string" type="showhide">
+												<param name="profile_edit_layout_preview_menu" type="private" class="cbEditView" method="drawPreview" value="menu" label="" display="2lines" />
+											</if>
+											<if name="profile_edit_layout" nametype="param:string" operator="=" value="menu_left" valuetype="const:string" type="showhide">
+												<param name="profile_edit_layout_preview_menu_left" type="private" class="cbEditView" method="drawPreview" value="menu_left" label="" display="2lines" />
+											</if>
+										</fieldset>
+									</if>
+									<if name="profile_edit_layout" nametype="param:string" operator="=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="profile_edit_layout_custom_fieldset" label="Custom Layout" description="Supply custom substitution and content plugin supported HTML layout to display. The HTML supplied will already been enclosed in the profile edit form element so do not include a form element here. This includes support for the following additional substitutions: [title] (renders profile edit page title), [navigation] (renders all collected tab navigation), [tabs] (renders all tab content with tab navigation), [content] (renders all tab content), [title_TAB_ID] (renders tab title based off tab id), [content_TAB_ID] (renders tab contents based off tab id), [tab_TAB_ID] (renders tab contents based off tab id with tab navigation), [legend] (renders legend icons), [button_submit] (renders form submit button), [button_cancel] (renders form cancel button), and [integrations] (results of onBeforeUserProfileEditDisplay trigger).&lt;br&gt;&lt;br&gt;Notice: This is purely visual. It will not affect form validation. If you fail to include fields that have been marked required the profile edit save will fail due to missing required field.">
+											<param name="profile_edit_layout_custom" type="textarea" rows="40" label="" display="2lines" cssclass="input-block" />
+										</fieldset>
+									</if>
+								</tabpanetab>
+								<tabpanetab name="layoutregistration" label="Registration">
+									<gridrow gutters="false">
+										<gridcol size="3" cssclass="pr-sm-3">
+											<param name="registration_layout" type="xml:registration_layouts" default="flat" translate-default="no" label="Layout" display="2lines" description="Select the profile layout to display when a user is viewing a profile other than their own.">
+												<attributes>
+													<attribute name="default">
+														<param name="reg_layout" nametype="cbconfig" type="string" default="flat" translate-default="no" />
+													</attribute>
+												</attributes>
+											</param>
+											<param name="registration_layout_login" type="yesno" default="0" label="Show Login" display="2lines" description="Choose if login form should be automatically displayed on the registration form. Note this uses the parameters of the first login module found.">
+												<attributes>
+													<attribute name="default">
+														<param name="reg_show_login_on_page" nametype="cbconfig" type="int" default="0" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="3" cssclass="pr-sm-3 pl-sm-3">
+											<param name="registration_layout_nav" type="yesno" default="0" label="Collect Navigation" display="2lines" description="Set if tab navigation should be collected. This allows tab navigation to be separated from the tab rendering allowing it to be moved." />
+											<param name="registration_layout_canvas" type="imagelist" default="none" translate-default="no" directory="/images" hide_default="true" hide_none="true" label="Title Image" display="2lines" description="Choose which image to use for the registration title background image.">
+												<attributes>
+													<attribute name="default">
+														<param name="reg_title_img" nametype="cbconfig" type="string" default="none" translate-default="no" />
+													</attribute>
+												</attributes>
+												<option value="none">No Image</option>
+												<option value="general">General</option>
+											</param>
+										</gridcol>
+										<gridcol size="3" cssclass="pr-sm-3 pl-sm-3">
+											<param name="registration_layout_scroll" type="yesno" default="0" label="Scroll Navigation" display="2lines" description="Set if tabs should be scrolled into view when using tab navigation. Note this only applies to tabs rendered as menus." />
+										</gridcol>
+										<gridcol size="3" cssclass="pl-sm-3">
+											<param name="registration_layout_legend" type="xml:profile_edit_legend" default="0" label="Legend" display="2lines" description="Select where legend icons should render. These help describe what each icon rendered does.">
+												<attributes>
+													<attribute name="default">
+														<param name="reg_show_icons_explain" nametype="cbconfig" type="int" default="0" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+									</gridrow>
+									<gridrow gutters="false">
+										<gridcol size="6" cssclass="pr-sm-3">
+											<param name="registration_layout_header" type="textarea" cols="70" rows="6" label="Header" display="2lines" description="Input the the text/html to display at the top of the registration page." cssclass="input-block">
+												<attributes>
+													<attribute name="default">
+														<param name="reg_intro_msg" nametype="cbconfig" type="string" default="" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+										<gridcol size="6" cssclass="pl-sm-3">
+											<param name="registration_layout_footer" type="textarea" cols="70" rows="6" label="Footer" display="2lines" description="Input the the text/html to display at the bottom of the registration page." cssclass="input-block">
+												<attributes>
+													<attribute name="default">
+														<param name="reg_conclusion_msg" nametype="cbconfig" type="string" default="" />
+													</attribute>
+												</attributes>
+											</param>
+										</gridcol>
+									</gridrow>
+									<if name="registration_layout" nametype="param:string" operator="!=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="registration_layout_preview_fieldset" label="Preview">
+											<if name="registration_layout" nametype="param:string" operator="=" value="flat" valuetype="const:string" type="showhide">
+												<param name="registration_layout_preview_flat" type="private" class="cbEditView" method="drawPreview" value="flat" label="" display="2lines" />
+											</if>
+											<if name="registration_layout" nametype="param:string" operator="=" value="tabbed" valuetype="const:string" type="showhide">
+												<param name="registration_layout_preview_tabbed" type="private" class="cbEditView" method="drawPreview" value="tabbed" label="" display="2lines" />
+											</if>
+											<if name="registration_layout" nametype="param:string" operator="=" value="vertical" valuetype="const:string" type="showhide">
+												<param name="registration_layout_preview_vertical" type="private" class="cbEditView" method="drawPreview" value="vertical" label="" display="2lines" />
+											</if>
+											<if name="registration_layout" nametype="param:string" operator="=" value="stepped" valuetype="const:string" type="showhide">
+												<param name="registration_layout_preview_stepped" type="private" class="cbEditView" method="drawPreview" value="stepped" label="" display="2lines" />
+											</if>
+											<if name="registration_layout" nametype="param:string" operator="=" value="menu" valuetype="const:string" type="showhide">
+												<param name="registration_layout_preview_menu" type="private" class="cbEditView" method="drawPreview" value="menu" label="" display="2lines" />
+											</if>
+											<if name="registration_layout" nametype="param:string" operator="=" value="menu_left" valuetype="const:string" type="showhide">
+												<param name="registration_layout_preview_menu_left" type="private" class="cbEditView" method="drawPreview" value="menu_left" label="" display="2lines" />
+											</if>
+										</fieldset>
+									</if>
+									<if name="registration_layout" nametype="param:string" operator="=" value="custom" valuetype="const:string" type="showhide">
+										<fieldset name="registration_layout_custom_fieldset" label="Custom Layout" description="Supply custom substitution and content plugin supported HTML layout to display. The HTML supplied will already been enclosed in the registration form element so do not include a form element here. This includes support for the following additional substitutions: [title] (renders registration page title), [canvas] (renders registration canvas url), [header] (renders registration page header message), [footer] (renders registration page footer message), [navigation] (renders all collected tab navigation), [tabs] (renders all tab content with tab navigation), [content] (renders all tab content), [title_TAB_ID] (renders tab title based off tab id), [content_TAB_ID] (renders tab contents based off tab id), [tab_TAB_ID] (renders tab contents based off tab id with tab navigation), [legend] (renders legend icons), and [button_submit] (renders form submit button).&lt;br&gt;&lt;br&gt;Notice: This is purely visual. It will not affect form validation. If you fail to include fields that have been marked required the registration save will fail due to missing required field.">
+											<param name="registration_layout_custom" type="textarea" rows="40" label="" display="2lines" cssclass="input-block" />
+										</fieldset>
+									</if>
+								</tabpanetab>
+							</tabpane>
+						</tabpanetab>
+					</params>
+				</if>
+				<if name="type" nametype="param:string" operator="regexp" value="language|templates" valuetype="const:string" type="condition">
+					<tabpanetab name="overrides" label="Overrides" description="">
+						<param name="" type="private" method="fetchOverrides" display="none" />
+						<if name="type" nametype="param:string" operator="=" value="language" valuetype="const:string" type="condition">
+							<gridrow gutters="false">
+								<gridcol size=",,7">
+									<params name="_langoverrides" type="params" repeat="true" repeatordering="false" repeatdirection="down" repeatlabel="Add Overrides" label="" display="2lines" cssclass="cbLanguageOverrides">
+										<param name="key" type="text" label="Key" description="Input the language key to create or override." cssclass="cbLanguageOverrideKey input-block" display="2lines" />
+										<param name="text" type="textarea" rows="5" label="Text" description="Input the text for your new language string or override." cssclass="cbLanguageOverrideText input-block" display="2lines" />
+									</params>
+								</gridcol>
+								<gridcol size=",,5" cssclass="pl-md-3">
+									<param name="" type="private" class="\CBLib\Language\Finder" method="input" label="" cssclass="input-block" display="2lines">
+										<attributes>
+											<attribute name="default">
+												<param name="folder" type="text" />
+											</attribute>
+										</attributes>
+									</param>
+								</gridcol>
+							</gridrow>
+						</if>
+						<if name="type" nametype="param:string" operator="=" value="templates" valuetype="const:string" type="condition">
+							<param name="_cssoverrides" type="textarea" rows="30" label="" cssclass="input-block" display="2lines" />
+						</if>
+					</tabpanetab>
+				</if>
+				<tabpanetab name="params" label="Parameters" description="">
+					<showview name="params" view="plugin{raw:element}" mandatory="false">
+						<data name="params" type="sql:string" default="" />
+					</showview>
+					<showview name="params" type="xml" file="/components/com_comprofiler/plugin/{raw:type}/{raw:folder}/{raw:element}" path="params" mandatory="false">
+						<data name="params" type="sql:string" default="" />
+					</showview>
+				</tabpanetab>
+				<tabpanetab name="integrations" label="Integrations" description="">
+					<tabpane name="editpluginintegrations">
+						<showview name="params" view="pluginintegrations{raw:element}" mandatory="false" formatting="tab">
+							<data name="params" type="sql:string" default="" />
+						</showview>
+					</tabpane>
+				</tabpanetab>
+			</tabpane>
+		</view>
+	</views>
+</cbxml>

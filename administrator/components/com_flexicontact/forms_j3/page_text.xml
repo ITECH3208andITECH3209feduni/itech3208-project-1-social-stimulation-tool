@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+   	<fieldset name="main" class="lad-fieldset">
+    
+        <field name="page_text" label="COM_FLEXICONTACT_V_TOP_TEXT" type="editor" rows="10" cols="100"
+            filter="raw" buttons="true" hide="readmore,pagebreak,article,module,menu,contact,field" class="width-auto" />
+            
+   	</fieldset>
+        
+</form>

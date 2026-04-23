@@ -1,0 +1,29 @@
+
+.module_round_box .s5_mod_h3 {
+background:url(../images/internet_explorer/s5_mod_h3.png) repeat-x bottom left;
+}
+
+.module_round_box-dark .s5_mod_h3 {
+background:url(../images/internet_explorer/s5_mod_h3_dark.png) repeat-x bottom left;
+}
+
+#s5_search input {
+background:#0F0F0F;
+margin-top:11px;
+}
+
+#s5_breadcrumb_fonts_wrap {
+padding-bottom:2px;
+}
+
+#login-form #modlgn-remember {
+margin:0px;
+}
+
+#s5_social_wrap1 {
+margin-right:20px;
+}
+
+.s5_mod_h3 {
+display:block;
+}

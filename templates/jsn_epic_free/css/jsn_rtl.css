@@ -1,0 +1,316 @@
+/**
+* @author    JoomlaShine.com http://www.joomlashine.com
+* @copyright Copyright (C) 2008 - 2011 JoomlaShine.com. All rights reserved.
+* @license   GNU/GPL v2 http://www.gnu.org/licenses/gpl-2.0.html
+*/
+/* ============================== DEFAULT HTML ============================== */
+/* =============== DEFAULT HTML - GENERAL STYLES =============== */
+body {
+	position: relative;
+	overflow-x: hidden;
+}
+/* =============== DEFAULT HTML - TEXT STYLES =============== */
+pre {
+	border-left: none;
+	border-right: 5px solid #404040;
+}
+blockquote {
+	padding-left: 0;
+	padding-right: 55px;
+	background: url(../images/icons/icon-text-blockquote-rtl.png) no-repeat top right;
+}
+/* =============== DEFAULT HTML - LIST STYLES =============== */
+ul li {
+	margin-right: 1.6em;
+	margin-left: 0;
+}
+ol li {
+	margin-right: 2em;
+	margin-left: 0;
+}
+/* ============================== LAYOUT ============================== */
+#jsn-page {
+	text-align: right;
+	position: relative;
+}
+/* =============== LAYOUT - HEADER AREA =============== */
+#jsn-logo {
+    float: right;
+}
+#jsn-headerright #jsn-pos-top {
+	float: left;
+}
+#jsn-pos-top div.jsn-modulecontainer {
+	float: left;
+	margin-left: 0;
+	margin-right: 10px;
+}
+/* =============== LAYOUT - MENU AREA =============== */
+#jsn-pos-mainmenu {
+	float: right;
+	margin-left: 0;
+	margin-right: 1px;
+	direction: ltr;
+}
+#jsn-pos-toolbar {
+	float: left;
+}
+#jsn-pos-toolbar div.jsn-modulecontainer {
+	float: left;
+	margin-right: 10px;
+	margin-left: 0;
+}
+/* =============== LAYOUT - CONTENT AREA =============== */
+#jsn-content {
+	direction: ltr;
+}
+#jsn-leftsidecontent_inner,
+#jsn-rightsidecontent_inner,
+#jsn-pos-innerleft_inner,
+#jsn-centercol_inner,
+#jsn-pos-innerright_inner {
+	direction: rtl;
+}
+/* =============== LAYOUT - FOOTER AREA =============== */
+#jsn-pos-bottom {
+	text-align: left;
+}
+#jsn-footer #jsn-brand {
+	text-align: left;
+}
+/* ============================== TYPOGRAPHY ============================== */
+/* =============== TYPOGRAPHY - CONTENT COLUMMNS =============== */
+div.grid-layout div.grid-col div.grid-col_inner {
+	margin-right: 0;
+	margin-left: 10px;
+}
+div.grid-layout div.grid-lastcol div.grid-col_inner {
+	margin-left: 0;
+}
+/* =============== TYPOGRAPHY - TEXT STYLES =============== */
+.text-dropcap p:first-child:first-letter,
+p.text-dropcap:first-child:first-letter {
+	float: right;
+	float: none\0/;
+}
+/* =============== TYPOGRAPHY - LIST STYLES =============== */
+/* ----- ARROW LIST ----- */
+ul.list-arrow li {
+	margin-right: 0;
+	padding-left: 0;
+	padding-right: 16px;
+}
+ul.list-arrow li:after {
+	left: auto;
+	right: 2px;
+}
+ul.list-arrow.arrow-red li:after {
+	border-right-color: #AE0000;
+	border-left: 0.34em solid transparent;
+}
+ul.list-arrow.arrow-blue li:after {
+	border-right-color: #0060BF;
+	border-left: 0.34em solid transparent;
+}
+ul.list-arrow.arrow-green li:after {
+	border-right-color: #3AA655;
+	border-left: 0.34em solid transparent;
+}
+ul.list-arrow.arrow-red li:after {
+	border-left-color: #AE0000\0/;
+	border-right: 0.34em solid transparent\0/;
+}
+ul.list-arrow.arrow-blue li:after {
+	border-left-color: #0060BF\0/;
+	border-right: 0.34em solid transparent\0/;
+}
+ul.list-arrow.arrow-green li:after {
+	border-left-color: #3AA655\0/;
+	border-right: 0.34em solid transparent\0/;
+}
+/* ============================== MENU ============================== */
+/* =============== MENU - MAIN MENU =============== */
+/* ----- GENERAL ----- */
+div.jsn-modulecontainer ul.menu-mainmenu {
+	direction: rtl;
+}
+div.jsn-modulecontainer ul.menu-mainmenu li {
+	float: right;
+}
+div.jsn-modulecontainer ul.menu-mainmenu > li {
+	border-right: none;
+	border-left: 1px solid #404040;
+}
+div.jsn-modulecontainer ul.menu-mainmenu ul ul {
+	margin-left: 0;
+	margin-right: 199px;
+}
+div.jsn-modulecontainer ul.menu-mainmenu > li > a {
+	border-right: none;
+	border-left: 1px solid #000;
+}
+/* ----- PARENT ITEMS / ADD ARROW TO ITEMS HAVE SUBLEVEL ----- */
+div.jsn-modulecontainer ul.menu-mainmenu ul li.parent > a {
+	padding-right: 10px;
+	padding-left: 16px;
+	background-position: 0 -338px;
+	background: url(../images/icons/icon-arrow-white-rtl.png) 2% center no-repeat;
+}
+/* =============== MENU - TREE MENU =============== */
+/* ----- GENERAL ----- */
+ul.menu-treemenu li > a > span {
+	padding-left: 0;
+	padding-right: 18px;
+	background-position: right -343px;
+}
+/* ----- ICON MENU STYLE ----- */
+div.jsn-modulecontainer ul.menu-treemenu.menu-iconmenu > li > a {
+	padding-left: 0;
+	padding-right: 3px;
+}
+/* ---------- 1st LEVEL ---------- */
+div.jsn-modulecontainer ul.menu-treemenu ul li a {
+	padding-left: 18px;
+	padding-right: 30px;
+}
+div.jsn-modulecontainer ul.menu-treemenu ul ul li a {
+	padding-left: 18px;
+	padding-right: 40px;
+}
+div.jsn-modulecontainer ul.menu-treemenu ul ul ul li a {
+	padding-left: 18px;
+	padding-right: 60px;
+}
+/* =============== MENU - DIV MENU =============== */
+ul.menu-divmenu {
+	float: none;
+}
+ul.menu-divmenu li {
+	float: right;
+}
+ul.menu-divmenu li.first {
+	border-right-width: 0;
+	padding-right: 0;
+	padding-left: 0.8em;
+}
+ul.menu-divmenu li.last {
+	border-right-width: 1px;
+}
+/* ============================== JOOMLA! DEFAULT EXTENSIONS ============================== */
+/* =============== JOOMLA! EXTENSIONS - COM_CONTENT =============== */
+/* ----- ARTICLE TOOLBAR ----- */
+#article-index {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+/* ----- ARTICLE INFO ----- */
+.author,
+.createdate,
+.publishdate {
+	padding-right: 20px;
+	padding-left: 0;
+}
+.author {
+	background-position: right 0;
+}
+.createdate,
+.publishdate {
+	background-position: right -86px;
+}
+.modifydate {
+	text-align: left;
+}
+/* ----- 3 BUTTON PDF, PRINT, EMAIL CONTAINER ----- */
+ul.jsn-article-tools {
+	float: left;
+}
+ul.jsn-article-tools li {
+	margin-left: 0;
+	margin-right: 10px;
+}
+/* ----- TABLE OF CONTENT ----- */
+table.contenttoc {
+	margin-left: 0;
+	margin-right: 1em;
+	float: left;
+}
+/* ----- CATEGORY LIST LAYOUT ----- */
+/* TABLE FILTER */
+.jsn-infofilter {
+	text-align: left;
+}
+.jsn-titlefilter {
+	float: right;
+}
+.archived-article-list .jsn-infofilter {
+	text-align: right;
+}
+/* =============== JOOMLA! EXTENSIONS - COM_SEARCH =============== */
+div.com-search #searchForm .search-phrase {
+	margin-left: 0;
+	margin-right: 95px;
+}
+div.com-search #searchForm .search-range input,
+div.com-search #searchForm .search-phrase input {
+	margin-left: 0;
+	margin-right: 5px;
+}
+div.com-search #searchForm .search-range label,
+div.com-search #searchForm .search-phrase label,
+div.com-search #searchForm .search-keyword label,
+div.com-search #searchForm .search-ordering label,
+div.com-search #searchForm .search-field-title {
+	text-align: right;
+	padding-right: 0;
+	padding-left: 3px;
+}
+/* =============== JOOMLA! EXTENSIONS - COM_USER =============== */
+div.reset .jsn-formRow-lable,
+div.com-user .jsn-formRow-lable,
+div.com-user #com-form-login label {
+	float: right;
+}
+/* =============== JOOMLA! EXTENSIONS - COM_CONTACT =============== */
+div.com-contact .jsn-contact-image {
+	float: left;
+	margin: 10px 0 0 5px;
+}
+div.com-contact .jicons-icons {
+	float: right;
+	margin-left: 5px;
+}
+/* =============== JOOMLA! EXTENSIONS - SYSTEM MESSAGES =============== */
+/* ----- SYSTEM STANDARD MESSAGES ----- */
+#system-message dd.message ul {
+	padding-left: 0;
+	padding-right: 40px;
+	background-position: 98% center;
+}
+#system-message ul li {
+	margin-right: 0;
+}
+/* ----- SYSTEM ERROR MESSAGES ----- */
+#system-message dd.error ul {
+	background-position: 98% center;
+}
+/* ----- SYSTEM NOTICE MESSAGES ----- */
+#system-message dd.notice ul {
+	background-position: 98% center;
+}
+/* =============== JOOMLA! EXTENSIONS - MOD_BREADCRUMB =============== */
+span.breadcrumbs a,
+span.breadcrumbs span {
+	float: right;
+	padding-right: 0;
+	padding-left: 18px;
+	background: url(../images/icons/icon-arrow-black-rtl.png) left center no-repeat;
+}
+/* =============== JOOMLA! EXTENSIONS - MODULE SEARCH =============== */
+#jsn-pos-top div.search {
+	float: left;
+}
+#jsn-pos-top div.search input#mod_search_searchword {
+	padding-left: 0;
+	padding-right: 25px;
+	background-position: 98% -170px;
+}

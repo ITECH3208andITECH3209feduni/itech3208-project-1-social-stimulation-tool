@@ -1,0 +1,107 @@
+/**
+* @author    JoomlaShine.com http://www.joomlashine.com
+* @copyright Copyright (C) 2008 - 2011 JoomlaShine.com. All rights reserved.
+* @license   GNU/GPL v2 http://www.gnu.org/licenses/gpl-2.0.html
+*/
+/* ============================== DEFAULT HTML ============================== */
+a {
+	color: #D24A17;
+}
+/* ============================== LAYOUT ============================== */
+/* =============== LAYOUT - OVERALL PAGE =============== */
+#jsn-master {
+	background-color: #EBE8D9;
+	background-image: url(../images/colors/red/bg-master.jpg);
+}
+/* =============== LAYOUT - CONTENT TOP AREA =============== */
+#jsn-content-top_inner {
+	background: #D24A17 url(../images/colors/red/bg-module-richbox-1.png) left bottom repeat-x;
+}
+#jsn-content-top_inner1 {
+	background: url(../images/colors/red/bg-promo.png) left top repeat-x;
+}
+/* =============== LAYOUT - FOOTER AREA =============== */
+#jsn-footermodules {
+	border-top: 4px solid #B0A88E;
+}
+/* ============================== TYPOGRAPHY ============================== */
+/* =============== TYPOGRAPHY - LINK STYLES =============== */
+/* ----- ACTION LINK ----- */
+.link-action {
+	border-bottom: 1px solid #D24A17;
+}
+.link-action:hover {
+	background-color: #D24A17;
+}
+#jsn-content-top .link-action:hover,
+div[class*="richbox-"] .link-action:hover {
+	color: #D24A17;
+}
+/* =============== TYPOGRAPHY - TABLE STYLES =============== */
+.sectiontableheader {
+	background-color: #A8390F;
+}
+/* ============================== MENU ============================== */
+/* =============== MENU - TOP MENU =============== */
+ul.menu-topmenu li a {
+	background: #AF3C10;
+}
+ul.menu-topmenu li a:hover {
+	color: #D24A17;
+}
+/* =============== MENU - MAIN MENU =============== */
+/* ----- 1st LEVEL ----- */
+div.jsn-modulecontainer ul.menu-mainmenu ul {
+	background: rgb(148,138,108);
+	border: 1px solid #b3ac96;
+}
+/* ----- HOVER STATE ----- */
+div.jsn-modulecontainer ul.menu-mainmenu > li:hover {
+	background: #7E7556;
+}
+div.jsn-modulecontainer ul.menu-mainmenu ul li:hover > a {
+	background-color: #7E7556;
+}
+/* ----- ACTIVE STATE ----- */
+div.jsn-modulecontainer ul.menu-mainmenu > li.active {
+    background: #A6380F;
+}
+div.jsn-modulecontainer ul.menu-mainmenu ul li.active > a {
+	background-color: #7E7556;
+}
+/* =============== MENU - TREE MENU =============== */
+/* ----- CURRENT / HOVER STATE ----- */
+div.richbox-1 ul.menu-treemenu li a:hover,
+div.richbox-1 ul.menu-treemenu li a.current {
+	background-color: #B64114;
+}
+div.richbox-2 ul.menu-treemenu li a:hover,
+div.richbox-2 ul.menu-treemenu li a.current {
+	background-color: #8E8462;
+}
+/* ============================== MODULE STYLES ============================== */
+/* =============== MODULE STYLES - MODULE BOXES =============== */
+div.duohead-1 h3.jsn-moduletitle {
+	color: #D24A17;
+}
+div.duohead-2 h3.jsn-moduletitle {
+	color: #A19675;
+}
+/* ----- RICH BOX 1 ----- */
+div.richbox-1 div.jsn-modulecontainer_inner > div {
+	background: #D24A17 url(../images/colors/red/bg-module-richbox-1.png) left bottom repeat-x;
+}
+/* ----- RICH BOX 2 ----- */
+div.richbox-2 div.jsn-modulecontainer_inner > div {
+	background: #9E9373 url(../images/colors/red/bg-module-richbox-2.png) left bottom repeat-x;
+}
+/* ============================== JOOMLA! DEFAULT EXTENSIONS ============================== */
+/* =============== JOOMLA! EXTENSIONS - MOD_BREADCRUMB =============== */
+span.pathway span.current {
+	color: #D24A17;
+}
+/* ----- SECTION / CATEGORY BLOG LAYOUT ----- */
+/* PAGE PAGINATION */
+ul.jsn-pagination li.navigation-page span {
+	background-color: #D24A17;
+}

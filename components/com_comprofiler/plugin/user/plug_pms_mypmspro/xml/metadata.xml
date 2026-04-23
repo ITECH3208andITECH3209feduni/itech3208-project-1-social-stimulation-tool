@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="request">
+		<fieldset name="request">
+			<field name="action" type="hidden" default="messages" label="" description="" />
+			<field name="func" type="list" default="" label="Function" description="">
+				<option value="">All Messages</option>
+				<option value="received">Received Messages</option>
+				<option value="sent">Sent Messages</option>
+				<option value="new">New Message</option>
+			</field>
+		</fieldset>
+	</fields>
+</form>

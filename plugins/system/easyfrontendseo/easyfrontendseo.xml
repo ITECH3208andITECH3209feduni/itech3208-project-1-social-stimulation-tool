@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" version="2.5" group="system" method="upgrade">
+    <name>System - Easy Frontend SEO</name>
+    <version>2.5-8</version>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <author>Viktor Vogel</author>
+    <authoremail>admin@kubik-rubik.de</authoremail>
+    <authorurl>http://www.kubik-rubik.de</authorurl>
+    <copyright>Copyright 2013 Viktor Vogel. All rights reserved.</copyright>
+    <creationDate>2013-05-20</creationDate>
+    <description>PLG_EASYFRONTENDSEO_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="easyfrontendseo">easyfrontendseo.php</filename>
+        <filename plugin="easyfrontendseo">easyfrontendseo.css</filename>
+        <filename plugin="easyfrontendseo">simplemodal.js</filename>
+        <filename plugin="easyfrontendseo">simplemodal.css</filename>
+        <filename plugin="easyfrontendseo">wordcount.js</filename>
+        <filename plugin="easyfrontendseo">loader.gif</filename>
+        <filename plugin="easyfrontendseo">efseo-logo.png</filename>
+        <filename plugin="easyfrontendseo">check.png</filename>
+        <filename plugin="easyfrontendseo">cross.png</filename>
+        <filename plugin="easyfrontendseo">index.html</filename>
+        <folder plugin="easyfrontendseo">fields</folder>
+    </files>
+    <languages folder="language">
+        <language tag="de-DE">de-DE/de-DE.plg_system_easyfrontendseo.ini</language>
+        <language tag="de-DE">de-DE/de-DE.plg_system_easyfrontendseo.sys.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_system_easyfrontendseo.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_system_easyfrontendseo.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params" addfieldpath="/plugins/system/easyfrontendseo/fields">
+            <fieldset name="basic">
+                <field type="krdonationcodecheck" />
+                <field type="krversioncheck" name="krversioncheck" default="efseo|2.5-8" />
+                <field name="filter_groups" type="usergroup" default="8" multiple="true" size="10" label="PLG_EASYFRONTENDSEO_ALLOWEDGROUPS" description="PLG_EASYFRONTENDSEO_ALLOWEDGROUPSDESC" />
+                <field name="allowed_user_ids" type="text" default="" size="40" label="PLG_EASYFRONTENDSEO_ALLOWEDUSERS" description="PLG_EASYFRONTENDSEO_ALLOWEDUSERSDESC" />
+                <field name="field_title" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWFIELD_TITLE" description="PLG_EASYFRONTENDSEO_SHOWFIELD_TITLEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">JYESDISABLED</option>
+                </field>
+                <field name="characters_title" type="text" default="65" label="PLG_EASYFRONTENDSEO_CHARACTERSTITLE" description="PLG_EASYFRONTENDSEO_CHARACTERSTITLEDESC" />
+                <field name="icon_title" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWICON_TITLE" description="PLG_EASYFRONTENDSEO_SHOWICON_TITLEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="field_description" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWFIELD_DESCRIPTION" description="PLG_EASYFRONTENDSEO_SHOWFIELD_DESCRIPTIONDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">JYESDISABLED</option>
+                </field>
+                <field name="characters_description" type="text" default="160" label="PLG_EASYFRONTENDSEO_CHARACTERSDESCRIPTION" description="PLG_EASYFRONTENDSEO_CHARACTERSDESCRIPTIONDESC" />
+                <field name="icon_description" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWICON_DESCRIPTION" description="PLG_EASYFRONTENDSEO_SHOWICON_DESCRIPTIONDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="field_keywords" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWFIELD_KEYWORDS" description="PLG_EASYFRONTENDSEO_SHOWFIELD_KEYWORDSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">JYESDISABLED</option>
+                </field>
+                <field name="icon_keywords" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWICON_KEYWORDS" description="PLG_EASYFRONTENDSEO_SHOWICON_KEYWORDSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="field_generator" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWFIELD_GENERATOR" description="PLG_EASYFRONTENDSEO_SHOWFIELD_GENERATORDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">JYESDISABLED</option>
+                </field>
+                <field name="icon_generator" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWICON_GENERATOR" description="PLG_EASYFRONTENDSEO_SHOWICON_GENERATORDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="field_robots" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWFIELD_ROBOTS" description="PLG_EASYFRONTENDSEO_SHOWFIELD_ROBOTSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">JYESDISABLED</option>
+                </field>
+                <field name="icon_robots" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWICON_ROBOTS" description="PLG_EASYFRONTENDSEO_SHOWICON_ROBOTSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="field_delete" type="list" default="1" label="PLG_EASYFRONTENDSEO_SHOWFIELD_DELETE" description="PLG_EASYFRONTENDSEO_SHOWFIELD_DELETEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            <fieldset name="automaticmode">
+                <field name="general_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_GENERAL_SPACER" />
+                <field name="global_title" type="text" default="" size="40" label="PLG_EASYFRONTENDSEO_GLOBALTITLE" description="PLG_EASYFRONTENDSEO_GLOBALTITLEDESC" />
+                <field name="global_generator" type="text" default="" size="40" label="PLG_EASYFRONTENDSEO_GLOBALGENERATOR" description="PLG_EASYFRONTENDSEO_GLOBALGENERATORDESC" />
+                <field name="global_robots" type="list" default="index, follow" label="PLG_EASYFRONTENDSEO_GLOBALROBOTS" description="PLG_EASYFRONTENDSEO_GLOBALROBOTSDESC">
+                    <option value="0">JNO</option>
+                    <option value="index, follow">index, follow</option>
+                    <option value="noindex, follow">noindex, follow</option>
+                    <option value="index, nofollow">index, nofollow</option>
+                    <option value="noindex, nofollow">noindex, nofollow</option>
+                </field>
+                <field name="custom_metatags" type="textarea" default="" rows="5" cols="50" filter="raw" label="PLG_EASYFRONTENDSEO_CUSTOMMETATAG" description="PLG_EASYFRONTENDSEO_CUSTOMMETATAGDESC" />
+                <field name="com_content_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_SPACER" />
+                <field name="com_content_enable" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_ENABLE" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_ENABLEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_content_description_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSPACER" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSPACERDESC" />
+                <field name="com_content_description_select_text" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSELECTTEXT" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSELECTTEXTDESC">
+                    <option value="0">PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSELECTTEXT_FULLTEXT</option>
+                    <option value="1">PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSELECTTEXT_INTROTEXT</option>
+                    <option value="2">PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONSELECTTEXT_BOTH</option>
+                </field>
+                <field name="com_content_description_add_dots" type="list" default="1" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONADDDOTS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_DESCRIPTIONADDDOTSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_content_overwrite_description" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_OVERWRITEDESCRIPTION" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_OVERWRITEDESCRIPTIONDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_content_keywords_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_KEYWORDSSPACER" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_KEYWORDSSPACERDESC" />
+                <field name="com_content_number_keywords" type="text" default="6" size="40" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_NUMBERKEYWORDS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_NUMBERKEYWORDSDESC" />
+                <field name="com_content_overwrite_keywords" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_OVERWRITEKEYWORDS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_OVERWRITEKEYWORDSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_content_blacklist_keywords" type="textarea" default="" rows="8" cols="60" filter="raw" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_BLACKLISTKEYWORDS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_CONTENT_BLACKLISTKEYWORDSDESC" />
+                <field name="com_k2_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_SPACER" />
+                <field name="com_k2_enable" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_ENABLE" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_ENABLEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_k2_description_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSPACER" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSPACERDESC" />
+                <field name="com_k2_description_select_text" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSELECTTEXT" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSELECTTEXTDESC">
+                    <option value="0">PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSELECTTEXT_FULLTEXT</option>
+                    <option value="1">PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSELECTTEXT_INTROTEXT</option>
+                    <option value="2">PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONSELECTTEXT_BOTH</option>
+                </field>
+                <field name="com_k2_description_add_dots" type="list" default="1" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONADDDOTS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_DESCRIPTIONADDDOTSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_k2_overwrite_description" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_OVERWRITEDESCRIPTION" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_OVERWRITEDESCRIPTIONDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_k2_keywords_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_KEYWORDSSPACER" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_KEYWORDSSPACERDESC" />
+                <field name="com_k2_number_keywords" type="text" default="6" size="40" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_NUMBERKEYWORDS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_NUMBERKEYWORDSDESC" />
+                <field name="com_k2_overwrite_keywords" type="list" default="0" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_OVERWRITEKEYWORDS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_OVERWRITEKEYWORDSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="com_k2_blacklist_keywords" type="textarea" default="" rows="8" cols="60" filter="raw" label="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_BLACKLISTKEYWORDS" description="PLG_EASYFRONTENDSEO_AUTOMATICMODE_K2_BLACKLISTKEYWORDSDESC" />
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="output_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_ADVANCED_OUTPUT_SPACER" />
+                <field name="style" type="list" default="1" label="PLG_EASYFRONTENDSEO_STYLE" description="PLG_EASYFRONTENDSEO_STYLEDESC">
+                    <option value="0">PLG_EASYFRONTENDSEO_STYLE_1</option>
+                    <option value="1">PLG_EASYFRONTENDSEO_STYLE_2</option>
+                </field>
+                <field name="modal_position" type="list" default="1" label="PLG_EASYFRONTENDSEO_MODALPOSITION" description="PLG_EASYFRONTENDSEO_MODALPOSITIONDESC">
+                    <option value="0">PLG_EASYFRONTENDSEO_MODALPOSITION_1</option>
+                    <option value="1">PLG_EASYFRONTENDSEO_MODALPOSITION_2</option>
+                    <option value="2">PLG_EASYFRONTENDSEO_MODALPOSITION_3</option>
+                    <option value="3">PLG_EASYFRONTENDSEO_MODALPOSITION_4</option>
+                </field>
+                <field name="word_count" type="list" default="1" label="PLG_EASYFRONTENDSEO_WORDCOUNT" description="PLG_EASYFRONTENDSEO_WORDCOUNTDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="jquery_mode" type="list" default="0" label="PLG_EASYFRONTENDSEO_JQUERYMODE" description="PLG_EASYFRONTENDSEO_JQUERYMODEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="coretables_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_ADVANCED_CORETABLES_SPACER" />
+                <field name="save_data_table_content" type="list" default="0" label="PLG_EASYFRONTENDSEO_SAVEDATATABLECONTENT" description="PLG_EASYFRONTENDSEO_SAVEDATATABLECONTENTDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="save_data_table_menu" type="list" default="0" label="PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU" description="PLG_EASYFRONTENDSEO_SAVEDATATABLEMENUDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_1</option>
+                    <option value="2">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_2</option>
+                    <option value="3">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_3</option>
+                    <option value="4">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_4</option>
+                    <option value="5">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_5</option>
+                    <option value="6">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_6</option>
+                    <option value="7">PLG_EASYFRONTENDSEO_SAVEDATATABLEMENU_OPTION_7</option>
+                </field>
+                <field name="overwrite_notice" type="list" default="0" label="PLG_EASYFRONTENDSEO_SHOWNOTICEOVERWRITEOPTION" description="PLG_EASYFRONTENDSEO_SHOWNOTICEOVERWRITEOPTIONDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="urlhandling_spacer" type="spacer" label="PLG_EASYFRONTENDSEO_ADVANCED_URLHANDLING_SPACER" />
+                <field name="relative_urls" type="list" default="0" label="PLG_EASYFRONTENDSEO_RELATIVEURLS" description="PLG_EASYFRONTENDSEO_RELATIVEURLSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="compatibility" type="list" default="0" label="PLG_EASYFRONTENDSEO_COMPATIBILITY" description="PLG_EASYFRONTENDSEO_COMPATIBILITYDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">PLG_EASYFRONTENDSEO_NOINTERNAL</option>
+                </field>
+                <field name="collect_urls" type="list" default="0" label="PLG_EASYFRONTENDSEO_COLLECTURLS" description="PLG_EASYFRONTENDSEO_COLLECTURLSDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="exclude_components" type="textarea" default="" label="PLG_EASYFRONTENDSEO_COLLECTURLS_EXCLUDECOMPONENTS" description="PLG_EASYFRONTENDSEO_COLLECTURLS_EXCLUDECOMPONENTSDESC" rows="4" cols="40" />
+                <field name="update" type="list" default="0" label="PLG_EASYFRONTENDSEO_UPDATE" description="PLG_EASYFRONTENDSEO_UPDATEDESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="efseo_label" type="efseolabel" default="" label="" description=""/>
+            </fieldset>
+            <fieldset name="donation">
+                <field name="donation_code" type="text" default="" size="40" label="KR_DONATION_CODE" description="KR_DONATION_CODEDESC" />
+            </fieldset>
+            <fieldset name="versioncheck">
+                <field name="versioncheck_enable" type="list" default="1" label="KR_VERSION_CHECK" description="KR_VERSION_CHECKDESC">
+                    <option value="1">KR_VERSION_CHECK_ONCESESSION</option>
+                    <option value="2">KR_VERSION_CHECK_ONEVERYLOAD</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

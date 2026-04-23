@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types />
+	<actions ui="admin" permission="core.manage" permissionasset="com_comprofiler">
+		<action name="privatemessages" request="view action" action="editPlugin showprivatemessages">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.privatemessages" mandatory="true" />
+			<showview view="privatemessages" mode="show" />
+		</action>
+
+		<action name="migrateuddeim" request="view action" action="editPlugin migrateuddeim" permission="core.admin" permissionasset="root">
+			<showview view="migrateuddeim" mode="show" />
+		</action>
+
+		<action name="privatemessage" request="view table action" action="editPlugin privatemessagesbrowser editrow" requestparameters="messageid">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.privatemessages" mandatory="true" />
+			<showview view="editprivatemessage" mode="edit">
+				<data name="" type="sql:row" table="#__comprofiler_plugin_messages" class="\CB\Plugin\PMS\Table\MessageTable" key="id" value="messageid" valuetype="request:int">
+					<if name="manage_user_messages" nametype="pluginparams:int" operator="=" value="1" valuetype="const:int" type="condition">
+						<and name="" type="permission" permission="pms.usermessages" permissionasset="com_comprofiler.plugin.pms" />
+						<else>
+							<where>
+								<column name="" valuetype="sql:expression">
+									<data name="" type="sql:operator" operator="OR">
+										<data name="" type="sql:operator" operator="=">
+											<data name="to_user" type="sql:field" />
+											<data name="0" type="const:int" />
+										</data>
+										<data name="" type="sql:operator" operator="=">
+											<data name="to_user" type="sql:field" />
+											<data name="id" type="user:int" />
+										</data>
+										<data name="" type="sql:operator" operator="=">
+											<data name="from_user" type="sql:field" />
+											<data name="id" type="user:int" />
+										</data>
+										<data name="" type="sql:operator" operator="=">
+											<data name="from_system" type="sql:field" />
+											<data name="1" type="const:int" />
+										</data>
+									</data>
+								</column>
+							</where>
+						</else>
+					</if>
+				</data>
+			</showview>
+		</action>
+
+		<action name="sendprivatemessage" request="view" action="sendprivatemessage" requestparameters="ids">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="/components/com_comprofiler/plugin/user/plug_pms_mypmspro/xml/models/model.privatemessages" mandatory="false" />
+			<showview view="sendprivatemessage" mode="edit">
+				<data name="" type="class" class="\CB\Plugin\PMS\Table\MassMessageTable" />
+			</showview>
+		</action>
+
+		<action name="privatemessageperms" request="view action" action="editPlugin showprivatemessageperms" permission="core.admin" permissionasset="root">
+			<showview view="editprivatemessageperms" mode="edit">
+				<data name="" type="permissions" />
+			</showview>
+		</action>
+	</actions>
+	<views>
+		<view name="pluginmenu" type="params" ui="admin" label="" viewformatting="none">
+			<if name="" nametype="data:bool" operator="!=" value="1" valuetype="const:bool" type="condition">
+				<left>
+					<param name="" type="private" class="\CB\Plugin\PMS\UddeIM" method="isUddeIM" />
+				</left>
+				<then>
+					<param name="privatemessages" type="button" default="Messages" buttonclass="secondary" buttonsize="small" link="cb_action:privatemessages" parameters="cid" paramvalues="id" label="" />
+				</then>
+			</if>
+		</view>
+	</views>
+</cbxml>

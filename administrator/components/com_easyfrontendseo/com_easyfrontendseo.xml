@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+    <name>COM_EASYFRONTENDSEO</name>
+    <version>2.5-8</version>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <author>Viktor Vogel</author>
+    <authorEmail>admin@kubik-rubik.de</authorEmail>
+    <authorUrl>http://joomla-extensions.kubik-rubik.de</authorUrl>
+    <copyright>Copyright 2013 Viktor Vogel. All rights reserved.</copyright>
+    <creationDate>2013-05-20</creationDate>
+    <description>COM_EASYFRONTENDSEO_XML_DESCRIPTION</description>
+    <scriptfile>script.php</scriptfile>
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.sql</file>
+        </sql>
+    </install>
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+    <files folder="site">
+        <filename>index.html</filename>
+    </files>
+    <plugins>
+        <plugin folder="plugins" plugin="easyfrontendseo" name="PLG_EASYFRONTENDSEO" group="system" />
+    </plugins>
+    <administration>
+        <menu img="components/com_easyfrontendseo/images/efseo-menu.png">COM_EASYFRONTENDSEO</menu>
+        <files folder="admin">
+            <filename>index.html</filename>
+            <filename>easyfrontendseo.php</filename>
+            <filename>controller.php</filename>
+            <filename>config.xml</filename>
+            <filename>access.xml</filename>
+            <folder>controllers</folder>
+            <folder>css</folder>
+            <folder>js</folder>
+            <folder>images</folder>
+            <folder>models</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+        </files>
+        <languages folder="admin">
+            <language tag="en-GB">language/en-GB/en-GB.com_easyfrontendseo.ini</language>
+            <language tag="en-GB">language/en-GB/en-GB.com_easyfrontendseo.sys.ini</language>
+            <language tag="de-DE">language/de-DE/de-DE.com_easyfrontendseo.ini</language>
+            <language tag="de-DE">language/de-DE/de-DE.com_easyfrontendseo.sys.ini</language>
+        </languages>
+    </administration>
+</extension>

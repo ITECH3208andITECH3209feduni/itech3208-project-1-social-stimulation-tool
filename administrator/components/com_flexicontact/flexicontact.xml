@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.7.0" method="upgrade">
+<name>FlexiContact</name>
+<creationDate>27 February 2023</creationDate>
+<author>Les Arbres Design</author>
+<copyright>Les Arbres Design 2009-2023</copyright>
+<license>GNU/GPL</license>
+<authorUrl>www.lesarbresdesign.info</authorUrl>
+<version>13.06</version>
+<description>The flexible contact page that's easy to setup</description>
+
+<scriptfile>install.php</scriptfile>
+
+<files folder="site">
+	<filename>flexicontact.php</filename>
+	<filename>controller.php</filename>
+	<filename>router.php</filename>
+	<filename>index.html</filename>
+	<folder>models/</folder>
+	<folder>views/</folder>
+	<folder>language</folder>
+</files>
+
+<media folder="media" destination="com_flexicontact">
+	<filename>index.html</filename>
+    <folder>css</folder>
+    <folder>js</folder>
+</media>
+  
+<administration>
+	<menu>COM_FLEXICONTACT</menu>
+	<submenu>
+		<menu task="config">COM_FLEXICONTACT_CONFIGURATION</menu>
+		<menu task="images">COM_FLEXICONTACT_CAPTCHA_IMAGES</menu>
+		<menu task="log_list">COM_FLEXICONTACT_MESSAGE_LOG</menu>
+		<menu task="about">COM_FLEXICONTACT_ABOUT</menu>
+	</submenu>
+
+	<files folder="admin">
+		<filename>flexicontact.php</filename>
+		<filename>config.xml</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<folder>assets</folder>
+		<folder>helpers</folder>
+		<folder>fields</folder>
+		<folder>forms_j3</folder>
+		<folder>forms_j4</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+    	<folder>language</folder>
+ 	</files>
+</administration>
+
+<updateservers>
+    <server type="extension" priority="2" name="FlexiContact"><![CDATA[https://www.lesarbresdesign.info/jupdate?product=flexicontact]]></server>
+</updateservers>
+
+</extension>

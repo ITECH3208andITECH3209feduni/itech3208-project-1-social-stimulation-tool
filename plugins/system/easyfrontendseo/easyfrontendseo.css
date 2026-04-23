@@ -1,0 +1,50 @@
+/**
+ *  @Copyright
+ *  @package     EFSEO - Easy Frontend SEO
+ *  @author      Viktor Vogel {@link http://www.kubik-rubik.de}
+ *  @link        http://joomla-extensions.kubik-rubik.de/efseo-easy-frontend-seo
+ *
+ *  @license GNU/GPL
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#easyfrontendseo {background-color: white; color: black; position: relative; z-index: 999; width: 60%; margin: auto !important; border-radius: 5px 5px 5px 5px;}
+#easyfrontendseo label {width: 250px; text-align: left; display: inline-block; vertical-align: top; border-bottom: 1px dotted;}
+#easyfrontendseo input[type="text"] {width: 400px; border-bottom: 1px dotted; border-right: 1px solid;}
+#easyfrontendseo input[type="submit"] {margin: 10px 0;}
+#easyfrontendseo textarea {width: 400px; border-bottom: 1px dotted; border-right: 1px solid;}
+#easyfrontendseo .small {font-size: 13px;}
+#easyfrontendseo .efseo_disabled {display: inline-block; text-align: left; width: 400px;}
+#easyfrontendseo .efseo_counter {float: right;}
+#easyfrontendseo .donate_notice {background-color: #FFEDF1; padding: 10px;}
+#easyfrontendseo .overwrite_notice {background-color: #FCFA76; padding: 10px;}
+#easyfrontendseo_topbar {background-color: white; color: black; position: relative; z-index: 999; width: 21%; margin: auto !important;}
+#easyfrontendseo_lightbox_button_0{background-color: white; border: 1px solid black; top: 10px; left: 10px; padding: 3px; position: fixed; z-index: 9999; border-radius: 5px 5px 5px 5px;}
+#easyfrontendseo_lightbox_button_0 a:hover{background-color: #F4F4F4;}
+#easyfrontendseo_lightbox_button_1{background-color: white; border: 1px solid black; top: 10px; right: 10px; padding: 3px; position: fixed; z-index: 9999; border-radius: 5px 5px 5px 5px;}
+#easyfrontendseo_lightbox_button_1 a:hover{background-color: #F4F4F4;}
+#easyfrontendseo_lightbox_button_2{background-color: white; border: 1px solid black; bottom: 10px; right: 10px; padding: 3px; position: fixed; z-index: 9999; border-radius: 5px 5px 5px 5px;}
+#easyfrontendseo_lightbox_button_2 a:hover{background-color: #F4F4F4;}
+#easyfrontendseo_lightbox_button_3{background-color: white; border: 1px solid black; bottom: 10px; left: 10px; padding: 3px; position: fixed; z-index: 9999; border-radius: 5px 5px 5px 5px;}
+#easyfrontendseo_lightbox_button_3 a:hover{background-color: #F4F4F4;}
+#easyfrontendseo_lightbox {background-color: white; color: black; position: relative; z-index: 999;}
+#easyfrontendseo_lightbox label {display: inline-block; font-weight: bold;}
+#easyfrontendseo_lightbox input[type="text"] {width: 560px; border-bottom: 1px solid; border-right: 1px solid; display: block;}
+#easyfrontendseo_lightbox input[type="submit"] {margin: 10px 0;}
+#easyfrontendseo_lightbox textarea {width: 560px; border-bottom: 1px solid; border-right: 1px solid; display: block;}
+#easyfrontendseo_lightbox .small {font-size: 13px;}
+#easyfrontendseo_lightbox .efseo_disabled {width: 560px; display: block; text-align: left;}
+#easyfrontendseo_lightbox .efseo_counter {float: right;}
+#easyfrontendseo_lightbox .donate_notice {background-color: #FFEDF1; padding: 10px;}
+#easyfrontendseo_lightbox .overwrite_notice {background-color: #FCFA76; padding: 10px;}
