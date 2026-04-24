@@ -1,7 +1,0 @@
-<RequireAny>
-    Require ip 141.132.0.0/16
-    Require ip 127.0.0.1
-    Require ip ::1
-    Require ip 192.168.0.0/16
-    Require ip 10.0.0.0/8
-</RequireAny>
