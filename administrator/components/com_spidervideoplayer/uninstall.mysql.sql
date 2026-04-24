@@ -1,1 +1,0 @@
-DROP TABLE `#__spidervideoplayer_video`;DROP TABLE `#__spidervideoplayer_theme`;DROP TABLE `#__spidervideoplayer_tag`;DROP TABLE `#__spidervideoplayer_playlist`;
