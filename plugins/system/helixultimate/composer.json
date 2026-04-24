@@ -1,0 +1,21 @@
+{
+	"name": "joomshaper/helixultimate",
+	"description": "Joomla! template framework.",
+	"type": "project",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "JoomShaper",
+			"email": "support@joomshaper.com"
+		}
+	],
+	"require": {
+		"tedivm/jshrink": "~1.0",
+		"scssphp/scssphp": "^2.0.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"HelixUltimate\\Framework\\": "./src/"
+		}
+	}
+}

@@ -1,0 +1,94 @@
+/*
+ * Page Container
+ */
+ @media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+  .body-wrapper .tm-page {
+    max-width: 1320px;
+  }
+  .tm-page-width {
+    max-width: 1320px;
+  }
+  .tm-outside {
+    .tm-page-width {
+      padding: 0;
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .tm-page-margin-top {
+    margin-top: 60px;
+  }
+  .tm-page-margin-bottom {
+    margin-bottom: 60px;
+  }
+  .sppb-row-container {
+    max-width: 1320px;
+  }
+}
+
+@media (min-width: 960px) {
+  .tm-page {
+    .container,
+    .sppb-row-container {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+}
+
+@media (min-width: 640px) {
+  .tm-page {
+    .container,
+    .sppb-row-container {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .sp-megamenu-parent {
+    > li {
+      > a,
+      span {
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .hu-media-modal {
+    .modal-content {
+      height: 80vh;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .hu-media-modal {
+    .modal-content {
+      height: 85vh;
+    }
+  }
+  .modal-dialog.jviewport-width80 {
+    width: auto;
+  }
+}
+
+@media (max-width: 575px) {
+  //result page btn group
+  .view-search #search-form {
+    .btn-group {
+      flex-wrap: wrap;
+    }
+    button,
+    .btn {
+      border-radius: 3px;
+    }
+  }
+}

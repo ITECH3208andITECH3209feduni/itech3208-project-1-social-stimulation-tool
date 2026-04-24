@@ -1,0 +1,66 @@
+<?php
+/**
+ * @package Helix Ultimate Framework
+ * @author JoomShaper https://www.joomshaper.com
+ * @copyright Copyright (c) 2010 - 2025 JoomShaper
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+*/
+
+use Joomla\Filesystem\Folder;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
+
+defined ('_JEXEC') or die ();
+
+$fields = Folder::files( dirname( __FILE__ ) . '/fields', '\.php$', false, true);
+foreach ($fields as $field)
+{
+    require_once $field;
+}
+
+require_once 'settings/settings.php';
+
+echo RowColumnSettings::getRowSettings($rowSettings);
+echo RowColumnSettings::getColumnSettings($columnSettings);
+
+$layout_path  = JPATH_ROOT .'/plugins/system/helixultimate/layouts';
+?>
+
+<div class="hidden">
+    <div class="save-box">
+        <div class="mb-3">
+            <label><?php echo Text::_('HELIX_ENTER_LAYOUT_NAME'); ?></label>
+            <input class="form-control addon-input addon-name" type="text" data-attrname="layout_name" value="" placeholder="">
+        </div>
+    </div>
+</div>
+
+<div class="hidden">
+    <?php
+        $lt_section = new FileLayout('backend.section', $layout_path );
+        $obj = new stdClass;
+        $obj->sectionID = true;
+        echo $lt_section->render($obj);
+    ?>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- Layout Builder Section -->
+<div id="hu-layout-builder" >
+<?php
+    $output = '';
+    if ($layout_data)
+    {
+        foreach ($layout_data as $row)
+        {
+            $lt_section = new FileLayout('backend.section', $layout_path );
+            $output .= $lt_section->render($row);
+        }
+    }
+
+    echo $output;
+    ?>
+</div>
+
+<div class="clearfix"></div>

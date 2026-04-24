@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" 
+    type="template" 
+    client="site" 
+    method="upgrade">
+    <name>edu_free</name>
+    <creationDate>May 2019</creationDate>
+    <author>WarpTheme.com</author>
+    <authorEmail>info@warptheme.com</authorEmail>
+    <authorUrl>http://www.warptheme.com</authorUrl>
+    <copyright>Copyright (C) 2015 - 2026 WarpTheme.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later</license>
+    <version>2.2.10</version>
+    <description>Edu - Free Responsive Education Joomla template. Document and support, visit WarpTheme.com</description>
+
+    <languages>
+        <language tag="en-GB">en-GB.tpl_edu_free.ini</language>
+    </languages>
+
+    <positions>
+        <position>title</position>
+        <position>toolbar-left</position>
+        <position>toolbar-right</position>
+        <position>logo</position>
+        <position>logo-mobile</position>
+        <position>header-mobile</position>
+        <position>header</position>
+        <position>navbar</position>
+        <position>menu</position>
+        <position>search</position>
+        <position>slide</position>
+        <position>user1</position>
+        <position>user2</position>
+        <position>user3</position>
+        <position>user4</position>
+        <position>left</position>
+        <position>right</position>
+        <position>feature</position>
+        <position>slider</position>
+        <position>position1</position>
+        <position>position2</position>
+        <position>position3</position>
+        <position>position4</position>
+        <position>position5</position>
+        <position>position6</position>
+        <position>position7</position>
+        <position>position8</position>
+        <position>content-top</position>
+        <position>content-bottom</position>
+        <position>bottom1</position>
+        <position>bottom2</position>
+        <position>bottom3</position>
+        <position>bottom4</position>
+        <position>breadcrumb</position>
+        <position>footer1</position>
+        <position>footer2</position>
+        <position>comingsoon</position>
+        <position>mobile</position>
+        <position>pagebuilder</position>
+        <position>dialog</position>
+        <position>customtop1</position>
+        <position>customtop2</position>
+        <position>404</position>
+        <position>debug</position>
+    </positions>
+
+    <files>
+        <file>index.php</file>
+        <file>template_preview.png</file>
+        <file>template_thumbnail.png</file>
+        <file>options.xml</file>
+        <file>options.json</file>
+        <file>templateDetails.xml</file>
+        <file>offline.php</file>
+        <file>helper.php</file>
+        <file>component.php</file>
+        <file>comingsoon.php</file>
+        <file>error.php</file>
+        <folder>css/</folder>
+        <folder>features/</folder>
+        <folder>headers/</folder>
+        <folder>fonts/</folder>
+        <folder>html/</folder>
+        <folder>images/</folder>
+        <folder>js/</folder>
+        <folder>offcanvas/</folder>
+        <folder>scss/</folder>
+        <folder>webfonts/</folder>
+    </files>
+    <config>
+        <fieldset name="basic" 
+            addfieldpath="/plugins/system/helixultimate/src/fields">
+            <field name="helixdetails" 
+                type="helixdetails" />
+        </fieldset>
+    </config>
+</extension>
