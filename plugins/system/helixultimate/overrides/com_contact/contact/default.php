@@ -1,0 +1,186 @@
+<?php
+/**
+ * @package Helix Ultimate Framework
+ * @author JoomShaper https://www.joomshaper.com
+ * @copyright Copyright (c) 2010 - 2025 JoomShaper
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+*/
+
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\Component\Contact\Site\Helper\RouteHelper;
+
+$tparams = $this->item->params;
+$canDo   = ContentHelper::getActions('com_contact', 'category', $this->item->catid);
+$canEdit = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by === $this->getCurrentUser()->id);
+$htag    = $tparams->get('show_page_heading') ? 'h2' : 'h1';
+$htag2   = ($tparams->get('show_page_heading') && $tparams->get('show_name')) ? 'h3' : 'h2';
+
+?>
+
+<div class="com-contact contact" itemscope itemtype="https://schema.org/Person">
+    <?php if ($tparams->get('show_page_heading')) : ?>
+        <h1>
+            <?php echo $this->escape($tparams->get('page_heading')); ?>
+        </h1>
+    <?php endif; ?>
+
+    <?php if ($this->item->name && $tparams->get('show_name')) : ?>
+        <div class="page-header">
+            <<?php echo $htag; ?>>
+                <?php if ($this->item->published == 0) : ?>
+                    <span class="badge bg-warning text-light"><?php echo Text::_('JUNPUBLISHED'); ?></span>
+                <?php endif; ?>
+                <span class="contact-name"><?php echo $this->item->name; ?></span>
+            </<?php echo $htag; ?>>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($canEdit) : ?>
+        <?php echo HTMLHelper::_('contacticon.edit', $this->item, $tparams); ?>
+    <?php endif; ?>
+
+    <?php $show_contact_category = $tparams->get('show_contact_category'); ?>
+
+    <?php if ($show_contact_category === 'show_no_link') : ?>
+        <<?php echo $htag2; ?>>
+            <span class="contact-category"><?php echo $this->item->category_title; ?></span>
+        </<?php echo $htag2; ?>>
+    <?php elseif ($show_contact_category === 'show_with_link') : ?>
+        <?php $contactLink = RouteHelper::getCategoryRoute($this->item->catid, $this->item->language); ?>
+        <<?php echo $htag2; ?>>
+            <span class="contact-category"><a href="<?php echo $contactLink; ?>">
+                <?php echo $this->escape($this->item->category_title); ?></a>
+            </span>
+        </<?php echo $htag2; ?>>
+    <?php endif; ?>
+
+    <?php echo $this->item->event->afterDisplayTitle; ?>
+
+    <?php if ($tparams->get('show_contact_list') && count($this->contacts) > 1) : ?>
+        <form action="#" method="get" name="selectForm" id="selectForm" class="mb-4">
+            <label for="select_contact"><?php echo Text::_('COM_CONTACT_SELECT_CONTACT'); ?></label>
+            <?php echo HTMLHelper::_(
+                'select.genericlist',
+                $this->contacts,
+                'select_contact',
+                'class="form-select inputbox" onchange="document.location.href = this.value"',
+                'link',
+                'name',
+                $this->item->link
+            );
+            ?>
+        </form>
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_tags', 1) && !empty($this->item->tags->itemTags)) : ?>
+        <div class="com-contact__tags">
+            <?php $this->item->tagLayout = new FileLayout('joomla.content.tags'); ?>
+            <?php echo $this->item->tagLayout->render($this->item->tags->itemTags); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php echo $this->item->event->beforeDisplayContent; ?>
+
+    <?php if ($this->params->get('show_info', 1)) : ?>
+        <div class="row">
+            <?php echo '<' . $htag2 . '>' . Text::_('COM_CONTACT_DETAILS') . '</' . $htag2 . '>'; ?>
+
+            <div class="col">
+                <?php if ($this->item->con_position && $tparams->get('show_position')) : ?>
+                    <div class="contact-position d-flex mb-3">
+                            <div class="me-2 ">
+                                <strong><?php echo Text::_('COM_CONTACT_POSITION'); ?>:</strong>
+                            </div>
+                        <div itemprop="jobTitle">
+                            <?php echo $this->item->con_position; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <div class="contact-info">
+                    <?php echo $this->loadTemplate('address'); ?>
+                    <?php if ($tparams->get('allow_vcard')) : ?>
+                        <div class="mb-4">
+                        <?php echo Text::_('COM_CONTACT_DOWNLOAD_INFORMATION_AS'); ?>
+                        <a href="<?php echo Route::_('index.php?option=com_contact&view=contact&catid=' . $this->item->catslug . '&id=' . $this->item->slug . '&format=vcf'); ?>">
+                        <?php echo Text::_('COM_CONTACT_VCARD'); ?>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                </div>             
+            </div>
+
+            <?php if ($this->item->image && $tparams->get('show_image')) : ?>
+                <div class="col-lg-auto">
+                    <?php echo LayoutHelper::render(
+                        'joomla.html.image',
+                        [
+                            'src'      => $this->item->image,
+                            'alt'      => $this->item->name,
+                        ]
+                    ); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_email_form') && ($this->item->email_to || $this->item->user_id)) : ?>
+        <?php echo '<' . $htag2 . '>' . Text::_('COM_CONTACT_EMAIL_FORM') . '</' . $htag2 . '>'; ?>
+
+        <?php echo $this->loadTemplate('form'); ?>
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_links')) : ?>
+        <?php echo '<' . $htag2 . '>' . Text::_('COM_CONTACT_LINKS') . '</' . $htag2 . '>'; ?>
+
+        <?php echo $this->loadTemplate('links'); ?>
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_articles') && $this->item->user_id && $this->item->articles) : ?>
+        <?php echo '<' . $htag2 . '>' . Text::_('JGLOBAL_ARTICLES') . '</' . $htag2 . '>'; ?>
+
+        <?php echo $this->loadTemplate('articles'); ?>
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_profile') && $this->item->user_id && PluginHelper::isEnabled('user', 'profile')) : ?>
+        <?php echo '<' . $htag2 . '>' . Text::_('COM_CONTACT_PROFILE') . '</' . $htag2 . '>'; ?>
+
+        <?php echo $this->loadTemplate('profile'); ?>
+    <?php endif; ?>
+
+    <?php if ($tparams->get('show_user_custom_fields') && $this->contactUser) : ?>
+        <?php echo $this->loadTemplate('user_custom_fields'); ?>
+    <?php endif; ?>
+
+    <?php if ($this->item->misc && $tparams->get('show_misc')) : ?>
+        <?php echo '<' . $htag2 . '>' . Text::_('COM_CONTACT_OTHER_INFORMATION') . '</' . $htag2 . '>'; ?>
+
+        <div class="com-contact__miscinfo contact-miscinfo">
+			<div class="d-flex">
+				<div class="me-2">
+                    <?php if (!$this->params->get('marker_misc')) : ?>
+                        <span class="fas fa-info-circle" aria-hidden="true"></span>
+                        <span class="visually-hidden"><?php echo Text::_('COM_CONTACT_OTHER_INFORMATION'); ?></span>
+                    <?php else : ?>
+                        <span class="<?php echo $this->params->get('marker_class'); ?>">
+                            <?php echo $this->params->get('marker_misc'); ?>
+                        </span>
+                    <?php endif; ?>
+				</div>
+				<div class="contact-misc">
+                        <?php echo $this->item->misc; ?>
+				</div>
+			</div>
+        </div>
+    <?php endif; ?>
+    <?php echo $this->item->event->afterDisplayContent; ?>
+</div>

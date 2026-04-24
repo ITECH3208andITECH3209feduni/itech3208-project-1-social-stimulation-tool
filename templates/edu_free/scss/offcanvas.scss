@@ -1,0 +1,46 @@
+.offcanvas-menu {
+  .offcanvas-inner {
+    .uk-nav-center li>.menu-separator {
+      justify-content: center;
+    }
+    ul.menu {
+      > li {
+        ul.menu-child {
+          display: none;
+        }
+      }
+      .menu-parent {
+        .uk-nav-parent-icon {
+          transform: rotate(-90deg);
+        }
+
+        .menu-separator {
+          display: flex;
+          align-items: center;
+          .uk-nav-parent-icon {
+            cursor: pointer;
+          }
+        }
+      }
+      .menu-parent-open {
+        > * > .uk-nav-parent-icon {
+          transform: rotate(0deg);
+        }
+      }
+      .uk-nav-parent-icon {
+        svg {
+          width: 13px;
+          height: 13px;
+        }
+      }
+      &.uk-nav-primary {
+        .uk-nav-parent-icon {
+          svg {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+  }
+}
