@@ -1,5 +1,6 @@
 // Re-export all UI components for easy importing
 export { Button, buttonVariants } from './button';
+export {Logo} from "./logo";
 export { 
   Card, 
   CardHeader, 
