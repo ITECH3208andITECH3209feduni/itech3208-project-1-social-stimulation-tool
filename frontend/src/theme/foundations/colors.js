@@ -1,20 +1,46 @@
 export const colors = {
     brand: {
-        50: "#E6FFFD", // Very light teal / Mint white (background, hover light)
-        100: "#B3F5EF", // Light aqua teal (subtle highlights)
-        200: "#81E6D9", // Soft teal (disabled states, borders)
-        300: "#4FD1C5", // Medium teal (secondary accents)
-        400: "#38B2AC", // Strong teal (icons, emphasis)
-        500: "#00B9AE", // Primary brand color / Main accent
-        600: "#009E94", // Dark teal (hover, active state)
-        700: "#007F77", // Deep teal (pressed state)
-        800: "#005F5A", // Very dark teal (text on light bg)
-        900: "#003F3C", // Almost black teal (rare usage)
+        50: "#FFE5E6", // very light red (background, hover nhẹ)
+        100: "#F5B3B5", // light red
+        200: "#E68083", // soft red
+        300: "#D94D52", // medium red
+        400: "#CC2E33", // strong red
+        500: "#B81F24", // 🔴 PRIMARY (main brand)
+        600: "#9E1A1F", // hover
+        700: "#7F1519", // active
+        800: "#5F1013", // dark text / emphasis
+        900: "#3F0A0C", // very dark
+    },
+
+    navy: {
+        50: "#E6EBFF",
+        100: "#B3C2FF",
+        200: "#8099FF",
+        300: "#4D70FF",
+        400: "#264DFF",
+        500: "#0032FF", // 🔵 NAVY PRIMARY
+        600: "#002BE0",
+        700: "#0023B3",
+        800: "#001C80",
+        900: "#00144D",
+    },
+
+    gray: {
+        50: "#FFFFFF",
+        100: "#F7F8F5",
+        200: "#EDEFE9",
+        300: "#E3E6DF", // ⚪ base gray
+        400: "#C2C5BE",
+        500: "#A0A39D",
+        600: "#7F827C",
+        700: "#5F615C",
+        800: "#3F403D",
+        900: "#21221F",
     },
 
     dark: {
-        900: "#21242D", // Main dark background (app background)
-        800: "#2A2E38", // Elevated surface (cards, modals)
-        700: "#333846", // Border / secondary surface
+        900: "#21242D",
+        800: "#2A2E38",
+        700: "#333846",
     },
 };
