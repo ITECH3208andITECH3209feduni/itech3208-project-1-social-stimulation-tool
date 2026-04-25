@@ -6,9 +6,8 @@ const config = defineConfig({
         tokens: {
             colors,
             fonts: {
-                body: { value: "'Open Sans', system-ui, sans-serif" },
-                rubik: { value: "'Rubik Storm', system-ui, sans-serif" },
-                roboto: { value: "Roboto, system-ui, sans-serif" },
+                body: { value: "'Sora', system-ui, sans-serif" },
+                heading: { value: "'Sora', system-ui, sans-serif" },
             },
         },
         semanticTokens: {
@@ -17,13 +16,22 @@ const config = defineConfig({
                     value: colors.dark[900],
                 },
                 surface: {
-                    value: colors.brand[100],
+                    value: colors.gray[100],
                 },
                 border: {
                     value: colors.brand[200],
                 },
-                brand: {
-                    value: colors.brand[500],
+                text: {
+                    value: colors.gray[50], // main text or text color
+                },
+                textMuted: {
+                    value: colors.gray[500],
+                },
+                primary: {
+                    value: colors.brand[500], // red
+                },
+                secondary: {
+                    value: colors.navy[500], // navy
                 },
             },
         },
