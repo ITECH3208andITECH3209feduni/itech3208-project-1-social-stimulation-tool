@@ -28,8 +28,6 @@ const AppRoutes = () => {
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/terms" element={<TermsConditionsPage />} />
             </Route>
-
-            {/* Account pages không cần dùng Navbar */}
             <Route path="/account" element={<AccountLayout />}>
             <Route index element={<Navigate to="login"/>} />
                 <Route path="login" element={<LoginPage />} />
