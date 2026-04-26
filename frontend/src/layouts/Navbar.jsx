@@ -1,6 +1,6 @@
 import { Flex, HStack, Box, Image } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
-import logo from "@/assets/images/feduni_logo.svg"
+import { federationLogo } from "@/assets"
 
 const Navbar = () => {
   return (
@@ -15,8 +15,9 @@ const Navbar = () => {
       bg="white"
       gap="6"
       color="black"
+      fontSize={16}
     >
-      <Image src={logo} alt="Federation University" h="50px" />
+      <Image src={federationLogo} alt="Federation University" h="60px" />
       <HStack gap="8">
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
