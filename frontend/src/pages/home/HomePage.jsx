@@ -1,5 +1,5 @@
 function HomePage() {
-    return <div>HomePage</div>;
+  return <div style={{ background: "red", height: "100vh" }}>HomePage</div>;
 }
 
 export default HomePage;
