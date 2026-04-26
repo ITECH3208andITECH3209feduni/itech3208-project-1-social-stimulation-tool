@@ -7,11 +7,11 @@ function AccountLayout() {
   return (
     <Flex h="100vh">
       
-      {/* Left — ảnh + back icon */}
+      {/* Left — image + icon */}
       <Box position="relative" flex="1">
         <Image src={accountImage} alt="background" w="100%" h="100vh" objectFit="fit" />
         
-        {/* Back icon góc trên trái */}
+        {/* Back icon on the top left*/}
         <Box position="absolute" top="20px" left="20px">
           <Link to="/">
             <MdKeyboardDoubleArrowLeft size={32} color="white" />
