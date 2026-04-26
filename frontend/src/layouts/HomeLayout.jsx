@@ -1,12 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom"
+import Navbar from "@/layouts/Navbar"
 
 function HomeLayout() {
-    return (
-        <div>
-            HomeLayout
-            <Outlet />
-        </div>
-    );
+  return (
+    <div>
+      <Navbar />
+      <Outlet />
+    </div>
+  )
 }
 
-export default HomeLayout;
+export default HomeLayout  

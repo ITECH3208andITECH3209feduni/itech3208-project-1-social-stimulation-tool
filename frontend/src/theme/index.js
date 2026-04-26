@@ -22,7 +22,7 @@ const config = defineConfig({
                     value: colors.brand[200],
                 },
                 text: {
-                    value: colors.gray[50], // main text or text color
+                    value: colors, // main text or text color
                 },
                 textMuted: {
                     value: colors.gray[500],
@@ -31,7 +31,7 @@ const config = defineConfig({
                     value: colors.brand[500], // red
                 },
                 secondary: {
-                    value: colors.navy[500], // navy
+                    value: colors.navy[500], //navy
                 },
             },
         },
