@@ -5,9 +5,9 @@ import UsersFeedbackGrid from "@/components/common/grids/UsersFeedbackGrid";
 
 function HomePage() {
     return (
-        <div style={{ background: "white", height: "100vh" }}>
+        <div style={{ background: "white" }}>
             <Banner />
-            <Container mt={"100px"} mb={"100px"} spaceY={10} background={"white"}>
+            <Container mt={"100px"} spaceY={10} background={"white"}>
                 <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={48}>
                     NEW SCENARIOS
                 </Heading>
