@@ -17,7 +17,9 @@ function HomePage() {
                 </Heading>
                 <Box spaceY={5}>
                     <UsersFeedbackGrid />
-                    <Button size={"sm"} color={"white"} bg={"brand.500"} fontFamily={"Sora"}>View All</Button>
+                    <Button size={"sm"} color={"white"} bg={"brand.500"} fontFamily={"Sora"}>
+                        View All
+                    </Button>
                 </Box>
             </Container>
         </div>
