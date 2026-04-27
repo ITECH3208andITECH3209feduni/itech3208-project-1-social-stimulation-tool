@@ -49,7 +49,7 @@ function Banner() {
                 </Flex>
 
                 {/* Section3: Landing Image */}
-                <Flex flex={1} >
+                <Flex flex={1}>
                     <Image src={landingPage} fit={"cover"} w="full" h="100%" />
                 </Flex>
             </Flex>
