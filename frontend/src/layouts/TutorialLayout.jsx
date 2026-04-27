@@ -3,7 +3,7 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/footer/Footer";
 import { Container } from "@chakra-ui/react";
 
-function HomeLayout() {
+function TutorialLayout() {
     return (
         <Container fluid>
             <Navbar />
@@ -13,4 +13,4 @@ function HomeLayout() {
     );
 }
 
-export default HomeLayout;
+export default TutorialLayout;
