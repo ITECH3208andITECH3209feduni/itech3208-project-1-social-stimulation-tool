@@ -18,6 +18,7 @@
     "@emotion/styled": "^11.14.1",
     "@tailwindcss/vite": "^4.2.4",
     "next-themes": "^0.4.6",
+    "proptypes": "^1.1.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-icons": "^5.6.0",
