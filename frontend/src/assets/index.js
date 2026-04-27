@@ -8,4 +8,13 @@ const star2 = "/images/star2.svg";
 const star3 = "/images/star3.svg";
 const imgScenario = "/images/img_scenario.svg";
 
-export { federationLogo, landingPage, registerImage, accountImage, star1, star2, star3, imgScenario };
+export {
+    federationLogo,
+    landingPage,
+    registerImage,
+    accountImage,
+    star1,
+    star2,
+    star3,
+    imgScenario,
+};

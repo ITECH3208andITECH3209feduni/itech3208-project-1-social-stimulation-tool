@@ -50,7 +50,7 @@ export const colors = {
         800: "#003166",
         900: "#001933",
     },
-  
+
     yellow: {
         500: { value: "#FFC633" },
     },
