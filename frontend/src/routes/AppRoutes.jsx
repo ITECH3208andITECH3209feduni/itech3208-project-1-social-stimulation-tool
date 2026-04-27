@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 // layouts
 import HomeLayout from "@/layouts/HomeLayout";
 import AccountLayout from "@/layouts/AccountLayout";
+import TutorialLayout from "@/layouts/TutorialLayout";
 
 // pages
 import HomePage from "@/pages/home/HomePage";
@@ -23,9 +24,11 @@ const AppRoutes = () => {
                     <Route path="sub-page-1" />
                     <Route path="sub-page-2" />
                 </Route>
-                <Route path="/tutorial" element={<TutorialPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/terms" element={<TermsConditionsPage />} />
+            </Route>
+            <Route element={<TutorialLayout />}>
+                <Route path="/tutorial" element={<TutorialPage />} />
             </Route>
             <Route path="/account" element={<AccountLayout />}>
                 <Route index element={<Navigate to="login" />} />
