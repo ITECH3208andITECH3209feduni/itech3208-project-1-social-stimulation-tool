@@ -38,6 +38,10 @@ export const colors = {
         900: "#21221F",
     },
 
+    yellow: {
+        500: { value: "#FFC633" },
+    },
+
     dark: {
         900: "#21242D",
         800: "#2A2E38",
