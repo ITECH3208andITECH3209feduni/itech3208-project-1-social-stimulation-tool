@@ -1,37 +1,48 @@
 {
-    "name": "frontend",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "eslint"
-    },
-    "dependencies": {
-        "@chakra-ui/react": "^3.35.0",
-        "@emotion/react": "^11.14.0",
-        "@emotion/styled": "^11.14.1",
-        "@radix-ui/react-slot": "^1.2.4",
-        "class-variance-authority": "^0.7.1",
-        "clsx": "^2.1.1",
-        "framer-motion": "^12.38.0",
-        "next": "16.2.4",
-        "react": "19.2.4",
-        "react-dom": "19.2.4",
-        "tailwind-merge": "^3.5.0"
-    },
-    "devDependencies": {
-        "@tailwindcss/postcss": "^4",
-        "@types/node": "^20",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
-        "eslint": "^9",
-        "eslint-config-next": "16.2.4",
-        "eslint-plugin-import": "^2.32.0",
-        "eslint-plugin-jsx-a11y": "^6.10.2",
-        "eslint-plugin-react-hooks": "^7.1.1",
-        "tailwindcss": "^4",
-        "typescript": "^5"
-    }
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^3.31.0",
+    "@chakra-ui/system": "^2.6.2",
+    "@chakra-ui/theme-tools": "^2.2.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@tailwindcss/vite": "^4.2.4",
+    "next-themes": "^0.4.6",
+    "proptypes": "^1.1.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-icons": "^5.6.0",
+    "react-player": "^3.4.0",
+    "react-router-dom": "^7.12.0",
+    "zustand": "^5.0.10"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.23",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "postcss": "^8.5.6",
+    "prettier": "^3.8.3",
+    "tailwindcss": "^3.4.19",
+    "vite": "^6.0.5",
+    "vite-tsconfig-paths": "^6.0.4"
+  }
 }
