@@ -1,4 +1,4 @@
-import { Routes, Route , Navigate} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // layouts
 import HomeLayout from "@/layouts/HomeLayout";
@@ -12,7 +12,6 @@ import ContactPage from "@/pages/contact/ContactPage";
 import TermsConditionsPage from "@/pages/terms&conditions/TermsConditionsPage";
 import LoginPage from "@/pages/account/LoginPage";
 import RegisterPage from "@/pages/account/RegisterPage";
-
 
 const AppRoutes = () => {
     return (
@@ -29,7 +28,7 @@ const AppRoutes = () => {
                 <Route path="/terms" element={<TermsConditionsPage />} />
             </Route>
             <Route path="/account" element={<AccountLayout />}>
-            <Route index element={<Navigate to="login"/>} />
+                <Route index element={<Navigate to="login" />} />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
             </Route>

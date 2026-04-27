@@ -3,12 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import { federationLogo } from "@/assets";
 
 const Navbar = () => {
-        const navStyle = ({isActive}) => ({
+    const navStyle = ({ isActive }) => ({
         color: isActive ? "#0032FF" : "black",
-        fontweight: isActive? "600":"800",
+        fontweight: isActive ? "600" : "800",
         borderBottom: isActive ? "2px solid #0032FF" : "none",
-  paddingBottom: "4px",
-    })
+        paddingBottom: "4px",
+    });
     return (
         <Flex
             as="nav"
@@ -32,12 +32,24 @@ const Navbar = () => {
                 />
             </Link>
             <HStack gap="8">
-                <NavLink to="/" style={navStyle}>Home</NavLink>
-                <NavLink to="/about"style={navStyle}>About</NavLink>
-                <NavLink to="/tutorial"style={navStyle}>Tutorial</NavLink>
-                <NavLink to="/contact"style={navStyle}>Contact</NavLink>
-                <NavLink to="/terms"style={navStyle}>Terms & Conditions</NavLink>
-                <NavLink to="/account"style={navStyle}>Account</NavLink>
+                <NavLink to="/" style={navStyle}>
+                    Home
+                </NavLink>
+                <NavLink to="/about" style={navStyle}>
+                    About
+                </NavLink>
+                <NavLink to="/tutorial" style={navStyle}>
+                    Tutorial
+                </NavLink>
+                <NavLink to="/contact" style={navStyle}>
+                    Contact
+                </NavLink>
+                <NavLink to="/terms" style={navStyle}>
+                    Terms & Conditions
+                </NavLink>
+                <NavLink to="/account" style={navStyle}>
+                    Account
+                </NavLink>
 
                 <Box
                     w="9"
