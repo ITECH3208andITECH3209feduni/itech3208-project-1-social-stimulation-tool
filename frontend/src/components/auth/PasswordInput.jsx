@@ -23,6 +23,7 @@ function PasswordInput({ placeholder = "Enter password" }) {
             }
         >
             <Input
+                borderColor={"gray.400"}
                 background="gray.100"
                 type={show ? "text" : "password"}
                 placeholder={placeholder}
