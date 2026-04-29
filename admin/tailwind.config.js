@@ -6,7 +6,7 @@ export default {
             fontFamily: {
                 sora: ["Sora", "sans-serif"],
             },
-            
+
             colors: {
                 brand: {
                     50: "#FFE5E6",
