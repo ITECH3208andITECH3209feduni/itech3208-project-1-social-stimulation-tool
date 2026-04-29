@@ -54,13 +54,13 @@ const config = defineConfig({
     },
 
     globalCss: {
-        "html": {
+        html: {
             // font-family: "Sora", sans-serif;
             fontFamily: "'Sora', system-ui, sans-serif",
         },
-        "body" : {
-            color: colors.whiteAlpha[500]
-        }
+        body: {
+            color: colors.whiteAlpha[500],
+        },
     },
 });
 
