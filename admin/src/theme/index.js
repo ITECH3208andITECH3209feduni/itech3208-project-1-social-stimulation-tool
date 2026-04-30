@@ -20,7 +20,7 @@ const config = defineConfig({
                     value: colors.gray[100],
                 },
                 border: {
-                    value: colors.dark[700],
+                    value: colors.brand[500],
                 },
                 text: {
                     value: colors.whiteAlpha[500],
