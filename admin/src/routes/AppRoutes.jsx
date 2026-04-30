@@ -40,7 +40,7 @@ const AppRoutes = () => {
                 <Route path="/admin" element={<BaseLayout />}>
                     <Route index element={<DashboardPage />} />
                     <Route path="dashboard" element={<DashboardPage />} />
-                    <Route path="article" element={<ArticlePage />} />
+                    {/* <Route path="article" element={<ArticlePage />} /> */}
                     <Route path="contact" element={<ContactPage />} />
                     <Route path="tutorial" element={<TutorialPage />} />
                     <Route path="upload-video" element={<UploadVideoPage />} />
