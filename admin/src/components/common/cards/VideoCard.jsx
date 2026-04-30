@@ -45,7 +45,7 @@ function VideoCard({ video }) {
                 </Card.Body>
                 <Card.Footer>
                     <HStack w={"100%"} justify={"end"}>
-                        <VStack align={"start"} >
+                        <VStack align={"start"}>
                             <HStack color={"skyblue.300"} fontSize={18}>
                                 {video.comments} Comments <FaComment />
                             </HStack>
