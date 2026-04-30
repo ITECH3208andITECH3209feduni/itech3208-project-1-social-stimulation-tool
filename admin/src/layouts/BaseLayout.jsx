@@ -7,7 +7,7 @@ import { federationLogo } from "@/assets";
 import Sidebar from "@/components/common/sidebar/Sidebar";
 
 function BaseLayout() {
-        const [displayName, setDisplayName] = useState("User".slice(0, 2).toUpperCase());
+    const [displayName, setDisplayName] = useState("User".slice(0, 2).toUpperCase());
     return (
         <Flex minH="100vh" bg="dark.900">
             {/* Sidebar */}
@@ -50,7 +50,7 @@ function BaseLayout() {
             </Box>
 
             {/* Main content area */}
-            <Flex direction="column" flex="4" overflowX="hidden">
+            <Flex direction="column" flex="6" overflowX="hidden">
                 {/* Header */}
                 <Flex justify="flex-end" bg="dark.900" p={4}>
                     {/* Avatar */}
