@@ -26,11 +26,11 @@ const tabs = [
         icon: <MdVideoLibrary />,
         path: "/admin/upload-video",
     },
-    {
-        label: "Articles",
-        icon: <MdFileCopy />,
-        path: "/admin/article",
-    },
+    // {
+    //     label: "Articles",
+    //     icon: <MdFileCopy />,
+    //     path: "/admin/article",
+    // },
     {
         label: "Users",
         icon: <MdSupervisedUserCircle />,
