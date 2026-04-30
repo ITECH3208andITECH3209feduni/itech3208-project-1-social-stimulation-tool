@@ -1,6 +1,6 @@
-import { IconButton, VStack, Pagination, ButtonGroup, Heading } from "@chakra-ui/react";
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import ContactGrid from "@/components/common/grids/ContactGrid";
+import { Card, Grid, GridItem, For } from "@chakra-ui/react";
+import ContactCard from "../cards/ContactCard";
+import { STATUS } from "@/components/badges/StatusBadge";
 
 export const contacts = [
     {
@@ -9,6 +9,7 @@ export const contacts = [
         email: "emily.tran@gmail.com",
         phone: "0412345678",
         address: "Melbourne, VIC",
+        status: STATUS.PENDING.value,
         description:
             "I have social anxiety and find it difficult to communicate in everyday situations like ordering food or asking for help. I want to use Scenari-Aid to practice real-life conversations.",
     },
@@ -16,6 +17,7 @@ export const contacts = [
         id: 2,
         name: "James Walker",
         email: "james.walker@hotmail.com",
+        status: STATUS.IN_PROGRESS.value,
         description:
             "I struggle with job interviews and often get nervous. I am looking for realistic interview scenarios to improve my confidence.",
     },
@@ -24,6 +26,7 @@ export const contacts = [
         name: "Nguyen Minh Anh",
         email: "minhanh.nguyen@gmail.com",
         phone: "0423456789",
+        status: STATUS.RESOLVED.value,
         description:
             "English is not my first language. I want to practice daily conversations like shopping and talking to coworkers.",
     },
@@ -32,6 +35,7 @@ export const contacts = [
         name: "Sophie Brown",
         email: "sophie.brown@yahoo.com",
         address: "Ballarat, VIC",
+        status: STATUS.PENDING.value,
         description:
             "I am recovering from a stroke and need help rebuilding my communication skills step by step.",
     },
@@ -40,6 +44,7 @@ export const contacts = [
         name: "Daniel Lee",
         email: "daniel.lee@gmail.com",
         phone: "0400111222",
+        status: STATUS.IN_PROGRESS.value,
         description:
             "I have a stuttering problem and want to practice speaking fluently in social situations.",
     },
@@ -47,6 +52,7 @@ export const contacts = [
         id: 6,
         name: "Michael Johnson",
         email: "m.johnson@gmail.com",
+        status: STATUS.REJECTED.value,
         description:
             "I have been unemployed for a long time and want to practice job interviews and workplace communication.",
     },
@@ -56,6 +62,7 @@ export const contacts = [
         email: "hannah.wilson@gmail.com",
         phone: "0433222111",
         address: "Geelong, VIC",
+        status: STATUS.PENDING.value,
         description:
             "I feel nervous making phone calls like booking appointments or talking to customer service.",
     },
@@ -63,6 +70,7 @@ export const contacts = [
         id: 8,
         name: "Ali Hassan",
         email: "ali.hassan@gmail.com",
+        status: STATUS.REJECTED.value,
         description:
             "I recently moved to Australia and need help adapting to everyday social interactions and cultural communication.",
     },
@@ -71,6 +79,7 @@ export const contacts = [
         name: "Lucas Martin",
         email: "lucas.martin@gmail.com",
         phone: "0455667788",
+        status: STATUS.REJECTED.value,
         description:
             "I want to practice conversations in cafes and restaurants because I feel uncomfortable speaking in public.",
     },
@@ -79,6 +88,7 @@ export const contacts = [
         name: "Jessica Taylor",
         email: "jessica.taylor@gmail.com",
         address: "Sydney, NSW",
+        status: STATUS.RESOLVED.value,
         description:
             "I need to improve my communication skills for professional environments like meetings and presentations.",
     },
@@ -87,6 +97,7 @@ export const contacts = [
         name: "Chris Nguyen",
         email: "chris.nguyen@gmail.com",
         phone: "0411999888",
+        status: STATUS.REJECTED.value,
         description:
             "I want to simulate real-life scenarios like booking flights or talking to service staff.",
     },
@@ -94,44 +105,26 @@ export const contacts = [
         id: 12,
         name: "Olivia Smith",
         email: "olivia.smith@gmail.com",
+        status: STATUS.REJECTED.value,
         description:
             "I lack confidence in social conversations and want structured practice through guided scenarios.",
     },
 ];
 
-function ContactPage() {
+function ContactGrid() {
     return (
-        <VStack gap={6}>
-            <Heading alignSelf={"start"} color={"brand.400"} fontSize={48}>
-                Contact Management
-            </Heading>
-            <ContactGrid />
-            {/* Pagination */}
-            <Pagination.Root count={contacts.length * 5} pageSize={5} page={1}>
-                <ButtonGroup variant="ghost" size="sm" wrap="wrap">
-                    <Pagination.PrevTrigger asChild>
-                        <IconButton>
-                            <LuChevronLeft />
-                        </IconButton>
-                    </Pagination.PrevTrigger>
-
-                    <Pagination.Items
-                        render={(page) => (
-                            <IconButton variant={{ base: "ghost", _selected: "outline" }}>
-                                {page.value}
-                            </IconButton>
-                        )}
-                    />
-
-                    <Pagination.NextTrigger asChild>
-                        <IconButton>
-                            <LuChevronRight />
-                        </IconButton>
-                    </Pagination.NextTrigger>
-                </ButtonGroup>
-            </Pagination.Root>
-        </VStack>
+        <Grid gap={4} templateColumns={"repeat(3, 1fr)"} templateRows={"repeat(4, 1fr)"}>
+            <For each={contacts}>
+                {(contact) => {
+                    return (
+                        <GridItem key={contact.id}>
+                            <ContactCard contact={contact} />
+                        </GridItem>
+                    );
+                }}
+            </For>
+        </Grid>
     );
 }
 
-export default ContactPage;
+export default ContactGrid;
