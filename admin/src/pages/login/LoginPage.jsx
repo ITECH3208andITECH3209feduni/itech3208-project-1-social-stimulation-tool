@@ -1,16 +1,28 @@
-import { Button, Field, Heading, Input, Box, Flex, Text, Image, HStack, VStack, Center } from "@chakra-ui/react";
+import {
+    Button,
+    Field,
+    Heading,
+    Input,
+    Box,
+    Flex,
+    Text,
+    Image,
+    HStack,
+    VStack,
+    Center,
+} from "@chakra-ui/react";
 import React from "react";
 import { federationLogo } from "@/assets";
 
 function LoginPage() {
     return (
         <Flex
-        h={"100vh"}
+            h={"100vh"}
             bgGradient="linear(to-b, dark.700, white)"
             justifyContent={"center"}
             alignItems={"center"}
         >
-            <Box 
+            <Box
                 w="360px"
                 p="4"
                 bg="dark.700"
@@ -20,17 +32,17 @@ function LoginPage() {
                 rounded={"lg"}
             >
                 {/* Icon */}
-                <VStack >
-                        <Image src={federationLogo} h={"50px"} />
-                        {/* Title */}
-                        <HStack justifyContent={"center"}>
-                            <Heading color="dark.500" fontSize={25} >
-                                Scenario
-                            </Heading>
-                            <Heading color="brand.500" fontSize={25} >
-                                Aid
-                            </Heading>
-                        </HStack>
+                <VStack>
+                    <Image src={federationLogo} h={"50px"} />
+                    {/* Title */}
+                    <HStack justifyContent={"center"}>
+                        <Heading color="dark.500" fontSize={25}>
+                            Scenario
+                        </Heading>
+                        <Heading color="brand.500" fontSize={25}>
+                            Aid
+                        </Heading>
+                    </HStack>
                 </VStack>
 
                 {/* Username */}
@@ -46,7 +58,7 @@ function LoginPage() {
                 </Field.Root>
 
                 {/* Password */}
-                <Field.Root >
+                <Field.Root>
                     <Input
                         placeholder="Password"
                         p={"4"}
