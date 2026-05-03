@@ -81,8 +81,8 @@ function UserPage() {
 
     return (
         <VStack gap={8}>
-            <Heading alignSelf={"start"} color={"brand.400"} fontSize={48}>
-                Users Management
+            <Heading alignSelf={"start"} color="dark.500" fontSize={"30px"} fontWeight="bold">
+                Tutorial Management
             </Heading>
             <Table.Root variant={"outline"}>
                 {/* Table Header */}

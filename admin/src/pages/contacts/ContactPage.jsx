@@ -102,8 +102,8 @@ export const contacts = [
 function ContactPage() {
     return (
         <VStack gap={6}>
-            <Heading alignSelf={"start"} color={"brand.400"} fontSize={48}>
-                Contact Management
+            <Heading alignSelf={"start"} color="dark.500" fontSize={"30px"} fontWeight="bold">
+                Tutorial Management
             </Heading>
             <ContactGrid />
             {/* Pagination */}
