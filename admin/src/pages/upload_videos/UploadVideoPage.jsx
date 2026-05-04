@@ -111,6 +111,9 @@ function UploadVideoPage() {
     return (
         <VStack spacing={8} align="stretch">
             {/* Publish Form Section */}
+            <Heading alignSelf={"start"} color="dark.500" fontSize={"30px"} fontWeight="bold">
+                Video Upload
+            </Heading>
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Box maxW="100%" w="full" p={6} bg="dark" borderRadius="md" boxShadow="md">
                     <Heading size="lg" color="white" mb={6} textAlign="center">

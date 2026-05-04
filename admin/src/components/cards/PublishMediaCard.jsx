@@ -5,14 +5,6 @@ import { FiExternalLink } from "react-icons/fi";
 import { MdEdit } from "react-icons/md";
 
 function PublishMediaCard({ media, onEdit, onDelete, onClick }) {
-    const [videos, setVideos] = useState(() => {
-        try {
-            const stored = localStorage.getItem("publishedVideos");
-            return stored ? JSON.parse(stored) : [];
-        } catch {
-            return [];
-        }
-    });
     const handleEdit = (e) => {
         e.stopPropagation();
         onEdit?.(media);

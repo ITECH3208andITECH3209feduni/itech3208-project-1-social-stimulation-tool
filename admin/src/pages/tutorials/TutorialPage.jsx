@@ -5,7 +5,7 @@ import VideoGrid, { videoList } from "@/components/common/grids/VideoGrid";
 function TutorialPage() {
     return (
         <VStack gap={6}>
-            <Heading alignSelf={"start"} color={"brand.400"} fontSize={48}>
+            <Heading alignSelf={"start"} color="dark.500" fontSize={"30px"} fontWeight="bold">
                 Tutorial Management
             </Heading>
             <VideoGrid />
