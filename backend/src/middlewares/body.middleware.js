@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import loggerUtil from "#utils/logger.utils.js";
 import resUtil from "#utils/response.util.js";
 
-const validateBody = (req, res, next) => {
+const validate = (schema) => (req, res, next) => {
     try {
         const { error, value } = schema.validate(req.body, {
             abortEarly: false, // Get all error
@@ -17,13 +17,13 @@ const validateBody = (req, res, next) => {
                 message: e.message,
             }));
 
-            return resUtil.sendError(
+            return resUtil.sendError({
                 res,
-                "Validation failed",
-                StatusCodes.BAD_REQUEST,
-                error.details,
-                formattedErrors,
-            );
+                message: "Validation failed",
+                statusCode: StatusCodes.BAD_REQUEST,
+                errorCode: "VALIDATION_ERROR",
+                details: formattedErrors,
+            });
         }
 
         // Overwrite body with cleaned data
@@ -37,7 +37,7 @@ const validateBody = (req, res, next) => {
 };
 
 const bodyMw = {
-    validateBody,
+    validate,
 };
 
 export default bodyMw;
