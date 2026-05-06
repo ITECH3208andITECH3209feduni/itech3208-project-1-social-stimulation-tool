@@ -31,8 +31,28 @@ const CategoryService = {
             { name: "Food" },
             { name: "Accommodation" },
         ];
-        
+
         return await CategoryModel.insertMany(categories);
+    },
+
+    getCategories: async () => {
+        const categories = await CategoryModel.find().lean();
+
+        if (!categories || categories.length == 0) {
+            throw CategoryMessages.error.LIST_CATEGORIES_EMPTY();
+        }
+
+        const cleanedCategories = categories.map((c) => {
+            return {
+                id: c._id,
+                name: c.name,
+            };
+        });
+
+        return {
+            total: categories.length,
+            categories: cleanedCategories,
+        };
     },
 };
 
