@@ -5,6 +5,7 @@ import createError from "#config/error.config.js";
 const SUCCESS_MESSAGES = {
     INSERT_CATEGORY: "Insert new category successfully",
     BULK_INSERT_CATEGORY: "Initilize list categories successfully",
+    LIST_CATEGORIES_SUCCESSFULLY: "Get list categories successfully"
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
@@ -26,6 +27,12 @@ const ERROR_MESSAGES = {
             message: "List categories is already exist.",
             statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
             errorCode: "LIST_CATEGORIES_EXIST",
+        }),
+    LIST_CATEGORIES_EMPTY: () =>
+        createError({
+            message: "List categories is empty.",
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            errorCode: "LIST_CATEGORIES_EMPTY",
         }),
 };
 
