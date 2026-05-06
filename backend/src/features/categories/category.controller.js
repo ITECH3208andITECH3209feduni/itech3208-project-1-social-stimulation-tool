@@ -42,6 +42,25 @@ const CategoryController = {
             });
         }
     },
+
+    getCategories: async (req, res) => {
+        try {
+            const result = await CategoryService.getCategories();
+            return resUtil.sendSuccess({
+                res,
+                message: CategoryMessages.success.LIST_CATEGORIES_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[CategoryController.getCategories]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    }
 };
 
 export default CategoryController;
