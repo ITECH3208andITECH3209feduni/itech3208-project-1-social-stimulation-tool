@@ -5,6 +5,7 @@ const apiConfig = {
     auth: envConfig.apiPrefix + "/auth",
     manageCategory: envConfig.apiPrefix + "/admin/categories",
     category: envConfig.apiPrefix + "/categories",
+    level: envConfig.apiPrefix + "/levels",
     manageVideo: envConfig.apiPrefix + "/admin/products",
     video: envConfig.apiPrefix + "/products",
     user: envConfig.apiPrefix + "/users",
