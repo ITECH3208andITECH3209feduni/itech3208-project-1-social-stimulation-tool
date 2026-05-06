@@ -60,7 +60,26 @@ const CategoryController = {
                 errorCode: error.errorCode,
             });
         }
-    }
+    },
+
+    deleteCategory: async (req, res) => {
+        try {
+            const id = req.params.id;
+            await CategoryService.deleteCategory(id);
+            return resUtil.sendSuccess({
+                res,
+                message: CategoryMessages.success.DELETE_CATEGORY_SUCCESSFULLY,
+            });
+        } catch (error) {
+            loggerUtil.error(`[CategoryController.deleteCategory]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default CategoryController;
