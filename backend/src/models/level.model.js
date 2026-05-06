@@ -5,8 +5,8 @@ const LevelSchema = new mongoose.Schema(
         name: {
             type: String,
             required: true,
-            enum: ["beginner", "intermediate", "advanced"],
-            default: "beginner",
+            enum: ["Beginner", "Intermediate", "Advanced"],
+            default: "Beginner",
         },
     },
     {
