@@ -54,6 +54,16 @@ const CategoryService = {
             categories: cleanedCategories,
         };
     },
+
+    deleteCategory: async (id) => {
+        const existCategory = await CategoryModel.findById(id);
+
+        if (!existCategory) {
+            throw CategoryMessages.error.CATEGORY_IS_NOT_EXIST();
+        }
+        
+        await CategoryModel.deleteOne({ _id: existCategory._id });
+    },
 };
 
 export default CategoryService;
