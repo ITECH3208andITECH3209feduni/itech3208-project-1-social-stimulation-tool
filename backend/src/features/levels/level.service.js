@@ -25,6 +25,26 @@ const LevelService = {
 
         return await LevelModel.insertMany(levels);
     },
+
+    getLevels: async () => {
+        const levels = await LevelModel.find().lean();
+
+        if (!levels || levels.length == 0) {
+            throw LevelMessages.error.LIST_TUTORIAL_LEVELS_IS_EMPTY();
+        }
+
+        const cleanedLevels = levels.map((c) => {
+            return {
+                id: c._id,
+                name: c.name,
+            };
+        });
+
+        return {
+            total: levels.length,
+            levels: cleanedLevels,
+        };
+    },
 };
 
 export default LevelService;

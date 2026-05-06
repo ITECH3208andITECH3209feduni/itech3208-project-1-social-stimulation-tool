@@ -42,6 +42,25 @@ const LevelController = {
             });
         }
     },
+
+    getLevels: async (req, res) => {
+        try {
+            const result = await LevelService.getLevels();
+            return resUtil.sendSuccess({
+                res,
+                message: LevelMessages.success.LIST_TUTORIAL_LEVELS_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[LevelController.getLevels]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default LevelController;
