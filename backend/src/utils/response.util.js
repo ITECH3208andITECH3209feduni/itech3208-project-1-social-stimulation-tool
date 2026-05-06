@@ -6,7 +6,7 @@ import { StatusCodes, ReasonPhrases } from "http-status-codes";
  * @param {Object} data - Data to return, in default data is {}
  * @param {number} statusCode - http code, in default, the code is 200
  */
-const sendSuccess = (res, message, data = {}, statusCode = StatusCodes.OK) => {
+const sendSuccess = ({ res, message, data = {}, statusCode = StatusCodes.OK }) => {
     return res.status(statusCode).json({
         success: true,
         message,
@@ -21,12 +21,19 @@ const sendSuccess = (res, message, data = {}, statusCode = StatusCodes.OK) => {
  * @param {number} statusCode - http code, in default, the code is 400
  * @param {number} errorCode - business code, in default, the code is null
  */
-const sendError = (res, message, statusCode = StatusCodes.BAD_REQUEST, errorCode = null) => {
+const sendError = ({
+    res,
+    message,
+    statusCode = StatusCodes.BAD_REQUEST,
+    errorCode = null,
+    details = null,
+}) => {
     return res.status(statusCode).json({
         success: false,
         statusCode, // HTTP error
         message,
         errorCode, // Business logic error
+        details, // Joi Validation Error
         error: ReasonPhrases[statusCode] || "Error",
     });
 };
