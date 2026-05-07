@@ -5,5 +5,6 @@ import UserRouter from "#features/users/user.route.js";
 import VideoRouter from "#features/videos/video.route.js";
 import FeedbackRouter from "#features/feedbacks/feedback.route.js";
 import WishlistRouter from "#features/wishlists/wishlist.route.js";
+import ContactRouter from "#features/contacts/contact.route.js";
 
-export { CategoryRouter, LevelRouter, AuthRouter, UserRouter, VideoRouter, FeedbackRouter, WishlistRouter };
+export { CategoryRouter, LevelRouter, AuthRouter, UserRouter, VideoRouter, FeedbackRouter, WishlistRouter, ContactRouter };

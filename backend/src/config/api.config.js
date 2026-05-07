@@ -10,6 +10,7 @@ const apiConfig = {
     video: envConfig.apiPrefix + "/videos",
     feedback: envConfig.apiPrefix + "/feedbacks",
     wishlist: envConfig.apiPrefix + "/wishlists",
+    contact: envConfig.apiPrefix + "/contacts",
     user: envConfig.apiPrefix + "/users",
 };
 
