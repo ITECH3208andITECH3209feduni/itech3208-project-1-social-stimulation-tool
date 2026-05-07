@@ -2,6 +2,15 @@ import { LevelModel } from "#models/index.js";
 import LevelMessages from "./level.message.js";
 
 const LevelService = {
+    _formatLevel: (level) => {
+        if (!level) return null;
+        const { _id, __v, isDeleted, ...rest } = level._doc || level;
+        return {
+            id: _id,
+            ...rest,
+        };
+    },
+
     insertLevel: async (name) => {
         const exist = await LevelModel.findOne({ name });
 
@@ -10,7 +19,7 @@ const LevelService = {
         }
 
         const level = await LevelModel.create({ name });
-        return level;
+        return LevelService._formatLevel(level);
     },
 
     bulkInsertLevels: async () => {
@@ -23,7 +32,8 @@ const LevelService = {
 
         const levels = [{ name: "Beginner" }, { name: "Intermediate" }, { name: "Advanced" }];
 
-        return await LevelModel.insertMany(levels);
+        const inserted = await LevelModel.insertMany(levels);
+        return inserted.map(LevelService._formatLevel);
     },
 
     getLevels: async () => {
@@ -33,16 +43,9 @@ const LevelService = {
             throw LevelMessages.error.LIST_TUTORIAL_LEVELS_IS_EMPTY();
         }
 
-        const cleanedLevels = levels.map((c) => {
-            return {
-                id: c._id,
-                name: c.name,
-            };
-        });
-
         return {
             total: levels.length,
-            levels: cleanedLevels,
+            levels: levels.map(LevelService._formatLevel),
         };
     },
 };

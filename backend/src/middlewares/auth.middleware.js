@@ -3,7 +3,8 @@ import { envConfig } from "#config/index.js";
 import { jwtUtil, resUtil } from "#utils/index.js";
 
 const UserRole = {
-    user: "user",
+    individual: "individual",
+    organization: "organization",
     admin: "admin",
 };
 

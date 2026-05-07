@@ -2,6 +2,31 @@ import { WishlistModel } from "#models/index.js";
 import WishlistMessages from "./wishlist.message.js";
 
 const WishlistService = {
+    _formatWishlist: (item) => {
+        if (!item) return null;
+        
+        const formatted = {
+            id: item._id,
+            addedAt: item.createdAt,
+        };
+
+        if (item.videoId) {
+            const v = item.videoId;
+            formatted.video = {
+                id: v._id,
+                title: v.title,
+                thumbnail: v.thumbnail,
+                description: v.description,
+                duration: v.duration,
+                views: v.views,
+                category: v.categoryId ? { id: v.categoryId._id, name: v.categoryId.name } : null,
+                level: v.levelId ? { id: v.levelId._id, name: v.levelId.name } : null,
+            };
+        }
+
+        return formatted;
+    },
+
     // MARK: - TOGGLE WISHLIST
     toggleWishlist: async ({ userId, videoId }) => {
         const existedWishlist = await WishlistModel.findOne({ userId, videoId });
@@ -36,23 +61,10 @@ const WishlistService = {
             WishlistModel.countDocuments({ userId }),
         ]);
 
-        // Clean up the response to only return video data
-        const wishlist = items
-            .filter(item => item.videoId) // Filter out if video was deleted
-            .map(item => {
-                const video = item.videoId;
-                return {
-                    id: item._id,
-                    video: {
-                        id: video._id,
-                        ...video
-                    },
-                    addedAt: item.createdAt
-                };
-            });
-
         return {
-            wishlist,
+            wishlist: items
+                .filter(item => item.videoId)
+                .map(WishlistService._formatWishlist),
             pagination: {
                 total,
                 page,

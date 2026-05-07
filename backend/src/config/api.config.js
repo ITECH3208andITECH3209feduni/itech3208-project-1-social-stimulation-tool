@@ -1,17 +1,30 @@
 import envConfig from "./env.config.js";
 
+const apiPrefix = envConfig.apiPrefix;
+
 const apiConfig = {
-    admin: envConfig.apiPrefix + "/admin",
-    auth: envConfig.apiPrefix + "/auth",
-    manageCategory: envConfig.apiPrefix + "/admin/categories",
-    category: envConfig.apiPrefix + "/categories",
-    level: envConfig.apiPrefix + "/levels",
-    manageVideo: envConfig.apiPrefix + "/admin/videos",
-    video: envConfig.apiPrefix + "/videos",
-    feedback: envConfig.apiPrefix + "/feedbacks",
-    wishlist: envConfig.apiPrefix + "/wishlists",
-    contact: envConfig.apiPrefix + "/contacts",
-    user: envConfig.apiPrefix + "/users",
+    // MARK: - AUTH
+    auth: apiPrefix + "/auth",
+
+    // MARK: - PUBLIC
+    video: apiPrefix + "/videos",
+    feedback: apiPrefix + "/feedbacks",
+    category: apiPrefix + "/categories",
+    level: apiPrefix + "/levels",
+
+    // MARK: - COMMON (Individual & Organization)
+    me: apiPrefix + "/me",
+
+    // MARK: - INDIVIDUAL ONLY
+    individual: apiPrefix + "/individual",
+
+    // MARK: - ORGANIZATION ONLY
+    organization: apiPrefix + "/organization",
+
+    // MARK: - ADMIN ONLY
+    admin: apiPrefix + "/admin",
+    manageVideo: apiPrefix + "/admin/videos",
+    manageCategory: apiPrefix + "/admin/categories",
 };
 
 export default apiConfig;

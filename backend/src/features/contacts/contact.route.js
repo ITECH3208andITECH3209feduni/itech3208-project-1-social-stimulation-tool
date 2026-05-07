@@ -8,7 +8,7 @@ const router = express.Router();
 // POST /api/v1/contacts — Send contact message (Authenticated users)
 router.post(
     "/",
-    authMw.authorizeRole([authMw.UserRole.user, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization, authMw.UserRole.admin]),
     bodyMw.validate(ContactSchema.sendContact),
     ContactController.sendContact
 );

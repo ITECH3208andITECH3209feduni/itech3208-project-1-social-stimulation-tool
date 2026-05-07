@@ -69,7 +69,10 @@ const ContactService = {
 
     // MARK: - UPDATE STATUS (Admin)
     updateStatus: async (contactId, status) => {
-        const contact = await ContactModel.findById(contactId);
+        const contact = await ContactModel.findById(contactId)
+            .populate("userId", "username email")
+            .populate("categoryId", "name");
+
         if (!contact) {
             throw ContactMessages.error.CONTACT_NOT_FOUND();
         }
@@ -77,7 +80,7 @@ const ContactService = {
         contact.status = status;
         await contact.save();
 
-        return { id: contact._id, status: contact.status };
+        return ContactService._formatContact(contact.toObject());
     },
 };
 

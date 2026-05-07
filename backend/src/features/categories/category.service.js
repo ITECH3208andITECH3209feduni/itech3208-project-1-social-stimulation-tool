@@ -2,6 +2,15 @@ import { CategoryModel } from "#models/index.js";
 import CategoryMessages from "./category.message.js";
 
 const CategoryService = {
+    _formatCategory: (category) => {
+        if (!category) return null;
+        const { _id, __v, isDeleted, ...rest } = category._doc || category;
+        return {
+            id: _id,
+            ...rest,
+        };
+    },
+
     insertCategory: async (name) => {
         const exist = await CategoryModel.findOne({ name });
 
@@ -10,7 +19,7 @@ const CategoryService = {
         }
 
         const category = await CategoryModel.create({ name });
-        return category;
+        return CategoryService._formatCategory(category);
     },
 
     bulkInsertCategories: async () => {
@@ -32,7 +41,8 @@ const CategoryService = {
             { name: "Accommodation" },
         ];
 
-        return await CategoryModel.insertMany(categories);
+        const inserted = await CategoryModel.insertMany(categories);
+        return inserted.map(CategoryService._formatCategory);
     },
 
     getCategories: async () => {
@@ -42,16 +52,9 @@ const CategoryService = {
             throw CategoryMessages.error.LIST_CATEGORIES_EMPTY();
         }
 
-        const cleanedCategories = categories.map((c) => {
-            return {
-                id: c._id,
-                name: c.name,
-            };
-        });
-
         return {
             total: categories.length,
-            categories: cleanedCategories,
+            categories: categories.map(CategoryService._formatCategory),
         };
     },
 

@@ -51,6 +51,10 @@ const VALIDATION_MESSAGES = {
         "any.required": "Phone is required",
         "string.length": "Phone must be exactly 10 digits",
     },
+    role: {
+        "string.base": "Role must be a string",
+        "any.only": "Role must be either individual or organization",
+    },
 };
 
 const AuthMessages = {

@@ -4,58 +4,55 @@ import { multerConfig } from "#config/index.js";
 import VideoController from "./video.controller.js";
 import VideoSchema from "./video.validation.js";
 
-const router = express.Router();
+const publicRouter = express.Router();
+const userRouter = express.Router();
+const adminRouter = express.Router();
 
-// POST /api/v1/videos — Create video + upload file (multipart/form-data)
-// Fields: title, description, categoryId, levelId, tags[] + file: video
-router.post(
+// MARK: - PUBLIC ROUTES
+publicRouter.get("/", VideoController.getVideos);
+publicRouter.get("/:id", VideoController.getVideoById);
+
+// MARK: - USER ROUTES (Organization Management)
+userRouter.post(
     "/",
-    authMw.authorizeRole([authMw.UserRole.user, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.organization, authMw.UserRole.admin]),
     multerConfig.single("video"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadVideo),
     bodyMw.validate(VideoSchema.createVideo),
-    VideoController.createVideo,
+    VideoController.createVideo
 );
 
-// PATCH /api/v1/videos/upload-video/:id — Upload video file to Cloudinary
-router.patch(
+userRouter.patch(
     "/upload-video/:id",
-    authMw.authorizeRole([authMw.UserRole.user, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.organization, authMw.UserRole.admin]),
     multerConfig.single("video"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadVideo),
-    VideoController.uploadVideo,
+    VideoController.uploadVideo
 );
 
-// PATCH /api/v1/videos/upload-thumbnail/:id — Upload thumbnail image to Cloudinary
-router.patch(
+userRouter.patch(
     "/upload-thumbnail/:id",
-    authMw.authorizeRole([authMw.UserRole.user, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.organization, authMw.UserRole.admin]),
     multerConfig.single("thumbnail"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadThumbnail),
-    VideoController.uploadThumbnail,
+    VideoController.uploadThumbnail
 );
 
- router.patch(
+userRouter.patch(
     "/:id",
-    authMw.authorizeRole([authMw.UserRole.user]),
+    authMw.authorizeRole([authMw.UserRole.organization]),
     bodyMw.validate(VideoSchema.updateVideoInfo),
-    VideoController.updateVideoInfo,
+    VideoController.updateVideoInfo
 );
 
-// GET /api/v1/videos — Get all published videos (public, with filters & pagination)
-router.get("/", VideoController.getVideos);
-
-// GET /api/v1/videos/:id — Get single video by ID (public)
-router.get("/:id", VideoController.getVideoById);
-
-// DELETE /api/v1/videos/delete/:id — Soft delete video (admin only)
-router.delete(
-    "/delete/:id",
+// MARK: - ADMIN ROUTES
+adminRouter.delete(
+    "/:id",
     authMw.authorizeRole([authMw.UserRole.admin]),
-    VideoController.deleteVideo,
+    VideoController.deleteVideo
 );
 
-export default router;
+export { publicRouter as VideoPublicRouter, userRouter as VideoUserRouter, adminRouter as VideoAdminRouter };
