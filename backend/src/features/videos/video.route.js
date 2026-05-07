@@ -38,6 +38,13 @@ router.patch(
     VideoController.uploadThumbnail,
 );
 
+ router.patch(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.user]),
+    bodyMw.validate(VideoSchema.updateVideoInfo),
+    VideoController.updateVideoInfo,
+);
+
 // GET /api/v1/videos — Get all published videos (public, with filters & pagination)
 router.get("/", VideoController.getVideos);
 
