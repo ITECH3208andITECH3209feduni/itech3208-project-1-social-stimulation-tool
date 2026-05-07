@@ -4,6 +4,7 @@ import createError from "#config/error.config.js";
 // MARK: - BUSINESS SUCCESS MESSAGES
 const SUCCESS_MESSAGES = {
     REGISTER_SUCCESSFULLY: "Register account successfully",
+    LOGIN_SUCCESSFULLY: "Login account successfully",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
