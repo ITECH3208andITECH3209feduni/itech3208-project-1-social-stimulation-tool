@@ -8,7 +8,7 @@ const SUCCESS_MESSAGES = {
     GET_VIDEO_SUCCESSFULLY: "Get video information successfully.",
     GET_VIDEOS_SUCCESSFULLY: "Get videos successfully.",
     DELETE_VIDEO_SUCCESSFULLY: "Video deleted successfully.",
-    UPDATE_VIDEO_SUCCESSFULLY: "Video updated successfully.",
+    UPDATE_VIDEO_INFO_SUCCESSFULLY: "Video information updated successfully.",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
@@ -94,6 +94,9 @@ const VALIDATION_MESSAGES = {
     thumbnailSize: {
         "any.required": "Thumbnail size is required",
         "number.max": "Thumbnail size must not exceed 5MB",
+    },
+    status: {
+        "any.only": "Status must be either draft, published, or private",
     },
 };
 

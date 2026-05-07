@@ -52,6 +52,31 @@ const createVideo = Joi.object({
         .messages(VideoMessages.validation.tags),
 });
 
-const VideoSchema = { uploadVideo, uploadThumbnail, createVideo };
+// Validation schema for updating basic video info (JSON)
+const updateVideoInfo = Joi.object({
+    title: Joi.string().min(3).max(200).optional().messages(VideoMessages.validation.title),
+
+    description: Joi.string()
+        .max(2000)
+        .allow("")
+        .optional()
+        .messages(VideoMessages.validation.description),
+
+    categoryId: Joi.string().optional().messages(VideoMessages.validation.categoryId),
+
+    levelId: Joi.string().optional().messages(VideoMessages.validation.levelId),
+
+    tags: Joi.alternatives()
+        .try(Joi.array().items(Joi.string()), Joi.string())
+        .optional()
+        .messages(VideoMessages.validation.tags),
+
+    status: Joi.string()
+        .valid("draft", "published", "private")
+        .optional()
+        .messages(VideoMessages.validation.status),
+});
+
+const VideoSchema = { uploadVideo, uploadThumbnail, createVideo, updateVideoInfo };
 
 export default VideoSchema;

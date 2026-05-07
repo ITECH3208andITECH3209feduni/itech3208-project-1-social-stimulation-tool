@@ -89,8 +89,8 @@ const uploadVideo = async ({ fileBuffer, folder, fileName }) => {
     });
 };
 
-const deleteFile = async (publicId) => {
-    return await cloudinary.uploader.destroy(publicId);
+const deleteFile = async (publicId, resourceType = "image") => {
+    return await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
 };
 
 const cloudinaryUtil = {

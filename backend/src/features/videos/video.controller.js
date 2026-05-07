@@ -151,6 +151,30 @@ const VideoController = {
             });
         }
     },
+
+    // PATCH /videos/:id — Update basic video info (Admin only)
+    updateVideoInfo: async (req, res) => {
+        try {
+            const videoId = req.params.id;
+            const payload = req.body;
+
+            const updatedVideo = await VideoService.updateVideoInfo({ videoId, payload });
+
+            return resUtil.sendSuccess({
+                res,
+                message: VideoMessages.success.UPDATE_VIDEO_INFO_SUCCESSFULLY,
+                data: updatedVideo,
+            });
+        } catch (error) {
+            loggerUtil.error(`[VideoController.updateVideoInfo]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default VideoController;
