@@ -1,0 +1,10 @@
+export { default as authApi } from "./auth/auth.api";
+export { default as userApi } from "./users/user.api";
+export { default as videoApi } from "./videos/video.api";
+export { default as categoryApi } from "./categories/category.api";
+export { default as levelApi } from "./levels/level.api";
+export { default as feedbackApi } from "./feedbacks/feedback.api";
+export { default as wishlistApi } from "./wishlists/wishlist.api";
+export { default as contactApi } from "./contacts/contact.api";
+export { default as axiosInstance } from "./axios";
+export { default as API_ROUTES } from "./api.config";
