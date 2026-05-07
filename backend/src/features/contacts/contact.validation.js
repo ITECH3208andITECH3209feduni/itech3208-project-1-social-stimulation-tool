@@ -26,7 +26,7 @@ const sendContact = Joi.object({
 
 const updateStatus = Joi.object({
     status: Joi.string()
-        .valid("pending", "processed", "archived")
+        .valid("pending", "in progress", "resolved", "rejected")
         .required(),
 });
 
