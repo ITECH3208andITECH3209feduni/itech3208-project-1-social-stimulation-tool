@@ -5,7 +5,20 @@ import { StatusCodes } from "http-status-codes";
 // MARK: - Packages Customization
 import { envConfig, apiConfig, mongoConfig } from "#config/index.js";
 import { loggerUtil, resUtil } from "#utils/index.js";
-import { CategoryRouter, LevelRouter, AuthRouter, UserRouter, VideoRouter, FeedbackRouter, WishlistRouter, ContactRouter } from "#routes/index.js";
+import {
+    CategoryPublicRouter,
+    CategoryAdminRouter,
+    LevelPublicRouter,
+    LevelAdminRouter,
+    AuthRouter,
+    UserRouter,
+    VideoPublicRouter,
+    VideoUserRouter,
+    VideoAdminRouter,
+    FeedbackRouter,
+    WishlistRouter,
+    ContactRouter
+} from "#routes/index.js";
 
 const app = express();
 
@@ -14,14 +27,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // MARK: - App API Routes
-app.use(apiConfig.category, CategoryRouter);
-app.use(apiConfig.level, LevelRouter);
+
+// 1. PUBLIC ROUTES
 app.use(apiConfig.auth, AuthRouter);
-app.use(apiConfig.user, UserRouter);
-app.use(apiConfig.video, VideoRouter);
+app.use(apiConfig.category, CategoryPublicRouter);
+app.use(apiConfig.level, LevelPublicRouter);
+app.use(apiConfig.video, VideoPublicRouter);
 app.use(apiConfig.feedback, FeedbackRouter);
-app.use(apiConfig.wishlist, WishlistRouter);
+
+// 2. COMMON AUTHENTICATED ROUTES (Me/Profile)
+app.use(apiConfig.me, UserRouter);
 app.use(apiConfig.contact, ContactRouter);
+
+// 3. ROLE-SPECIFIC ROUTES
+// Individual
+app.use(apiConfig.individual + "/wishlists", WishlistRouter);
+
+// User Content Management (Individual & Organization)
+app.use(apiConfig.me + "/videos", VideoUserRouter);
+
+// 4. ADMIN ROUTES
+app.use(apiConfig.manageCategory, CategoryAdminRouter);
+app.use(apiConfig.admin + "/levels", LevelAdminRouter);
+app.use(apiConfig.manageVideo, VideoAdminRouter);
 
 // MARK: - Handle 404 Not Found
 app.use((req, res, next) => {
