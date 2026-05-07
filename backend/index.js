@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 // MARK: - Packages Customization
 import { envConfig, apiConfig, mongoConfig } from "#config/index.js";
 import { loggerUtil, resUtil } from "#utils/index.js";
-import { CategoryRouter, LevelRouter } from "#routes/index.js";
+import { CategoryRouter, LevelRouter, AuthRouter, UserRouter } from "#routes/index.js";
 
 const app = express();
 
@@ -16,6 +16,8 @@ app.use(express.json());
 // MARK: - App API Routes
 app.use(apiConfig.category, CategoryRouter);
 app.use(apiConfig.level, LevelRouter);
+app.use(apiConfig.auth, AuthRouter);
+app.use(apiConfig.user, UserRouter);
 
 // MARK: - Handle 404 Not Found
 app.use(envConfig.apiPrefix, (error, req, res, next) => {
