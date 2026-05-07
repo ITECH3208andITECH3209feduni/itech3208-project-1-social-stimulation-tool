@@ -6,8 +6,8 @@ const apiConfig = {
     manageCategory: envConfig.apiPrefix + "/admin/categories",
     category: envConfig.apiPrefix + "/categories",
     level: envConfig.apiPrefix + "/levels",
-    manageVideo: envConfig.apiPrefix + "/admin/products",
-    video: envConfig.apiPrefix + "/products",
+    manageVideo: envConfig.apiPrefix + "/admin/videos",
+    video: envConfig.apiPrefix + "/videos",
     user: envConfig.apiPrefix + "/users",
 };
 
