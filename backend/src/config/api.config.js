@@ -8,6 +8,7 @@ const apiConfig = {
     level: envConfig.apiPrefix + "/levels",
     manageVideo: envConfig.apiPrefix + "/admin/videos",
     video: envConfig.apiPrefix + "/videos",
+    feedback: envConfig.apiPrefix + "/feedbacks",
     user: envConfig.apiPrefix + "/users",
 };
 

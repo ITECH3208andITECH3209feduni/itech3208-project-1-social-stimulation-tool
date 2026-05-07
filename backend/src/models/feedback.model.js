@@ -7,17 +7,30 @@ const FeedbackSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
-        verifiedStatus: {
-            type: Boolean,
+        videoId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Video",
+            required: true,
+        },
+        parentId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Feedback",
+            default: null, // For replies
         },
         rating: {
             type: Number,
-            min: 1,
+            min: 0,
             max: 5,
-            default: 1,
+            default: 0, // 0 if it's just a comment without rating
         },
         content: {
             type: String,
+            required: true,
+            trim: true,
+        },
+        isDeleted: {
+            type: Boolean,
+            default: false,
         },
     },
     {
