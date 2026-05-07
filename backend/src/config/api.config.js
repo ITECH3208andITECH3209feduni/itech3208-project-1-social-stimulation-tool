@@ -9,6 +9,7 @@ const apiConfig = {
     manageVideo: envConfig.apiPrefix + "/admin/videos",
     video: envConfig.apiPrefix + "/videos",
     feedback: envConfig.apiPrefix + "/feedbacks",
+    wishlist: envConfig.apiPrefix + "/wishlists",
     user: envConfig.apiPrefix + "/users",
 };
 
