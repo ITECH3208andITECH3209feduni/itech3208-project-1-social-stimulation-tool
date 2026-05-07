@@ -14,7 +14,7 @@ const VideoService = {
 
         // Delete old video on Cloudinary if exists
         if (existedVideo.video?.cloudinaryId) {
-            await cloudinaryUtil.deleteFile(existedVideo.video.cloudinaryId);
+            await cloudinaryUtil.deleteFile(existedVideo.video.cloudinaryId, "video");
         }
 
         const fileName = cloudinaryUtil.genFileName({
@@ -58,7 +58,7 @@ const VideoService = {
 
         // Delete old thumbnail on Cloudinary if exists
         if (existedVideo.thumbnail?.cloudinaryId) {
-            await cloudinaryUtil.deleteFile(existedVideo.thumbnail.cloudinaryId);
+            await cloudinaryUtil.deleteFile(existedVideo.thumbnail.cloudinaryId, "image");
         }
 
         const fileName = cloudinaryUtil.genFileName({
@@ -86,27 +86,25 @@ const VideoService = {
         };
     },
 
+    // MARK: - HELPER: PARSE TAGS
+    _parseTags: (rawTags) => {
+        if (!rawTags) return [];
+
+        const tags = Array.isArray(rawTags) ? rawTags : [rawTags];
+        try {
+            // Check if tags[0] is a stringified array (common in multipart)
+            if (tags.length > 0 && typeof tags[0] === "string" && tags[0].startsWith("[")) {
+                return JSON.parse(tags[0]);
+            }
+            return tags;
+        } catch (err) {
+            return tags; // Fallback to raw tags
+        }
+    },
+
     // MARK: - CREATE VIDEO (metadata + upload video file in one step)
     createVideo: async ({ payload, file, userId }) => {
-        // Normalize tags: multipart may send single tag as string instead of array
-        const tags = Array.isArray(payload.tags)
-            ? payload.tags
-            : payload.tags
-              ? [payload.tags]
-              : [];
-
-        let parsedTags = [];
-
-        try {
-            // Check if tags[0] exists and is a string before parsing
-            if (tags.length > 0 && typeof tags[0] === "string" && tags[0].startsWith("[")) {
-                parsedTags = JSON.parse(tags[0]);
-            } else {
-                parsedTags = tags;
-            }
-        } catch (err) {
-            parsedTags = tags; // Fallback to raw tags if parse fails
-        }
+        const parsedTags = VideoService._parseTags(payload.tags);
 
         // Create the document first to get the _id for naming
         const newVideo = await VideoModel.create({
@@ -206,6 +204,29 @@ const VideoService = {
         await video.save();
 
         return { id: video._id };
+    },
+
+    // MARK: - UPDATE BASIC INFO (Admin only)
+    updateVideoInfo: async ({ videoId, payload }) => {
+        const video = await VideoModel.findById(videoId);
+        if (!video) {
+            throw VideoMessages.error.VIDEO_NOT_FOUND();
+        }
+
+        // Apply updates
+        const updateFields = ["title", "description", "status", "tags", "categoryId", "levelId"];
+        updateFields.forEach((field) => {
+            if (payload[field] !== undefined) {
+                if (field === "tags") {
+                    video[field] = VideoService._parseTags(payload[field]);
+                } else {
+                    video[field] = payload[field];
+                }
+            }
+        });
+
+        await video.save();
+        return video;
     },
 };
 
