@@ -1,7 +1,6 @@
 import Joi from "joi";
 import { StatusCodes } from "http-status-codes";
-import loggerUtil from "#utils/logger.utils.js";
-import resUtil from "#utils/response.util.js";
+import { loggerUtil, resUtil } from "#utils/index.js";
 
 const validate = (schema) => (req, res, next) => {
     try {
@@ -32,7 +31,11 @@ const validate = (schema) => (req, res, next) => {
         next();
     } catch (error) {
         loggerUtil.error(`[bodyMw.validate]: ${error}`);
-        return resUtil.sendError(res, "Internal Server Error", StatusCodes.INTERNAL_SERVER_ERROR);
+        return resUtil.sendError({
+            res,
+            message: "Internal Server Error",
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        });
     }
 };
 

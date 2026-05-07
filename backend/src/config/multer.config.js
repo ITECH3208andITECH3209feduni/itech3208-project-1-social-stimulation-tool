@@ -1,23 +1,34 @@
 import multer from "multer";
 import path from "path";
 
-const FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const IMAGE_MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const VIDEO_MAX_SIZE = 500 * 1024 * 1024; // 500MB
+const DEFAULT_MAX_SIZE = 10 * 1024 * 1024; // 10MB
+
+const ALLOWED_IMAGE_TYPES = /jpeg|jpg|png|gif|webp/;
+const ALLOWED_IMAGE_MIMES = /image\/jpeg|image\/jpg|image\/png|image\/gif|image\/webp/;
+
+const ALLOWED_VIDEO_TYPES = /mp4|mkv|mov|avi|webm/;
+const ALLOWED_VIDEO_MIMES =
+    /video\/mp4|video\/x-matroska|video\/quicktime|video\/x-msvideo|video\/webm/;
 
 const fileFilter = (req, file, callback) => {
-    const fileTypes = /jpeg|jpg|png|gif/;
-    const mimeTypes = /image\/jpeg|image\/jpg|image\/png|image\/gif/;
-    const extname = path.extname(file.originalname).toLowerCase();
-    const checkFileType = fileTypes.test(extname);
-    const checkMimeType = mimeTypes.test(file.mimetype);
+    const ext = path.extname(file.originalname).toLowerCase().replace(".", "");
 
-    if (!checkFileType) {
-        callback(new Error("File type does not supported"), false);
+    const isImage = ALLOWED_IMAGE_TYPES.test(ext) && ALLOWED_IMAGE_MIMES.test(file.mimetype);
+
+    const isVideo = ALLOWED_VIDEO_TYPES.test(ext) && ALLOWED_VIDEO_MIMES.test(file.mimetype);
+
+    if (!isImage && !isVideo) {
+        callback(
+            new Error(
+                "File type is not supported. Allowed: images (jpg, png, webp, gif) or videos (mp4, mkv, mov, avi, webm)",
+            ),
+            false,
+        );
         return;
     }
-    if (!checkMimeType) {
-        callback(new Error("Mime Type does not supported"), false);
-        return;
-    }
+
     callback(null, true);
 };
 
@@ -27,7 +38,7 @@ const multerConfig = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: {
-        fileSize: FILE_SIZE,
+        fileSize: VIDEO_MAX_SIZE, // Allow up to 500MB (video); specific limits enforced in validation schema
     },
 });
 

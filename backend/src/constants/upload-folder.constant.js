@@ -8,6 +8,12 @@ const UPLOAD_FOLDERS = {
     CATEGORIES: {
         BANNERS: "categories/banners",
     },
+
+    VIDEOS: {
+        CLIPS: "videos/clips",
+        THUMBNAILS: "videos/thumbnails",
+    },
+
     IMAGES: "posts/images",
 };
 
