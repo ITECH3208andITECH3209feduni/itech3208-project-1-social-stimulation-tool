@@ -1,6 +1,6 @@
 import express from "express";
 import LevelController from "./level.controller.js";
-import bodyMw from "#middlewares/body.middleware.js";
+import { bodyMw } from "#middlewares/index.js";
 import LevelSchema from "./level.validation.js";
 
 const router = express.Router();
