@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { envConfig } from "#config/index.js";
 
-const ACCESS_TOKEN_SECRET = envConfig.accessToken;
-const REFRESH_TOKEN_SECRET = envConfig.refreshToken;
+const ACCESS_TOKEN_SECRET = envConfig.accessTokenSecretKey;
+const REFRESH_TOKEN_SECRET = envConfig.refreshTokenSecretKey;
 const ACCESS_TOKEN_EXPRIRE_TIME = "50m";
 const REFRESH_TOKEN_EXPRIRE_TIME = "7d";
 
