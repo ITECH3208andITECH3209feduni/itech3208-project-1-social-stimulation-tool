@@ -6,8 +6,22 @@ const ContactService = {
     _formatContact: (contact) => {
         if (!contact) return null;
 
-        const { _id, userId, categoryId, __v, ...rest } = contact;
-        const formatted = { id: _id, ...rest };
+        const { _id, userId, categoryId, __v, status, ...rest } = contact;
+        
+        // MARK: - STATUS CONFIGURATION FOR FRONTEND
+        const statusMap = {
+            "pending": { label: "Pending", color: "warning" },
+            "in progress": { label: "In Progress", color: "info" },
+            "resolved": { label: "Resolved", color: "success" },
+            "rejected": { label: "Rejected", color: "danger" },
+        };
+
+        const formatted = { 
+            id: _id, 
+            status,
+            statusInfo: statusMap[status] || { label: status, color: "default" },
+            ...rest 
+        };
 
         if (userId) {
             const { _id: uId, ...uRest } = userId;
