@@ -31,7 +31,7 @@ const validate = (schema) => (req, res, next) => {
 
         next();
     } catch (error) {
-        loggerUtil.error(`[validateBody]: ${error}`);
+        loggerUtil.error(`[bodyMw.validate]: ${error}`);
         return resUtil.sendError(res, "Internal Server Error", StatusCodes.INTERNAL_SERVER_ERROR);
     }
 };
