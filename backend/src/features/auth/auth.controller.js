@@ -14,8 +14,6 @@ const AuthController = {
                 phone: req.body.phone,
             };
 
-            console.log(payload)
-
             const result = await AuthService.registerUser(payload);
 
             resUtil.sendSuccess({
@@ -25,6 +23,31 @@ const AuthController = {
             });
         } catch (error) {
             loggerUtil.error(`[AuthController.registerUser]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    loginUser: async (req, res) => {
+        try {
+            const input = {
+                username: req.body.username,
+                password: req.body.password,
+            };
+
+            const result = await AuthService.loginUser(input);
+
+            resUtil.sendSuccess({
+                res,
+                message: AuthMessages.success.LOGIN_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[AuthController.loginUser]: ${error}`);
             return resUtil.sendError({
                 res,
                 message: error.message,

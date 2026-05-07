@@ -13,8 +13,8 @@ const envConfig = {
     atlasPublicKey: process.env.ATLAS_PUBLIC_KEY,
     atlasPrivateKey: process.env.ATLAS_PRIVATE_KEY,
     atlasProjectId: process.env.ATLAS_PROJECT_ID,
-    accessToken: process.env.ACCESS_TOKEN_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN_SECRET,
+    accessTokenSecretKey: process.env.ACCESS_TOKEN_SECRET,
+    refreshTokenSecretKey: process.env.REFRESH_TOKEN_SECRET,
 };
 
 export default envConfig;

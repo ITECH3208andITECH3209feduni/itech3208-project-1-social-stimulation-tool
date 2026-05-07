@@ -13,8 +13,14 @@ const registerUser = Joi.object({
     phone: Joi.string().required().length(10).messages(AuthMessages.validation.phone),
 });
 
+const loginUser = Joi.object({
+    username: Joi.string().min(5).max(20).required().messages(AuthMessages.validation.username),
+    password: Joi.string().min(5).max(20).required().messages(AuthMessages.validation.password),
+});
+
 const AuthSchema = {
     registerUser,
+    loginUser
 };
 
 export default AuthSchema;

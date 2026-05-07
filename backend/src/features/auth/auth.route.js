@@ -5,6 +5,8 @@ import AuthController from "./auth.controller.js";
 
 const router = express.Router();
 
+router.post("/login-user", bodyMw.validate(AuthSchema.loginUser), AuthController.loginUser);
+
 router.post(
     "/register-user",
     bodyMw.validate(AuthSchema.registerUser),

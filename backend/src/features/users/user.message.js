@@ -2,27 +2,47 @@ import { StatusCodes } from "http-status-codes";
 import createError from "#config/error.config.js";
 
 // MARK: - BUSINESS SUCCESS MESSAGES
-const SUCCESS_MESSAGES = {};
+const SUCCESS_MESSAGES = {
+    GET_USER_INFOR_SUCCESSFULLY: "Get user information successfully.",
+};
 
 // MARK: - BUSINESS ERROR MESSAGES
 const ERROR_MESSAGES = {
     USERNAME_IS_EXIST: () =>
         createError({
             message: "This username is exist.",
-            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            statusCode: StatusCodes.BAD_REQUEST,
             errorCode: "USERNAME_IS_EXIST",
         }),
     EMAIL_IS_EXIST: () =>
         createError({
             message: "This email is exist.",
-            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            statusCode: StatusCodes.BAD_REQUEST,
             errorCode: "EMAIL_IS_EXIST",
         }),
     EMAIL_OR_USERNAME_IS_EXIST: () =>
         createError({
             message: "The email or username is exist.",
-            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            statusCode: StatusCodes.BAD_REQUEST,
             errorCode: "EMAIL_OR_USERNAME_IS_EXIST",
+        }),
+    USERNAME_IS_NOT_CORRECT: () =>
+        createError({
+            message: "Your username is not correct. Please try again.",
+            statusCode: StatusCodes.BAD_REQUEST,
+            errorCode: "USERNAME_IS_NOT_CORRECT",
+        }),
+    PASSWORD_IS_NOT_CORRECT: () =>
+        createError({
+            message: "Your password is not correct. Please try again.",
+            statusCode: StatusCodes.BAD_REQUEST,
+            errorCode: "PASSWORD_IS_NOT_CORRECT",
+        }),
+    USER_IS_NOT_EXIST: () =>
+        createError({
+            message: "This user is not exist.",
+            statusCode: StatusCodes.BAD_REQUEST,
+            errorCode: "USER_IS_NOT_EXIST",
         }),
 };
 
