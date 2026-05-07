@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 // MARK: - Packages Customization
 import { envConfig, apiConfig, mongoConfig } from "#config/index.js";
 import { loggerUtil, resUtil } from "#utils/index.js";
-import { CategoryRouter, LevelRouter, AuthRouter, UserRouter, VideoRouter, FeedbackRouter } from "#routes/index.js";
+import { CategoryRouter, LevelRouter, AuthRouter, UserRouter, VideoRouter, FeedbackRouter, WishlistRouter } from "#routes/index.js";
 
 const app = express();
 
@@ -20,6 +20,7 @@ app.use(apiConfig.auth, AuthRouter);
 app.use(apiConfig.user, UserRouter);
 app.use(apiConfig.video, VideoRouter);
 app.use(apiConfig.feedback, FeedbackRouter);
+app.use(apiConfig.wishlist, WishlistRouter);
 
 // MARK: - Handle 404 Not Found
 app.use((req, res, next) => {
