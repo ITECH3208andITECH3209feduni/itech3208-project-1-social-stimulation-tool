@@ -5,6 +5,7 @@ import createError from "#config/error.config.js";
 const SUCCESS_MESSAGES = {
     CREATE_FEEDBACK_SUCCESSFULLY: "Your feedback has been posted successfully.",
     GET_FEEDBACKS_SUCCESSFULLY: "Get feedbacks successfully.",
+    GET_TOP_FEEDBACKS_SUCCESSFULLY: "Get top feedbacks successfully.",
     DELETE_FEEDBACK_SUCCESSFULLY: "Feedback deleted successfully.",
     UPDATE_FEEDBACK_SUCCESSFULLY: "Feedback updated successfully.",
 };

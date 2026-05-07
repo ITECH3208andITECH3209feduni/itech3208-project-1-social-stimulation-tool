@@ -13,6 +13,9 @@ router.post(
     FeedbackController.createFeedback
 );
 
+// GET /api/v1/feedbacks/top-feedbacks — Get top feedbacks for landing page (Public)
+router.get("/top-feedbacks", FeedbackController.getTopFeedbacks);
+
 // GET /api/v1/feedbacks/:videoId — Get feedbacks for a video (Public)
 router.get("/:videoId", FeedbackController.getFeedbacksByVideo);
 

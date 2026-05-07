@@ -62,6 +62,27 @@ const FeedbackController = {
         }
     },
 
+    // GET /feedbacks/top-feedbacks
+    getTopFeedbacks: async (req, res) => {
+        try {
+            const result = await FeedbackService.getTopFeedbacks(6);
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.GET_TOP_FEEDBACKS_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.getTopFeedbacks]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
     // DELETE /feedbacks/:id
     deleteFeedback: async (req, res) => {
         try {
