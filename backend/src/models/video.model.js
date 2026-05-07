@@ -93,7 +93,7 @@ const VideoSchema = new mongoose.Schema(
 
 // Auto-generate slug from title before saving
 VideoSchema.pre("save", async function () {
-    if (this.isModified("title") && !this.slug) {
+    if (this.isModified("title")) {
         this.slug = this.title
             .toLowerCase()
             .trim()
