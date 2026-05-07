@@ -1,36 +1,35 @@
 const API_ROUTES = {
+    // MARK: - PUBLIC (No Auth Required)
+    PUBLIC: {
+        VIDEOS: "/videos",
+        VIDEO_DETAIL: (id) => `/videos/${id}`,
+        CATEGORIES: "/categories",
+        LEVELS: "/levels",
+        FEEDBACKS: (videoId) => `/feedbacks/${videoId}`,
+        TOP_FEEDBACKS: "/feedbacks/top-feedbacks",
+    },
+
+    // MARK: - AUTH
     AUTH: {
         LOGIN: "/auth/login-user",
         REGISTER: "/auth/register-user",
-        LOGOUT: "/auth/logout", // Placeholder if needed
     },
+
+    // MARK: - ME (Authenticated Users - Common)
     ME: {
         GET_INFO: "/me/get-user-infor",
         UPLOAD_AVATAR: "/me/upload-avatar",
-        VIDEOS: "/me/videos",
+        FEEDBACK: "/feedbacks", // POST feedback
     },
-    VIDEOS: {
-        GET_ALL: "/videos",
-        GET_DETAIL: (id) => `/videos/${id}`,
+
+    // MARK: - INDIVIDUAL (Individual Role Only)
+    INDIVIDUAL: {
+        WISHLIST_TOGGLE: (videoId) => `/individual/wishlists/toggle/${videoId}`,
+        WISHLIST_GET_ALL: "/individual/wishlists",
     },
-    CATEGORIES: {
-        GET_ALL: "/categories",
-    },
-    LEVELS: {
-        GET_ALL: "/levels",
-    },
-    FEEDBACKS: {
-        CREATE: "/feedbacks",
-        GET_BY_VIDEO: (videoId) => `/feedbacks/${videoId}`,
-        TOP: "/feedbacks/top-feedbacks",
-    },
-    WISHLIST: {
-        TOGGLE: (videoId) => `/individual/wishlists/toggle/${videoId}`,
-        GET_ALL: "/individual/wishlists",
-    },
-    CONTACTS: {
-        SEND: "/contacts",
-    },
+
+    // MARK: - CONTACT (Common Authenticated)
+    CONTACT: "/contacts",
 };
 
 export default API_ROUTES;

@@ -1,5 +1,6 @@
 import axios from "axios";
-import useAuthStore from "@/stores/useAuthStore";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import loggerUtil from "@/utils/logger.utils";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -19,6 +20,7 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     (error) => {
+        loggerUtil.error("[AxiosRequestError]", error);
         return Promise.reject(error);
     }
 );
@@ -26,16 +28,23 @@ axiosInstance.interceptors.request.use(
 // MARK: - RESPONSE INTERCEPTOR
 axiosInstance.interceptors.response.use(
     (response) => {
-        return response.data; // Simplify response data access
+        return response.data;
     },
     (error) => {
-        if (error.response?.status === 401) {
-            // Unauthorized - clear auth state if token is invalid
+        const status = error.response?.status;
+        const message = error.response?.data?.message || error.message || "Something went wrong";
+
+        loggerUtil.error(`[AxiosResponseError] [${status || "Network"}]`, {
+            url: error.config?.url,
+            method: error.config?.method,
+            message,
+            data: error.response?.data,
+        });
+
+        if (status === 401) {
             useAuthStore.getState().clearAuth();
         }
         
-        // Normalize error response
-        const message = error.response?.data?.message || error.message || "Something went wrong";
         return Promise.reject({
             ...error,
             message,
