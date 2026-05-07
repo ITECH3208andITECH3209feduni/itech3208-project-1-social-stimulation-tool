@@ -4,6 +4,15 @@ import { bcryptUtil, cloudinaryUtil } from "#utils/index.js";
 import UserMessages from "./user.message.js";
 
 const UserService = {
+    _formatUser: (user) => {
+        if (!user) return null;
+        const { _id, password, __v, isDeleted, ...rest } = user._doc || user;
+        return {
+            id: _id,
+            ...rest,
+        };
+    },
+
     checkExistedUser: async (payload) => {
         const existedUser = await UserModel.findOne({
             $or: [{ username: payload.username }, { email: payload.email }],
@@ -45,7 +54,8 @@ const UserService = {
     },
 
     insertUser: async (payload) => {
-        return await UserModel.create(payload);
+        const user = await UserModel.create(payload);
+        return UserService._formatUser(user);
     },
 
     getUserInfor: async (id) => {
@@ -55,9 +65,7 @@ const UserService = {
             throw UserMessages.error.USER_IS_NOT_EXIST();
         }
 
-        const { password, __v, ...cleanedUser } = existUser._doc;
-
-        return cleanedUser;
+        return UserService._formatUser(existUser);
     },
 
     uploadAvatar: async ({ userId, file }) => {
@@ -89,11 +97,7 @@ const UserService = {
 
         await existedUser.save();
 
-        return {
-            id: existedUser._id,
-            username: existedUser.username,
-            avatar: existedUser.avatar,
-        };
+        return UserService._formatUser(existedUser);
     },
 };
 

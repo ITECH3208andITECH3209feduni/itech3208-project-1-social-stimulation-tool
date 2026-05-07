@@ -8,13 +8,13 @@ const router = express.Router();
 
 router.get(
     "/get-user-infor",
-    authMw.authorizeRole([authMw.UserRole.user]),
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
     UserController.getUserInfor,
 );
 
 router.patch(
     "/upload-avatar",
-    authMw.authorizeRole([authMw.UserRole.user]),
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
     multerConfig.single("avatar"),
     fileMw.check,
     fileMw.validate(UserSchema.uploadAvatar),

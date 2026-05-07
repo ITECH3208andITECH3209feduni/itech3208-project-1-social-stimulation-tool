@@ -4,6 +4,41 @@ import { cloudinaryUtil } from "#utils/index.js";
 import VideoMessages from "./video.message.js";
 
 const VideoService = {
+    _formatVideo: (video) => {
+        if (!video) return null;
+        const videoObj = video._doc || video;
+        const { _id, __v, isDeleted, uploadedBy, categoryId, levelId, ...rest } = videoObj;
+
+        const formatted = {
+            id: _id,
+            ...rest,
+        };
+
+        if (uploadedBy) {
+            formatted.user = uploadedBy._id ? {
+                id: uploadedBy._id,
+                username: uploadedBy.username,
+                avatar: uploadedBy.avatar,
+            } : uploadedBy;
+        }
+
+        if (categoryId) {
+            formatted.category = categoryId._id ? {
+                id: categoryId._id,
+                name: categoryId.name,
+            } : categoryId;
+        }
+
+        if (levelId) {
+            formatted.level = levelId._id ? {
+                id: levelId._id,
+                name: levelId.name,
+            } : levelId;
+        }
+
+        return formatted;
+    },
+
     // MARK: - UPLOAD VIDEO FILE
     uploadVideo: async ({ videoId, file }) => {
         const existedVideo = await VideoModel.findById(videoId);
@@ -12,7 +47,6 @@ const VideoService = {
             throw VideoMessages.error.VIDEO_NOT_FOUND();
         }
 
-        // Delete old video on Cloudinary if exists
         if (existedVideo.video?.cloudinaryId) {
             await cloudinaryUtil.deleteFile(existedVideo.video.cloudinaryId, "video");
         }
@@ -33,19 +67,13 @@ const VideoService = {
             cloudinaryId: uploadedVideo.public_id,
         };
 
-        // Auto-set duration from Cloudinary metadata
         if (uploadedVideo.duration) {
             existedVideo.duration = Math.round(uploadedVideo.duration);
         }
 
         await existedVideo.save();
 
-        return {
-            id: existedVideo._id,
-            title: existedVideo.title,
-            video: existedVideo.video,
-            duration: existedVideo.duration,
-        };
+        return VideoService._formatVideo(existedVideo);
     },
 
     // MARK: - UPLOAD THUMBNAIL
@@ -56,7 +84,6 @@ const VideoService = {
             throw VideoMessages.error.VIDEO_NOT_FOUND();
         }
 
-        // Delete old thumbnail on Cloudinary if exists
         if (existedVideo.thumbnail?.cloudinaryId) {
             await cloudinaryUtil.deleteFile(existedVideo.thumbnail.cloudinaryId, "image");
         }
@@ -79,11 +106,7 @@ const VideoService = {
 
         await existedVideo.save();
 
-        return {
-            id: existedVideo._id,
-            title: existedVideo.title,
-            thumbnail: existedVideo.thumbnail,
-        };
+        return VideoService._formatVideo(existedVideo);
     },
 
     // MARK: - HELPER: PARSE TAGS
@@ -92,13 +115,12 @@ const VideoService = {
 
         const tags = Array.isArray(rawTags) ? rawTags : [rawTags];
         try {
-            // Check if tags[0] is a stringified array (common in multipart)
             if (tags.length > 0 && typeof tags[0] === "string" && tags[0].startsWith("[")) {
                 return JSON.parse(tags[0]);
             }
             return tags;
         } catch (err) {
-            return tags; // Fallback to raw tags
+            return tags;
         }
     },
 
@@ -106,7 +128,6 @@ const VideoService = {
     createVideo: async ({ payload, file, userId }) => {
         const parsedTags = VideoService._parseTags(payload.tags);
 
-        // Create the document first to get the _id for naming
         const newVideo = await VideoModel.create({
             title: payload.title,
             description: payload.description || "",
@@ -117,7 +138,6 @@ const VideoService = {
             status: "draft",
         });
 
-        // Upload the video file to Cloudinary using the new document _id
         const fileName = cloudinaryUtil.genFileName({
             prefix: "video",
             entityId: newVideo._id,
@@ -129,7 +149,6 @@ const VideoService = {
             fileName,
         });
 
-        // Save video URL + duration back to the document
         newVideo.video = {
             url: uploadedVideo.secure_url,
             cloudinaryId: uploadedVideo.public_id,
@@ -141,7 +160,7 @@ const VideoService = {
 
         await newVideo.save();
 
-        return newVideo;
+        return VideoService._formatVideo(newVideo);
     },
 
     // MARK: - GET VIDEO BY ID
@@ -155,10 +174,9 @@ const VideoService = {
             throw VideoMessages.error.VIDEO_NOT_FOUND();
         }
 
-        // Increment view count
         await VideoModel.findByIdAndUpdate(videoId, { $inc: { views: 1 } });
 
-        return video;
+        return VideoService._formatVideo(video);
     },
 
     // MARK: - GET ALL VIDEOS (with optional filters)
@@ -182,7 +200,7 @@ const VideoService = {
         ]);
 
         return {
-            videos,
+            videos: videos.map(VideoService._formatVideo),
             pagination: {
                 total,
                 page,
@@ -206,14 +224,13 @@ const VideoService = {
         return { id: video._id };
     },
 
-    // MARK: - UPDATE BASIC INFO (Admin only)
+    // MARK: - UPDATE BASIC INFO
     updateVideoInfo: async ({ videoId, payload }) => {
         const video = await VideoModel.findById(videoId);
         if (!video) {
             throw VideoMessages.error.VIDEO_NOT_FOUND();
         }
 
-        // Apply updates
         const updateFields = ["title", "description", "status", "tags", "categoryId", "levelId"];
         updateFields.forEach((field) => {
             if (payload[field] !== undefined) {
@@ -226,7 +243,7 @@ const VideoService = {
         });
 
         await video.save();
-        return video;
+        return VideoService._formatVideo(video);
     },
 };
 

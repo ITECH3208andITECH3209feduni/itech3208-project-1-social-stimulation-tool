@@ -1,17 +1,32 @@
 import express from "express";
+import { bodyMw, authMw } from "#middlewares/index.js";
 import CategoryController from "./category.controller.js";
-import { bodyMw } from "#middlewares/index.js";
 import CategorySchema from "./category.validation.js";
 
-const router = express.Router();
+const publicRouter = express.Router();
+const adminRouter = express.Router();
 
-router.get("/", CategoryController.getCategories);
-router.post(
-    "/insert-category",
+// MARK: - PUBLIC ROUTES
+publicRouter.get("/", CategoryController.getCategories);
+
+// MARK: - ADMIN ROUTES
+adminRouter.post(
+    "/",
+    authMw.authorizeRole([authMw.UserRole.admin]),
     bodyMw.validate(CategorySchema.insert),
-    CategoryController.insertCategory,
+    CategoryController.insertCategory
 );
-router.post("/bulk-insert-categories", CategoryController.bulkInsertCategories);
-router.delete("/delete-category/:id", CategoryController.deleteCategory);
 
-export default router;
+adminRouter.post(
+    "/bulk",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    CategoryController.bulkInsertCategories
+);
+
+adminRouter.delete(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    CategoryController.deleteCategory
+);
+
+export { publicRouter as CategoryPublicRouter, adminRouter as CategoryAdminRouter };

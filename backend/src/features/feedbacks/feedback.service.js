@@ -7,12 +7,25 @@ const FeedbackService = {
     _formatFeedback: (feedback) => {
         if (!feedback) return null;
 
-        const { _id, userId, ...rest } = feedback;
+        const feedbackObj = feedback._doc || feedback;
+        const { _id, __v, isDeleted, userId, videoId, ...rest } = feedbackObj;
+        
         const formatted = { id: _id, ...rest };
 
         if (userId) {
-            const { _id: uId, ...uRest } = userId;
-            formatted.user = { id: uId, ...uRest };
+            formatted.user = userId._id ? {
+                id: userId._id,
+                username: userId.username,
+                avatar: userId.avatar,
+            } : userId;
+        }
+
+        if (videoId) {
+            formatted.video = videoId._id ? {
+                id: videoId._id,
+                title: videoId.title,
+                thumbnail: videoId.thumbnail,
+            } : videoId;
         }
 
         return formatted;
@@ -20,16 +33,13 @@ const FeedbackService = {
 
     // MARK: - CREATE FEEDBACK
     createFeedback: async ({ userId, videoId, parentId, content, rating }) => {
-        // Normalize parentId
         const normalizedParentId = parentId === "" ? null : parentId;
 
-        // Verify video exists
         const video = await VideoModel.findById(videoId);
         if (!video) {
             throw new Error("Video not found");
         }
 
-        // Verify parent exists if provided
         if (normalizedParentId) {
             const parent = await FeedbackModel.findById(normalizedParentId);
             if (!parent || parent.isDeleted) {
@@ -47,7 +57,6 @@ const FeedbackService = {
 
         const feedback = await FeedbackModel.findById(newFeedback._id)
             .populate("userId", "username avatar")
-            .select("-__v -isDeleted")
             .lean();
 
         return FeedbackService._formatFeedback(feedback);
@@ -60,7 +69,6 @@ const FeedbackService = {
         const [feedbacks, total] = await Promise.all([
             FeedbackModel.find({ videoId, isDeleted: false, parentId: null })
                 .populate("userId", "username avatar")
-                .select("-__v -isDeleted")
                 .sort({ createdAt: -1 })
                 .skip(skip)
                 .limit(limit)
@@ -68,16 +76,14 @@ const FeedbackService = {
             FeedbackModel.countDocuments({ videoId, isDeleted: false, parentId: null }),
         ]);
 
-        // Process feedbacks and fetch replies
         const feedbacksWithReplies = await Promise.all(
             feedbacks.map(async (fb) => {
                 const replies = await FeedbackModel.find({ parentId: fb._id, isDeleted: false })
                     .populate("userId", "username avatar")
-                    .select("-__v -isDeleted")
                     .sort({ createdAt: 1 })
                     .lean();
 
-                const formattedReplies = replies.map((r) => FeedbackService._formatFeedback(r));
+                const formattedReplies = replies.map(FeedbackService._formatFeedback);
                 const formattedFb = FeedbackService._formatFeedback(fb);
 
                 return { ...formattedFb, replies: formattedReplies };
@@ -126,18 +132,7 @@ const FeedbackService = {
             .limit(limit)
             .lean();
 
-        return feedbacks.map((fb) => {
-            const formatted = FeedbackService._formatFeedback(fb);
-
-            if (fb.videoId) {
-                formatted.video = {
-                    id: fb.videoId._id,
-                    title: fb.videoId.title,
-                    thumbnail: fb.videoId.thumbnail,
-                };
-            }
-            return formatted;
-        });
+        return feedbacks.map(FeedbackService._formatFeedback);
     },
 
     // MARK: - DELETE FEEDBACK
@@ -148,7 +143,6 @@ const FeedbackService = {
             throw FeedbackMessages.error.FEEDBACK_NOT_FOUND();
         }
 
-        // Check ownership (only user who created can delete)
         if (feedback.userId.toString() !== userId.toString()) {
             throw new Error("Unauthorized to delete this feedback");
         }

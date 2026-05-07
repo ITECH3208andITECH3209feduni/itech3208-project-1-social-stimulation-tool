@@ -1,12 +1,26 @@
 import express from "express";
+import { bodyMw, authMw } from "#middlewares/index.js";
 import LevelController from "./level.controller.js";
-import { bodyMw } from "#middlewares/index.js";
 import LevelSchema from "./level.validation.js";
 
-const router = express.Router();
+const publicRouter = express.Router();
+const adminRouter = express.Router();
 
-router.get("/", LevelController.getLevels);
-router.post("/insert-level", bodyMw.validate(LevelSchema.insert), LevelController.insertLevel);
-router.post("/bulk-insert-levels", LevelController.bulkInsertLevels);
+// MARK: - PUBLIC ROUTES
+publicRouter.get("/", LevelController.getLevels);
 
-export default router;
+// MARK: - ADMIN ROUTES
+adminRouter.post(
+    "/",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    bodyMw.validate(LevelSchema.insert),
+    LevelController.insertLevel
+);
+
+adminRouter.post(
+    "/bulk",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    LevelController.bulkInsertLevels
+);
+
+export { publicRouter as LevelPublicRouter, adminRouter as LevelAdminRouter };

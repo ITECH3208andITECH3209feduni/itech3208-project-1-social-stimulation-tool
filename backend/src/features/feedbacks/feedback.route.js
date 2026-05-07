@@ -8,7 +8,7 @@ const router = express.Router();
 // POST /api/v1/feedbacks — Create feedback (Authenticated users)
 router.post(
     "/",
-    authMw.authorizeRole([authMw.UserRole.user, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization, authMw.UserRole.admin]),
     bodyMw.validate(FeedbackSchema.createFeedback),
     FeedbackController.createFeedback
 );
@@ -22,7 +22,7 @@ router.get("/:videoId", FeedbackController.getFeedbacksByVideo);
 // DELETE /api/v1/feedbacks/:id — Delete feedback (Owner only)
 router.delete(
     "/:id",
-    authMw.authorizeRole([authMw.UserRole.user, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization, authMw.UserRole.admin]),
     FeedbackController.deleteFeedback
 );
 
