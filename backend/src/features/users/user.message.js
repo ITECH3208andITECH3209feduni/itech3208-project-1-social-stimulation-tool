@@ -4,6 +4,7 @@ import createError from "#config/error.config.js";
 // MARK: - BUSINESS SUCCESS MESSAGES
 const SUCCESS_MESSAGES = {
     GET_USER_INFOR_SUCCESSFULLY: "Get user information successfully.",
+    UPLOAD_AVATAR_SUCCESSFULLY: "Your avatar upload successfully.",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
@@ -79,6 +80,21 @@ const VALIDATION_MESSAGES = {
         "string.empty": "Phone is required",
         "any.required": "Phone is required",
         "string.length": "Phone must be exactly 10 digits",
+    },
+    mimetype: {
+        "any.required": "Avatar file is required",
+        "string.empty": "Avatar file is required",
+        "any.only": "Avatar must be png, jpg, jpeg or webp format",
+    },
+
+    size: {
+        "any.required": "Avatar size is required",
+        "number.max": "Avatar size must not exceed 5MB",
+    },
+
+    originalname: {
+        "any.required": "Avatar filename is required",
+        "string.empty": "Avatar filename is required",
     },
 };
 
