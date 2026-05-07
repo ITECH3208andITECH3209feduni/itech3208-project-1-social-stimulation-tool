@@ -1,5 +1,6 @@
+import UPLOAD_FOLDERS from "#constants/upload-folder.constant.js";
 import { UserModel } from "#models/index.js";
-import { bcryptUtil } from "#utils/index.js";
+import { bcryptUtil, cloudinaryUtil } from "#utils/index.js";
 import UserMessages from "./user.message.js";
 
 const UserService = {
@@ -57,6 +58,42 @@ const UserService = {
         const { password, __v, ...cleanedUser } = existUser._doc;
 
         return cleanedUser;
+    },
+
+    uploadAvatar: async ({ userId, file }) => {
+        const existedUser = await UserModel.findById(userId);
+
+        if (!existedUser) {
+            throw UserMessages.error.USER_IS_NOT_EXIST();
+        }
+
+        if (existedUser.avatar?.cloudinaryId) {
+            await cloudinaryUtil.deleteFile(existedUser.avatar?.cloudinaryId);
+        }
+
+        const fileName = cloudinaryUtil.genFileName({
+            prefix: "avatar",
+            entityId: existedUser._id,
+        });
+
+        const uploadedAvatar = await cloudinaryUtil.uploadBuffer({
+            fileBuffer: file.buffer,
+            folder: UPLOAD_FOLDERS.USERS.AVATARS,
+            fileName: fileName,
+        });
+
+        existedUser.avatar = {
+            url: uploadedAvatar.secure_url,
+            cloudinaryId: uploadedAvatar.public_id,
+        };
+
+        await existedUser.save();
+
+        return {
+            id: existedUser._id,
+            username: existedUser.username,
+            avatar: existedUser.avatar,
+        };
     },
 };
 
