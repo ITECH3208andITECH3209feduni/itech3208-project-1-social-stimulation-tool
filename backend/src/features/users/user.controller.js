@@ -7,14 +7,40 @@ const UserController = {
     getUserInfor: async (req, res) => {
         try {
             const userId = req.user.id;
-            const userInfo = await UserService.getUserInfor(userId)
+            const userInfo = await UserService.getUserInfor(userId);
             resUtil.sendSuccess({
                 res,
                 message: UserMessages.success.GET_USER_INFOR_SUCCESSFULLY,
-                data: userInfo
-            })
+                data: userInfo,
+            });
         } catch (error) {
             loggerUtil.error(`[UserController.getUserInfor]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    uploadAvatar: async (req, res) => {
+        try {
+            const userId = req.user.id;
+            const file = req.file;
+
+            const updatedUser = await UserService.uploadAvatar({
+                userId,
+                file,
+            });
+
+            return resUtil.sendSuccess({
+                res,
+                message: UserMessages.success.UPLOAD_AVATAR_SUCCESSFULLY,
+                data: updatedUser,
+            });
+        } catch (error) {
+            loggerUtil.error(`[UserController.uploadAvatar]: ${error}`);
             return resUtil.sendError({
                 res,
                 message: error.message,
