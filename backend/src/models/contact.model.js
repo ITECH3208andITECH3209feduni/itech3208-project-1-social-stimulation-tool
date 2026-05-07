@@ -12,11 +12,24 @@ const ContactSchema = new mongoose.Schema(
             ref: "Category",
             required: true,
         },
+        subject: {
+            type: String,
+            trim: true,
+            default: "General Inquiry",
+        },
         message: {
             type: String,
+            required: true,
+            trim: true,
+        },
+        status: {
+            type: String,
+            enum: ["pending", "processed", "archived"],
+            default: "pending",
         },
         acceptedTerms: {
             type: Boolean,
+            default: false,
         },
     },
     {
