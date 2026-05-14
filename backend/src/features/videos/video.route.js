@@ -15,7 +15,7 @@ publicRouter.get("/:id", VideoController.getVideoById);
 // MARK: - USER ROUTES (Organization Management)
 userRouter.post(
     "/",
-    authMw.authorizeRole([authMw.UserRole.organization, authMw.UserRole.admin]),
+    authMw.authorizeRole([authMw.UserRole.organization, authMw.UserRole.admin, authMw.UserRole.individual]),
     multerConfig.single("video"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadVideo),
