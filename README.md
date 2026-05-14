@@ -1,30 +1,37 @@
-# Social Stimulation Tool
+# 🌟 Social Stimulation Tool
 
-A full-stack web application designed to support social skill development
-through video-based learning content. Built for ITECH3208/ITECH3209 at
-Federation University.(more details )
+[![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev/)
+[![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas-47A248.svg)](https://www.mongodb.com/atlas)
+[![Vite](https://img.shields.io/badge/Vite-latest-646CFF.svg)](https://vitejs.dev/)
 
----
-
-## What Is This?
-
-The Social Stimulation Tool helps users — individuals and organisations —
-discover, watch, and engage with curated video content that supports social
-learning. The project is made up of three apps:
-
-- **Backend** — REST API server (Node.js + Express + MongoDB Atlas)
-- **Frontend** — User-facing web app (React + Vite)
-- **Admin** — Admin dashboard for managing content and users (React + Vite)
+A full-stack web application designed to support social skill development through video-based learning content. Built for ITECH3208/ITECH3209 at Federation University.
 
 ---
 
-## Quick Start
+## 📖 What Is This?
+
+The Social Stimulation Tool helps users — individuals and organisations — discover, watch, and engage with curated video content that supports social learning. The project is made up of three integrated apps:
+
+- ⚙️ **Backend** — REST API server (Node.js + Express + MongoDB Atlas)
+- 🖥️ **Frontend** — User-facing web app (React + Vite)
+- 🛡️ **Admin** — Admin dashboard for managing content and users (React + Vite)
+
+### ✨ Key Features
+- **Role-based Access Control**: Different experiences for Individuals, Organizations, and Admins.
+- **Video Content Management**: Secure video uploading, thumbnails, and categorization via Cloudinary.
+- **Wishlists & Tracking**: Users can save their favorite videos for easy access later.
+- **Organization Support**: Dedicated profiles and models for organizations to manage their own content.
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - Node.js v18+
 - MongoDB Atlas account
-- Cloudinary account (for image/file uploads)
+- Cloudinary account (for image/video file uploads)
 
 ### Clone & Install
 
@@ -33,7 +40,7 @@ git clone https://github.com/ITECH3208andITECH3209feduni/itech3208-project-1-soc
 cd itech3208-project-1-social-stimulation-tool
 ```
 
-**Backend**
+#### Backend
 
 ```bash
 cd backend
@@ -42,7 +49,7 @@ cp env/.env.example env/.env   # fill in your values
 npm run dev                    # runs on http://localhost:3000
 ```
 
-**Frontend**
+#### Frontend
 
 ```bash
 cd frontend
@@ -51,7 +58,7 @@ cp .env.example .env           # fill in your values
 npm run dev                    # runs on http://localhost:5173
 ```
 
-**Admin**
+#### Admin
 
 ```bash
 cd admin
@@ -62,7 +69,7 @@ npm run dev                    # runs on http://localhost:5174
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
 ### Backend (`backend/env/.env`)
 
@@ -87,9 +94,9 @@ VITE_API_BASE_URL=http://localhost:3000
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
-```
+```text
 social-stimulation-tool/
 │
 ├── backend/
@@ -128,9 +135,8 @@ social-stimulation-tool/
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
-````
 **Key backend files:**
 
 | File | Purpose |
@@ -144,7 +150,7 @@ social-stimulation-tool/
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 ### Backend
 
@@ -192,7 +198,7 @@ social-stimulation-tool/
 
 ---
 
-## API Overview
+## 📡 API Overview
 
 All routes are prefixed with the base path set in `src/config/`.
 
@@ -216,7 +222,7 @@ All routes are prefixed with the base path set in `src/config/`.
 
 ---
 
-## User Roles
+## 👥 User Roles
 
 | Role | Access |
 |---|---|
@@ -232,7 +238,7 @@ All routes are prefixed with the base path set in `src/config/`.
 
 ---
 
-## Available Scripts
+## 📜 Available Scripts
 
 **All three apps**
 
@@ -242,7 +248,7 @@ npm run build      # production build
 npm run preview    # preview production build locally
 npm run format     # format code with Prettier
 npm run lint       # lint with ESLint
-````
+```
 
 **Backend only**
 
@@ -253,40 +259,31 @@ npm run allow-ip   # whitelist an IP for dev access
 
 ---
 
-## FAQ
+## ❓ FAQ
 
 **Why can't I register as admin through Postman?**
 
-The registration validation only accepts `"individual"` and `"organization"`.
-Admin accounts must be manually set in MongoDB Atlas. See
-[User Roles](#user-roles).
+The registration validation only accepts `"individual"` and `"organization"`. Admin accounts must be manually set in MongoDB Atlas. See [User Roles](#user-roles).
 
 **I'm getting a `VALIDATION_ERROR` on the `role` field.**
 
-You're likely sending a value that isn't exactly `"individual"` or
-`"organization"` (it's case-sensitive). You can also leave `role` out entirely —
-it defaults to `"individual"`.
+You're likely sending a value that isn't exactly `"individual"` or `"organization"` (it's case-sensitive). You can also leave `role` out entirely — it defaults to `"individual"`.
 
 **Where are uploaded images stored?**
 
-Images go to Cloudinary, not the local server. The URL and `cloudinaryId` are
-saved in MongoDB on the user or video document.
+Images go to Cloudinary, not the local server. The URL and `cloudinaryId` are saved in MongoDB on the user or video document.
 
 **How does authentication work?**
 
-Login returns a JWT token. The frontend/admin app stores this and sends it as
-`Authorization: Bearer <token>` on every protected request. The admin app also
-uses `jwt-decode` to read the role from the token client-side for UI route
-guarding.
+Login returns a JWT token. The frontend/admin app stores this and sends it as `Authorization: Bearer <token>` on every protected request. The admin app also uses `jwt-decode` to read the role from the token client-side for UI route guarding.
 
 **How do I connect to MongoDB Atlas?**
 
-Set `MONGO_URI` in `backend/env/.env`. The connection is established in
-`src/config/` before the server starts.
+Set `MONGO_URI` in `backend/env/.env`. The connection is established in `src/config/` before the server starts.
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 1. Branch off `development`: `git checkout -b feature/your-feature`
 2. Make your changes
@@ -297,16 +294,16 @@ Please don't commit directly to `main`.
 
 ---
 
-## Changelog
+## 📝 Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md) for version history and breaking changes.
 
 ---
 
-## License
+## ⚖️ License
 
 ISC
 
 ---
 
-_ITECH3208 / ITECH3209 — Federation University_
+*ITECH3208 / ITECH3209 — Federation University*
