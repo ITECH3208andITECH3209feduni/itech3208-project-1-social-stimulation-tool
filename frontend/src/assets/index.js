@@ -13,6 +13,10 @@ const imgScenario = "/images/img_scenario.svg";
 const business = "/images/tutorials/business.jpg";
 const food = "/images/tutorials/food.jpg";
 const sports = "/images/tutorials/sports.jpg";
+const aboutUs = "/images/about_page/about_us-1.jpeg";
+const aboutUs2 = "/images/about_page/about_us-2.jpg";
+const ourMission = "/images/about_page/our_mission.jpg";
+const ourTeam = "/images/about_page/our_team.jpg";
 
 export {
     federationLogo,
@@ -26,6 +30,10 @@ export {
     business,
     food,
     sports,
+    aboutUs,
+    aboutUs2,
+    ourMission,
+    ourTeam,
 };
 
 export { categories, levels };

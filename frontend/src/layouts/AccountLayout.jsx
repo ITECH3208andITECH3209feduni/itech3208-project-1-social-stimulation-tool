@@ -18,7 +18,7 @@ function AccountLayout() {
                     objectPosition="center"
                     objectFit="cover"
                 />
-
+                
                 {/* Back icon on the top left*/}
                 <Box position="absolute" top="20px" left="20px">
                     <Link to="/">

@@ -36,7 +36,12 @@ function AuthForm({ isRegister = false }) {
                         {field.type === "password" ? (
                             <PasswordInput placeholder={field.placeholder} />
                         ) : (
-                            <Input type={field.type} placeholder={field.placeholder} />
+                            <Input
+                                background="gray.100"
+                                borderColor={"gray.400"}
+                                type={field.type}
+                                placeholder={field.placeholder}
+                            />
                         )}
                     </Field.Root>
                 ))}
