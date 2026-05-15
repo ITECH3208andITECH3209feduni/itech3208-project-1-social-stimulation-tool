@@ -13,6 +13,16 @@ router.get(
 );
 
 router.patch(
+    "/update-profile",
+    authMw.authorizeRole([
+        authMw.UserRole.individual,
+        authMw.UserRole.organization,
+    ]),
+    bodyMw.validate(UserSchema.updateProfile),
+    UserController.updateProfile,
+);
+
+router.patch(
     "/upload-avatar",
     authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
     multerConfig.single("avatar"),

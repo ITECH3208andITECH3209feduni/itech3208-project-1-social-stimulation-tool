@@ -24,6 +24,38 @@ const UserController = {
         }
     },
 
+    updateProfile: async (req, res) => {
+        try {
+            const userId = req.user.id;
+
+            const updatedUser = await UserService.updateProfile({
+                userId,
+                payload: req.body,
+            });
+
+            return resUtil.sendSuccess({
+                res,
+                message:
+                    UserMessages.success
+                        .UPDATE_USER_PROFILE_SUCCESSFULLY,
+                data: updatedUser,
+            });
+        } catch (error) {
+            loggerUtil.error(
+                `[UserController.updateProfile]: ${error}`,
+            );
+
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode:
+                    error.statusCode ||
+                    StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
     uploadAvatar: async (req, res) => {
         try {
             const userId = req.user.id;
