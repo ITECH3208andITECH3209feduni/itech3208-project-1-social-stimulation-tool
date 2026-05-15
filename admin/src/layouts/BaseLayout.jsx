@@ -1,11 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Outlet, Link } from "react-router-dom";
-import { Box, Flex, HStack, Image, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { MdLogout } from "react-icons/md";
 import { federationLogo } from "@/assets";
 import Sidebar from "@/components/common/sidebar/Sidebar";
-import UserMenu from "@/components/common/menu/UserMenu";
 
 function BaseLayout() {
     const [displayName, setDisplayName] = useState("User".slice(0, 2).toUpperCase());
@@ -34,7 +33,20 @@ function BaseLayout() {
                 </Box>
                 <Sidebar />
                 {/* Logout button */}
-                
+                <Flex align="center" py={2} px={2} _hover={{ cursor: "pointer" }} borderRadius="md">
+                    <MdLogout />
+                    <Text
+                        ml={2}
+                        onClick={() => {
+                            // logout();
+                            navigate("/auth/login", {
+                                replace: true,
+                            });
+                        }}
+                    >
+                        Logout
+                    </Text>
+                </Flex>
             </Box>
 
             {/* Main content area */}
@@ -43,13 +55,18 @@ function BaseLayout() {
                 <Flex justify="flex-end" bg="dark.900" p={4}>
                     {/* Avatar */}
                     <Box
+                        w="40px"
+                        h="40px"
+                        borderRadius="full"
+                        bg="brand.500"
+                        color="white"
                         display="flex"
                         alignSelf="center"
                         alignItems="center"
                         justifyContent="center"
                         fontWeight="bold"
                     >
-                        <UserMenu />
+                        {displayName}
                     </Box>
                 </Flex>
 
