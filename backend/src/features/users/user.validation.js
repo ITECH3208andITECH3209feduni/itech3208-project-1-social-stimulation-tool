@@ -15,6 +15,26 @@ const uploadAvatar = Joi.object({
     originalname: Joi.string().required().messages(UserMessages.validation.originalname),
 });
 
-const UserSchema = { uploadAvatar };
+const updateProfile = Joi.object({
+    firstName: Joi.string().allow("").optional(),
+
+    lastName: Joi.string().allow("").optional(),
+
+    username: Joi.string()
+        .min(5)
+        .max(20)
+        .optional()
+        .messages(UserMessages.validation.username),
+
+    email: Joi.string()
+        .email()
+        .optional()
+        .messages(UserMessages.validation.email),
+});
+
+const UserSchema = {
+    uploadAvatar,
+    updateProfile,
+};
 
 export default UserSchema;
