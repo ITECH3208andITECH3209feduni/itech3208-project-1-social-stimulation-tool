@@ -38,7 +38,7 @@ function AboutUs() {
 
                     <VStack spacing={5} align="start" color={"navy.500"} fontSize={18}>
                         <Text>
-                            Scenari-Aid is an application designed by Grant Meredith who is a lecturer within the School of Science, Information Technology & Engineering (SITE) at Federation University Australia. Grant leads the Technologies for Empowering People for Participation in Society (TEPPS) programme which conceive, designs and evaluate “assertive technologies” for people at need.
+                            Scenari-Aid is an application designed by <Link color="brand.500" fontWeight="bold" href="/contact">Grant Meredith</Link> who is a lecturer within the School of Science, Information Technology & Engineering (SITE) at Federation University Australia. Grant leads the Technologies for Empowering People for Participation in Society (TEPPS) programme which conceive, designs and evaluate “assertive technologies” for people at need.
                         </Text>
 
                         <Text>
@@ -100,7 +100,7 @@ function AboutUs() {
                     Contribute
                 </Heading>
                 <Text color={"navy.500"} fontSize={18} mb={4}>
-                    Scenari-Aid is an organic community driven project and we welcome personal contributions to the application in the form of ideas, video scenarios and donations. If you are interested in contributing to Scenari-Aid in any form please contact Grant Meredith via{" "}
+                    Scenari-Aid is an organic community driven project and we welcome personal contributions to the application in the form of ideas, video scenarios and donations. If you are interested in contributing to Scenari-Aid in any form please contact <Link color="brand.500" fontWeight="bold" href="/contact">Grant Meredith</Link> via{" "}
                     <Link color="brand.500" fontWeight="bold" href="/contact">this link</Link>.
                 </Text>
             </Box>
