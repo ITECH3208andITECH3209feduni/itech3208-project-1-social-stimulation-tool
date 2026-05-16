@@ -57,42 +57,18 @@ function ContactForm() {
                         <NormalField fieldLabel="Last name" inputPlaceholder="Your last name" />
                     </Flex>
 
-                    {/* Email and phone number fields */}
+                    {/* Email and location fields */}
                     <Flex gap={"4"}>
-                        <NormalField
-                            fieldLabel="Phone number"
-                            inputPlaceholder="Your phone number"
-                        />
                         <NormalField
                             fieldLabel="Email"
                             inputPlaceholder="Your email"
                             type="email"
                         />
-                    </Flex>
-
-                    {/* Location and country fields */}
-                    <Flex gap={"4"}>
                         <NormalField
                             fieldLabel="Location"
                             inputPlaceholder="Your location"
                             background="gray.100"
                         />
-                        <Field.Root>
-                            <Field.Label>Country </Field.Label>
-                            <NativeSelect.Root>
-                                <NativeSelect.Field
-                                    bg={"gray.100"}
-                                    borderColor={"gray.400"}
-                                    placeholder="Select your country"
-                                >
-                                    <option value="react">React</option>
-                                    <option value="react">React</option>
-                                    <option value="react">React</option>
-                                    <option value="react">React</option>
-                                </NativeSelect.Field>
-                                <NativeSelect.Indicator />
-                            </NativeSelect.Root>
-                        </Field.Root>
                     </Flex>
 
                     {/* How can we help you fields */}
