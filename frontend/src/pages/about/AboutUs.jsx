@@ -88,17 +88,6 @@ function AboutUs() {
                         These scenarios offer the user a perfect platform to work through in regards to their purpose and need. Each scenario is comprised of a number of steps in which the user can pause at any time and choose to respond in a time and manner that best fits their situation, style & needs.
                     </Text>
 
-                    {/* <Box w="100%">
-                        <Heading size="md" color="brand.500" mb={4}>Scenarios include the likes of:</Heading>
-                        <List spacing={2} pl={5}>
-                            <ListItem>Job interviews</ListItem>
-                            <ListItem>Shops, cafes & restaurants</ListItem>
-                            <ListItem>Making a medical appointment</ListItem>
-                            <ListItem>Booking a flight</ListItem>
-                            <ListItem>Having a social conversation</ListItem>
-                        </List>
-                    </Box> */}
-
                     <Text bg="blue.50" p={6} rounded="lg" w="100%" border="1px solid" borderColor="blue.100">
                         You will need to register to be able to access the scenarios. Registration is available through{" "}
                         <Link color="brand.500" fontWeight="bold" href="/account/register">this link</Link>. If you have any questions or suggestions about Scenari-Aid please do not hesitate to <Link color="brand.500" fontWeight="bold" href="/contact">contact us</Link>.
