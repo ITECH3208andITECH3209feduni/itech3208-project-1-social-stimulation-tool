@@ -3,16 +3,13 @@ import API_ROUTES from "../api.config";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 
 const authApi = {
-    login: async (credentials) => {
-        const response = await axiosInstance.post(API_ROUTES.AUTH.LOGIN, credentials);
-        const { data } = response;
-        
-        useAuthStore.getState().setAuth({
-            user: data.user,
-            accessToken: data.accessToken,
-        });
-        
-        return response;
+    login: async ({ username, password }) => {
+        const response = await axiosInstance.post(API_ROUTES.AUTH.LOGIN, { username, password });
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
     },
 
     register: async (userData) => {
