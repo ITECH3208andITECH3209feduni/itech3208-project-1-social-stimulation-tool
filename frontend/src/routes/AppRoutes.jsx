@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 // layouts
 import HomeLayout from "@/layouts/HomeLayout";
@@ -14,26 +15,31 @@ import TermsConditionsPage from "@/pages/terms&conditions/TermsConditionsPage";
 import LoginPage from "@/pages/account/LoginPage";
 import RegisterPage from "@/pages/account/RegisterPage";
 
+const DocumentTitle = ({ title, children }) => {
+    useDocumentTitle(title);
+    return children;
+};
+
 const AppRoutes = () => {
     return (
         <Routes>
             <Route element={<HomeLayout />}>
-                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/" element={<DocumentTitle title="Home"><HomePage /></DocumentTitle>}></Route>
                 <Route path="/about">
-                    <Route index element={<AboutPage />} />
+                    <Route index element={<DocumentTitle title="About Us"><AboutPage /></DocumentTitle>} />
                     <Route path="sub-page-1" />
                     <Route path="sub-page-2" />
                 </Route>
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/terms" element={<TermsConditionsPage />} />
+                <Route path="/contact" element={<DocumentTitle title="Contact"><ContactPage /></DocumentTitle>} />
+                <Route path="/terms" element={<DocumentTitle title="Terms & Conditions"><TermsConditionsPage /></DocumentTitle>} />
             </Route>
             <Route element={<TutorialLayout />}>
-                <Route path="/tutorial" element={<TutorialPage />} />
+                <Route path="/tutorial" element={<DocumentTitle title="Tutorial"><TutorialPage /></DocumentTitle>} />
             </Route>
             <Route path="/account" element={<AccountLayout />}>
                 <Route index element={<Navigate to="login" />} />
-                <Route path="login" element={<LoginPage />} />
-                <Route path="register" element={<RegisterPage />} />
+                <Route path="login" element={<DocumentTitle title="Login"><LoginPage /></DocumentTitle>} />
+                <Route path="register" element={<DocumentTitle title="Register"><RegisterPage /></DocumentTitle>} />
             </Route>
         </Routes>
     );
