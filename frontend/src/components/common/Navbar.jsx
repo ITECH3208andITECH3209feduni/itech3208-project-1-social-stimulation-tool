@@ -1,6 +1,7 @@
 import { Flex, HStack, Box, Image } from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import { federationLogo } from "@/assets";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 
 const Navbar = () => {
     const navStyle = ({ isActive }) => ({
@@ -9,6 +10,9 @@ const Navbar = () => {
         borderBottom: isActive ? "2px solid #0032FF" : "none",
         paddingBottom: "4px",
     });
+
+    const accessToken = useAuthStore((state) => state.accessToken);
+
     return (
         <Flex
             as="nav"
@@ -47,9 +51,13 @@ const Navbar = () => {
                 <NavLink to="/terms" style={navStyle}>
                     Terms & Conditions
                 </NavLink>
-                <NavLink to="/account" style={navStyle}>
-                    Account
-                </NavLink>
+                {accessToken ? (
+                    <> </>
+                ) : (
+                    <NavLink to="/account" style={navStyle}>
+                        Account
+                    </NavLink>
+                )}
 
                 <Box
                     w="9"
