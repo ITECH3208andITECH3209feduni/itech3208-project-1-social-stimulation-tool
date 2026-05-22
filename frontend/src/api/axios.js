@@ -22,34 +22,45 @@ axiosInstance.interceptors.request.use(
     (error) => {
         loggerUtil.error("[AxiosRequestError]", error);
         return Promise.reject(error);
-    }
+    },
 );
 
 // MARK: - RESPONSE INTERCEPTOR
+const extractErrorStatus = (error) => {
+    return error?.response?.status || 500;
+};
+
+const extractErrorMessage = (error) => {
+    const status = extractErrorStatus(error);
+    const data = error?.response?.data;
+
+    const possibleMessages = [data?.message, data?.details?.[0]?.message, error?.message];
+
+    return status == 500 ? possibleMessages[0] : possibleMessages[1];
+};
+
 axiosInstance.interceptors.response.use(
     (response) => {
         return response.data;
     },
     (error) => {
-        const status = error.response?.status;
-        const message = error.response?.data?.message || error.message || "Something went wrong";
+        const status = extractErrorStatus(error);
+        const message = extractErrorMessage(error);
 
-        loggerUtil.error(`[AxiosResponseError] [${status || "Network"}]`, {
-            url: error.config?.url,
-            method: error.config?.method,
+        loggerUtil.error(`[AxiosResponseError] [${status}]`, {
             message,
-            data: error.response?.data,
         });
 
         if (status === 401) {
             useAuthStore.getState().clearAuth();
         }
-        
+
         return Promise.reject({
             ...error,
+            status,
             message,
         });
-    }
+    },
 );
 
 export default axiosInstance;
