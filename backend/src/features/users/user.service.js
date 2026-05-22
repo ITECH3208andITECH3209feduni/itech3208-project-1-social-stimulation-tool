@@ -68,6 +68,58 @@ const UserService = {
         return UserService._formatUser(existUser);
     },
 
+    updateProfile: async ({ userId, payload }) => {
+    const existedUser = await UserModel.findById(userId);
+
+    if (!existedUser) {
+        throw UserMessages.error.USER_IS_NOT_EXIST();
+    }
+
+    // Check username duplicate
+    if (
+        payload.username &&
+        payload.username !== existedUser.username
+    ) {
+        const usernameExist = await UserModel.findOne({
+            username: payload.username,
+        });
+
+        if (usernameExist) {
+            throw UserMessages.error.USERNAME_IS_EXIST();
+        }
+    }
+
+    // Check email duplicate
+    if (
+        payload.email &&
+        payload.email !== existedUser.email
+    ) {
+        const emailExist = await UserModel.findOne({
+            email: payload.email,
+        });
+
+        if (emailExist) {
+            throw UserMessages.error.EMAIL_IS_EXIST();
+        }
+    }
+
+    existedUser.firstName =
+        payload.firstName ?? existedUser.firstName;
+
+    existedUser.lastName =
+        payload.lastName ?? existedUser.lastName;
+
+    existedUser.username =
+        payload.username ?? existedUser.username;
+
+    existedUser.email =
+        payload.email ?? existedUser.email;
+
+    await existedUser.save();
+
+    return UserService._formatUser(existedUser);
+},
+
     uploadAvatar: async ({ userId, file }) => {
         const existedUser = await UserModel.findById(userId);
 

@@ -5,6 +5,7 @@ import createError from "#config/error.config.js";
 const SUCCESS_MESSAGES = {
     GET_USER_INFOR_SUCCESSFULLY: "Get user information successfully.",
     UPLOAD_AVATAR_SUCCESSFULLY: "Your avatar upload successfully.",
+    UPDATE_USER_PROFILE_SUCCESSFULLY: "Your profile updated successfully.",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
