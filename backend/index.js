@@ -1,5 +1,6 @@
 // MARK: - Standard Libraries
 import express from "express";
+import cors from "cors";
 import { StatusCodes } from "http-status-codes";
 
 // MARK: - Packages Customization
@@ -17,7 +18,7 @@ import {
     VideoAdminRouter,
     FeedbackRouter,
     WishlistRouter,
-    ContactRouter
+    ContactRouter,
 } from "#routes/index.js";
 
 const app = express();
@@ -25,6 +26,14 @@ const app = express();
 // MARK: - App Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+    cors({
+        origin: [
+            "http://localhost:5173", // Frontend Domain
+        ],
+        credentials: true,
+    }),
+);
 
 // MARK: - App API Routes
 
