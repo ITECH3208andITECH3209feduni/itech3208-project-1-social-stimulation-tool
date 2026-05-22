@@ -44,7 +44,7 @@ const UserService = {
             throw UserMessages.error.USERNAME_IS_NOT_CORRECT();
         }
 
-        const validPasssword = bcryptUtil.comparePassword(payload.password, existedUser.password);
+        const validPasssword = await bcryptUtil.comparePassword(payload.password, existedUser.password);
 
         if (!validPasssword) {
             throw UserMessages.error.PASSWORD_IS_NOT_CORRECT();
