@@ -1,13 +1,19 @@
-import { Box, Field, Flex, Heading, Input, Image, Button } from "@chakra-ui/react";
-import React from "react";
-import { loginFields, registerFields } from "./authConfig";
-import PasswordInput from "./PasswordInput";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { federationLogo } from "@/assets";
+import { Box, Field, Flex, Heading, Input, Image, Button } from "@chakra-ui/react";
+import PasswordInput from "./PasswordInput";
 import SocialLogin from "./SocialLogin";
+import { federationLogo } from "@/assets";
 
-function AuthForm({ isRegister = false }) {
-    const fields = isRegister ? registerFields : loginFields;
+function AuthForm({ fields, onSubmit }) {
+    const isRegister = fields.length > 2;
+
+    const [input, setInput] = useState({});
+
+    const handleInputChange = (key, value) => {
+        setInput((prev) => ({ ...prev, [key]: value }));
+    };
+
     return (
         <Flex
             position={"relative"}
@@ -34,18 +40,24 @@ function AuthForm({ isRegister = false }) {
                     <Field.Root key={field.label}>
                         <Field.Label>{field.label}</Field.Label>
                         {field.type === "password" ? (
-                            <PasswordInput placeholder={field.placeholder} />
+                            <PasswordInput
+                                placeholder={field.placeholder}
+                                onChange={(e) => handleInputChange(field.name, e.target.value)}
+                            />
                         ) : (
                             <Input
+                                color={"dark.900"}
                                 background="gray.100"
                                 borderColor={"gray.400"}
                                 type={field.type}
                                 placeholder={field.placeholder}
+                                name={field.name}
+                                onChange={(e) => handleInputChange(field.name, e.target.value)}
                             />
                         )}
                     </Field.Root>
                 ))}
-                <Button w={"100%"} bg={"skyblue.500"}>
+                <Button w={"100%"} bg={"skyblue.500"} onClick={() => onSubmit?.(input)}>
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>
                 <SocialLogin isRegister={isRegister} />
