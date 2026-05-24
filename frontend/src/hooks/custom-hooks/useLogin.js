@@ -12,7 +12,6 @@ const useLogin = () => {
             });
             if (res.success) {
                 callback.onSuccess?.(res.data, res.message);
-                console.log(res.data.accessToken)
                 setAuth(res.data.accessToken);
             }
         } catch (error) {
