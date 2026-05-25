@@ -1,4 +1,4 @@
-import { Box, Field, Flex, Heading, Input, Image, Button } from "@chakra-ui/react";
+import { Box, Checkbox, Field, Flex, Heading, Input, Image, Button, Text } from "@chakra-ui/react";
 import React from "react";
 import { loginFields, registerFields } from "./authConfig";
 import PasswordInput from "./PasswordInput";
@@ -45,6 +45,21 @@ function AuthForm({ isRegister = false }) {
                         )}
                     </Field.Root>
                 ))}
+                {isRegister && (
+                    <Checkbox.Root variant={"solid"} color={"brand.500"}>
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control />
+                        <Checkbox.Label>
+                            <Text color={"brand.500"}>
+                                I agree to receive{" "}
+                                <Link to="/terms" style={{ textDecoration: "underline" }}>
+                                    terms and conditions
+                                </Link>{" "}
+                                from Federation University
+                            </Text>
+                        </Checkbox.Label>
+                    </Checkbox.Root>
+                )}
                 <Button w={"100%"} bg={"skyblue.500"}>
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>

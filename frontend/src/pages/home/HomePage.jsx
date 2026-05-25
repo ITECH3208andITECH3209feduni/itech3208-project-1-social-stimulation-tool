@@ -9,7 +9,7 @@ function HomePage() {
             <Banner />
             <Container mt={"100px"} spaceY={10} background={"white"}>
                 <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={48}>
-                    NEW SCENARIOS
+                    NEW SCENARIOS (Test Github)
                 </Heading>
                 <VideoCarousel />
                 <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={48}>

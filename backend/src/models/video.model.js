@@ -10,7 +10,7 @@ const VideoSchema = new mongoose.Schema(
         },
         slug: {
             type: String,
-            // unique: true,
+            unique: true,
             lowercase: true,
             trim: true,
         },

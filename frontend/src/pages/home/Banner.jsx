@@ -1,5 +1,5 @@
 import { landingPage, star2 } from "@/assets";
-import { Box, Button, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, HStack, Image, Link, Text } from "@chakra-ui/react";
 import GeneralInfor from "./GeneralInfor";
 
 function Banner() {
@@ -49,8 +49,14 @@ function Banner() {
                 </Flex>
 
                 {/* Section3: Landing Image */}
-                <Flex flex={1}>
+                <Flex flex={1} direction="column">
                     <Image src={landingPage} fit={"cover"} w="full" h="100%" />
+                    <Text fontSize="xs" color="gray.500" textAlign="right" pr={2} pt={1}>
+                        Source:{" "}
+                        <Link href="https://my.vanderbilthealth.com/stuttering-in-adults-what-you-need-to-know/" target="_blank" color="gray.500" textDecoration="underline">
+                            Vanderbilt Health
+                        </Link>
+                    </Text>
                 </Flex>
             </Flex>
         </Box>
