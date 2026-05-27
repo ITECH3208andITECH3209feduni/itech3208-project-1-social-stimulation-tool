@@ -1,19 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Box, Field, Flex, Heading, Input, Image, Button } from "@chakra-ui/react";
+import { Box, Checkbox, Field, Flex, Heading, Input, Image, Button, Text } from "@chakra-ui/react";
+import React from "react";
+import { loginFields, registerFields } from "./authConfig";
 import PasswordInput from "./PasswordInput";
-import SocialLogin from "./SocialLogin";
+import { Link } from "react-router-dom";
 import { federationLogo } from "@/assets";
+import SocialLogin from "./SocialLogin";
 
-function AuthForm({ fields, onSubmit }) {
-    const isRegister = fields.length > 2;
-
-    const [input, setInput] = useState({});
-
-    const handleInputChange = (key, value) => {
-        setInput((prev) => ({ ...prev, [key]: value }));
-    };
-
+function AuthForm({ isRegister = false }) {
+    const fields = isRegister ? registerFields : loginFields;
     return (
         <Flex
             position={"relative"}
@@ -40,24 +34,33 @@ function AuthForm({ fields, onSubmit }) {
                     <Field.Root key={field.label}>
                         <Field.Label>{field.label}</Field.Label>
                         {field.type === "password" ? (
-                            <PasswordInput
-                                placeholder={field.placeholder}
-                                onChange={(e) => handleInputChange(field.name, e.target.value)}
-                            />
+                            <PasswordInput placeholder={field.placeholder} />
                         ) : (
                             <Input
-                                color={"dark.900"}
                                 background="gray.100"
                                 borderColor={"gray.400"}
                                 type={field.type}
                                 placeholder={field.placeholder}
-                                name={field.name}
-                                onChange={(e) => handleInputChange(field.name, e.target.value)}
                             />
                         )}
                     </Field.Root>
                 ))}
-                <Button w={"100%"} bg={"skyblue.500"} onClick={() => onSubmit?.(input)}>
+                {isRegister && (
+                    <Checkbox.Root variant={"solid"} color={"brand.500"}>
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control />
+                        <Checkbox.Label>
+                            <Text color={"brand.500"}>
+                                I agree to receive{" "}
+                                <Link to="/terms" style={{ textDecoration: "underline" }}>
+                                    terms and conditions
+                                </Link>{" "}
+                                from Federation University
+                            </Text>
+                        </Checkbox.Label>
+                    </Checkbox.Root>
+                )}
+                <Button w={"100%"} bg={"skyblue.500"}>
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>
                 <SocialLogin isRegister={isRegister} />
