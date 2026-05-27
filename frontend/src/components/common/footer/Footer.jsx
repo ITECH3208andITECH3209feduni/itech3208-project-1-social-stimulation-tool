@@ -1,4 +1,4 @@
-import { HStack, Text, VStack, Image, Flex } from "@chakra-ui/react";
+import { Text, VStack, Image, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { federationLogo } from "@/assets";
 import React from "react";
@@ -37,9 +37,21 @@ function Footer() {
                 <Text fontFamily={"Sora"} fontSize={16} fontWeight={"bold"}>
                     INTERNATIONAL
                 </Text>
-                <Text color={"navy.500"} fontFamily={"Sora"} fontSize={30} fontWeight={"bold"}>
-                    Contact Us
+                <Link to="/contact">
+                    <Text color={"navy.500"} fontFamily={"Sora"} fontSize={30} fontWeight={"bold"} _hover={{ textDecoration: "underline" }}>
+                        Contact Us
+                    </Text>
+                </Link>
+            </VStack>
+            <VStack align={"start"}>
+                <Text fontFamily={"Sora"} fontSize={16} fontWeight={"bold"}>
+                    FEEDBACK
                 </Text>
+                <Link to="/contact">
+                    <Text color={"navy.500"} fontFamily={"Sora"} fontSize={30} fontWeight={"bold"} _hover={{ textDecoration: "underline" }}>
+                        Share your thoughts
+                    </Text>
+                </Link>
             </VStack>
             <VStack align={"start"}>
                 <Text fontFamily={"Sora"} fontSize={16} fontWeight={"bold"}>
