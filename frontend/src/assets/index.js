@@ -3,7 +3,7 @@ import levels from "./tutorialLevels";
 
 // MARK: - IMAGES
 const federationLogo = "/images/feduni_logo.svg";
-const landingPage = "/images/landing_page.svg";
+const landingPage = "/images/landing_hero_vanderbilt.jpg";
 const registerImage = "/images/register.svg";
 const accountImage = "/images/account.svg";
 const star1 = "/images/star1.svg";
