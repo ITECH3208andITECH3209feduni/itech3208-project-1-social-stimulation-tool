@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-    Button,
-    Dialog,
-    Portal,
-    Text,
-    VStack,
-    HStack,
-    CloseButton,
-} from "@chakra-ui/react";
+import { Button, Box, Text, VStack, HStack, CloseButton, Heading } from "@chakra-ui/react";
 
 const DELAY_MS = 30_000;
 const SESSION_KEY = "feedbackPopupSeen";
@@ -33,60 +25,41 @@ function FeedbackPopup() {
         navigate("/contact");
     };
 
+    if (!open) return null;
+
     return (
-        <Dialog.Root open={open} onOpenChange={({ open }) => setOpen(open)} size="sm">
-            <Portal>
-                <Dialog.Positioner
-                    style={{
-                        position: "fixed",
-                        bottom: "24px",
-                        right: "24px",
-                        top: "auto",
-                        left: "auto",
-                        alignItems: "flex-end",
-                        justifyContent: "flex-end",
-                    }}
-                >
-                    <Dialog.Content bg="white">
-                        <Dialog.Header>
-                            <Dialog.Title fontFamily="Sora" color="brand.500">
-                                Enjoying Scenari-Aid?
-                            </Dialog.Title>
-                            <Dialog.CloseTrigger asChild>
-                                <CloseButton size="sm" />
-                            </Dialog.CloseTrigger>
-                        </Dialog.Header>
-                        <Dialog.Body>
-                            <VStack align="start" gap={3}>
-                                <Text fontFamily="Sora" fontSize="sm">
-                                    We&apos;d love to hear what you think! Your feedback helps us
-                                    improve the experience for everyone.
-                                </Text>
-                            </VStack>
-                        </Dialog.Body>
-                        <Dialog.Footer>
-                            <HStack justify="flex-end" gap={3}>
-                                <Button
-                                    variant="ghost"
-                                    fontFamily="Sora"
-                                    onClick={() => setOpen(false)}
-                                >
-                                    Maybe Later
-                                </Button>
-                                <Button
-                                    bg="brand.500"
-                                    color="white"
-                                    fontFamily="Sora"
-                                    onClick={handleFeedback}
-                                >
-                                    Give Feedback
-                                </Button>
-                            </HStack>
-                        </Dialog.Footer>
-                    </Dialog.Content>
-                </Dialog.Positioner>
-            </Portal>
-        </Dialog.Root>
+        <Box
+            position="fixed"
+            bottom="24px"
+            right="24px"
+            zIndex="popover"
+            bg="white"
+            boxShadow="lg"
+            borderRadius="md"
+            p={5}
+            w="320px"
+        >
+            <HStack justify="space-between" mb={3}>
+                <Heading fontFamily="Sora" color="brand.500" fontSize="md">
+                    Enjoying Scenari-Aid?
+                </Heading>
+                <CloseButton size="sm" onClick={() => setOpen(false)} />
+            </HStack>
+            <VStack align="start" gap={4}>
+                <Text fontFamily="Sora" fontSize="sm">
+                    We&apos;d love to hear what you think! Your feedback helps us improve the
+                    experience for everyone.
+                </Text>
+                <HStack justify="flex-end" w="full" gap={3}>
+                    <Button variant="ghost" fontFamily="Sora" onClick={() => setOpen(false)}>
+                        Maybe Later
+                    </Button>
+                    <Button bg="brand.500" color="white" fontFamily="Sora" onClick={handleFeedback}>
+                        Give Feedback
+                    </Button>
+                </HStack>
+            </VStack>
+        </Box>
     );
 }
 
