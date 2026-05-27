@@ -36,9 +36,18 @@ function FeedbackPopup() {
     return (
         <Dialog.Root open={open} onOpenChange={({ open }) => setOpen(open)} size="sm">
             <Portal>
-                <Dialog.Backdrop />
-                <Dialog.Positioner>
-                    <Dialog.Content>
+                <Dialog.Positioner
+                    style={{
+                        position: "fixed",
+                        bottom: "24px",
+                        right: "24px",
+                        top: "auto",
+                        left: "auto",
+                        alignItems: "flex-end",
+                        justifyContent: "flex-end",
+                    }}
+                >
+                    <Dialog.Content bg="white">
                         <Dialog.Header>
                             <Dialog.Title fontFamily="Sora" color="brand.500">
                                 Enjoying Scenari-Aid?
