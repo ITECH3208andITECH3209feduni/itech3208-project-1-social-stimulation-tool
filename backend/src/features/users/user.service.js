@@ -37,14 +37,17 @@ const UserService = {
         const existedUser = await UserModel.findOne({ username: payload.username });
 
         if (!existedUser) {
-            return null;
+            throw UserMessages.error.ACCOUNT_IS_NOT_EXIST(payload.username);
         }
 
         if (existedUser.username != payload.username) {
             throw UserMessages.error.USERNAME_IS_NOT_CORRECT();
         }
 
-        const validPasssword = await bcryptUtil.comparePassword(payload.password, existedUser.password);
+        const validPasssword = await bcryptUtil.comparePassword(
+            payload.password,
+            existedUser.password,
+        );
 
         if (!validPasssword) {
             throw UserMessages.error.PASSWORD_IS_NOT_CORRECT();
@@ -69,56 +72,46 @@ const UserService = {
     },
 
     updateProfile: async ({ userId, payload }) => {
-    const existedUser = await UserModel.findById(userId);
+        const existedUser = await UserModel.findById(userId);
 
-    if (!existedUser) {
-        throw UserMessages.error.USER_IS_NOT_EXIST();
-    }
-
-    // Check username duplicate
-    if (
-        payload.username &&
-        payload.username !== existedUser.username
-    ) {
-        const usernameExist = await UserModel.findOne({
-            username: payload.username,
-        });
-
-        if (usernameExist) {
-            throw UserMessages.error.USERNAME_IS_EXIST();
+        if (!existedUser) {
+            throw UserMessages.error.USER_IS_NOT_EXIST();
         }
-    }
 
-    // Check email duplicate
-    if (
-        payload.email &&
-        payload.email !== existedUser.email
-    ) {
-        const emailExist = await UserModel.findOne({
-            email: payload.email,
-        });
+        // Check username duplicate
+        if (payload.username && payload.username !== existedUser.username) {
+            const usernameExist = await UserModel.findOne({
+                username: payload.username,
+            });
 
-        if (emailExist) {
-            throw UserMessages.error.EMAIL_IS_EXIST();
+            if (usernameExist) {
+                throw UserMessages.error.USERNAME_IS_EXIST();
+            }
         }
-    }
 
-    existedUser.firstName =
-        payload.firstName ?? existedUser.firstName;
+        // Check email duplicate
+        if (payload.email && payload.email !== existedUser.email) {
+            const emailExist = await UserModel.findOne({
+                email: payload.email,
+            });
 
-    existedUser.lastName =
-        payload.lastName ?? existedUser.lastName;
+            if (emailExist) {
+                throw UserMessages.error.EMAIL_IS_EXIST();
+            }
+        }
 
-    existedUser.username =
-        payload.username ?? existedUser.username;
+        existedUser.firstName = payload.firstName ?? existedUser.firstName;
 
-    existedUser.email =
-        payload.email ?? existedUser.email;
+        existedUser.lastName = payload.lastName ?? existedUser.lastName;
 
-    await existedUser.save();
+        existedUser.username = payload.username ?? existedUser.username;
 
-    return UserService._formatUser(existedUser);
-},
+        existedUser.email = payload.email ?? existedUser.email;
+
+        await existedUser.save();
+
+        return UserService._formatUser(existedUser);
+    },
 
     uploadAvatar: async ({ userId, file }) => {
         const existedUser = await UserModel.findById(userId);
