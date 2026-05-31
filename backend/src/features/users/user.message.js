@@ -46,6 +46,12 @@ const ERROR_MESSAGES = {
             statusCode: StatusCodes.BAD_REQUEST,
             errorCode: "USER_IS_NOT_EXIST",
         }),
+    ACCOUNT_IS_NOT_EXIST: (username) =>
+        createError({
+            message: `This account (${username}) is not exist.`,
+            statusCode: StatusCodes.BAD_REQUEST,
+            errorCode: "ACCOUNT_IS_NOT_EXIST",
+        }),
 };
 
 // MARK: - VALIDATION ERROR MESSAGES

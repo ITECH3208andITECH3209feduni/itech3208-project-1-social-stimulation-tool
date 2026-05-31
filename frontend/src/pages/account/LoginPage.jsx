@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Toaster, toaster } from "@/components/ui/toaster";
+import { toaster } from "@/components/ui/toaster";
 import { loginFields } from "@/components/auth/authConfig";
 import AuthForm from "@/components/auth/AuthForm";
 import useLogin from "@/hooks/custom-hooks/useLogin";
@@ -38,7 +38,6 @@ function LoginPage() {
     return (
         <>
             <AuthForm fields={loginFields} onSubmit={handleLogin} />
-            <Toaster />
         </>
     );
 }

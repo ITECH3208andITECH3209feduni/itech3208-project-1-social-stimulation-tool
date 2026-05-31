@@ -1,7 +1,7 @@
 import { registerFields } from "@/components/auth/authConfig";
 import AuthForm from "@/components/auth/AuthForm";
-import { Box, Float, Spinner } from "@chakra-ui/react";
-import { toaster, Toaster } from "@/components/ui/toaster";
+import { Float, Spinner } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useRegister from "@/hooks/custom-hooks/useRegister";
@@ -50,7 +50,6 @@ function RegisterPage() {
                     <Spinner color={"red"} size={"md"} />
                 </Float>
             )}
-            <Toaster />
         </>
     );
 }
