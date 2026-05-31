@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 // layouts
@@ -15,31 +15,97 @@ import TermsConditionsPage from "@/pages/terms&conditions/TermsConditionsPage";
 import LoginPage from "@/pages/account/LoginPage";
 import RegisterPage from "@/pages/account/RegisterPage";
 
+import { toaster } from "@/components/ui/toaster";
+import useTokenExpiryCheck from "@/hooks/custom-hooks/useTokenExpiryCheck";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+
 const DocumentTitle = ({ title, children }) => {
     useDocumentTitle(title);
     return children;
 };
 
 const AppRoutes = () => {
+    const navigate = useNavigate();
+
+    const { clearAuth, accessToken } = useAuthStore();
+
+    useTokenExpiryCheck(accessToken, () => {
+        clearAuth();
+        toaster.create({
+            description: "Your current session is expired. Please login again to continue!",
+            type: "warning",
+        });
+        navigate("/account/login");
+    });
+
     return (
         <Routes>
             <Route element={<HomeLayout />}>
-                <Route path="/" element={<DocumentTitle title="Home"><HomePage /></DocumentTitle>}></Route>
+                <Route
+                    path="/"
+                    element={
+                        <DocumentTitle title="Home">
+                            <HomePage />
+                        </DocumentTitle>
+                    }
+                ></Route>
                 <Route path="/about">
-                    <Route index element={<DocumentTitle title="About Us"><AboutPage /></DocumentTitle>} />
+                    <Route
+                        index
+                        element={
+                            <DocumentTitle title="About Us">
+                                <AboutPage />
+                            </DocumentTitle>
+                        }
+                    />
                     <Route path="sub-page-1" />
                     <Route path="sub-page-2" />
                 </Route>
-                <Route path="/contact" element={<DocumentTitle title="Contact"><ContactPage /></DocumentTitle>} />
-                <Route path="/terms" element={<DocumentTitle title="Terms & Conditions"><TermsConditionsPage /></DocumentTitle>} />
+                <Route
+                    path="/contact"
+                    element={
+                        <DocumentTitle title="Contact">
+                            <ContactPage />
+                        </DocumentTitle>
+                    }
+                />
+                <Route
+                    path="/terms"
+                    element={
+                        <DocumentTitle title="Terms & Conditions">
+                            <TermsConditionsPage />
+                        </DocumentTitle>
+                    }
+                />
             </Route>
             <Route element={<TutorialLayout />}>
-                <Route path="/tutorial" element={<DocumentTitle title="Tutorial"><TutorialPage /></DocumentTitle>} />
+                <Route
+                    path="/tutorial"
+                    element={
+                        <DocumentTitle title="Tutorial">
+                            <TutorialPage />
+                        </DocumentTitle>
+                    }
+                />
             </Route>
             <Route path="/account" element={<AccountLayout />}>
                 <Route index element={<Navigate to="login" />} />
-                <Route path="login" element={<DocumentTitle title="Login"><LoginPage /></DocumentTitle>} />
-                <Route path="register" element={<DocumentTitle title="Register"><RegisterPage /></DocumentTitle>} />
+                <Route
+                    path="login"
+                    element={
+                        <DocumentTitle title="Login">
+                            <LoginPage />
+                        </DocumentTitle>
+                    }
+                />
+                <Route
+                    path="register"
+                    element={
+                        <DocumentTitle title="Register">
+                            <RegisterPage />
+                        </DocumentTitle>
+                    }
+                />
             </Route>
         </Routes>
     );
