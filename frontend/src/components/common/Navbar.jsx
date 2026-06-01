@@ -2,6 +2,7 @@ import { Flex, HStack, Box, Image } from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import { federationLogo } from "@/assets";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import UserMenu from "./menu/UserMenu";
 
 const Navbar = () => {
     const navStyle = ({ isActive }) => ({
@@ -59,18 +60,7 @@ const Navbar = () => {
                     </NavLink>
                 )}
 
-                <Box
-                    w="9"
-                    h="9"
-                    borderRadius="full"
-                    bg="red.500"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    cursor="pointer"
-                >
-                    <span style={{ color: "white", fontSize: "12px", fontWeight: "bold" }}>AP</span>
-                </Box>
+                {accessToken && <UserMenu />}
             </HStack>
         </Flex>
     );
