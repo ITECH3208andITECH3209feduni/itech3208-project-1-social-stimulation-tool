@@ -18,6 +18,7 @@ const aboutUs2 = "/images/about_page/about_us-2.jpg";
 const ourMission = "/images/about_page/our_mission.jpg";
 const ourTeam = "/images/about_page/our_team.jpg";
 const winNew = "/videos/WINNews.mp4";
+const requiredAuth = "/images/required_auth.svg";
 
 export {
     federationLogo,
@@ -35,7 +36,8 @@ export {
     aboutUs2,
     ourMission,
     ourTeam,
-    winNew
+    winNew,
+    requiredAuth,
 };
 
 export { categories, levels };
