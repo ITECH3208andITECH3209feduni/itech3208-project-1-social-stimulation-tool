@@ -19,6 +19,7 @@ const API_ROUTES = {
     ME: {
         GET_INFO: "/me/get-user-infor",
         UPLOAD_AVATAR: "/me/upload-avatar",
+        UPDATE_PROFILE: "/me/update-profile",
         FEEDBACK: "/feedbacks", // POST feedback
     },
 
