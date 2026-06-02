@@ -103,6 +103,21 @@ const VALIDATION_MESSAGES = {
         "any.required": "Avatar filename is required",
         "string.empty": "Avatar filename is required",
     },
+    firstName: {
+        "string.base": "First name must be a string",
+        "string.empty": "First name is required",
+        "any.required": "First name is required",
+    },
+    lastName: {
+        "string.base": "Last name must be a string",
+        "string.empty": "Last name is required",
+        "any.required": "Last name is required",
+    },
+    location: {
+        "string.base": "Location must be a string",
+        "string.empty": "Location name is required",
+        "any.required": "Location name is required",
+    },
 };
 
 const UserMessages = {
