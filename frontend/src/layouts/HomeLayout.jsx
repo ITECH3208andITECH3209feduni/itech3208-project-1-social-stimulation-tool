@@ -1,15 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/footer/Footer";
-import { Container } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 function HomeLayout() {
     return (
-        <Container fluid>
+        <Flex direction={"column"} minH={"100vh"}>
             <Navbar />
-            <Outlet />
+            <Box flex={"1"}>
+                <Outlet />
+            </Box>
             <Footer />
-        </Container>
+        </Flex>
     );
 }
 
