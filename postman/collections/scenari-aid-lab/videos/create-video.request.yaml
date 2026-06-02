@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/me/videos"
+method: POST
+headers:
+  authorization: Bearer {{accessToken}}
+body:
+  type: formdata
+  content:
+    - type: text
+      key: title
+      value: This is a test for title 111
+    - type: text
+      key: description
+      value: Hi everybody
+    - type: text
+      key: categoryId
+      value: 69fb1ef5b12d09f5b482d704
+    - type: text
+      key: levelId
+      value: 69fb512adc847d4d01928900
+    - type: text
+      key: tags
+      value: '["test1", "test2"]'
+    - type: file
+      key: video
+      src: /Users/duytran/Downloads/000_01_HD.mp4
+order: 1000

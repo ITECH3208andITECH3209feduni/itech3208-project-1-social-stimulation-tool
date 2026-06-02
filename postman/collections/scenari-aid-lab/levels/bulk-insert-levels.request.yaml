@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/admin/levels/bulk"
+method: POST
+order: 2000

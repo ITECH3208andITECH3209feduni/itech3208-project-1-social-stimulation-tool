@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/feedbacks"
+method: POST
+headers:
+  authorization: Bearer {{accessToken}}
+body:
+  type: urlencoded
+  content:
+    videoId: 69fc785c24612ea9fa64c876
+    parentId: ""
+    content: Hey! this video is interesting
+order: 1000

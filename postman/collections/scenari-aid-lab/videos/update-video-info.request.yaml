@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/me/videos/69fc785c24612ea9fa64c876"
+method: PATCH
+headers:
+  authorization: Bearer {{accessToken}}
+body:
+  type: urlencoded
+  content:
+    title: test1222
+    description: test122
+    categoryId: 69fb1ef5b12d09f5b482d704
+    levelId: 69fb512adc847d4d01928900
+    tags: '["test1", "test2", "test3", "test4"]'
+    status: published
+order: 2000

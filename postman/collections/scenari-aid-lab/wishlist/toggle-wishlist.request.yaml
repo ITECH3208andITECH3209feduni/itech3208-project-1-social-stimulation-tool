@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/individual/wishlists/toggle/69fc785c24612ea9fa64c876"
+method: PATCH
+headers:
+  authorization: Bearer {{accessToken}}
+order: 1000

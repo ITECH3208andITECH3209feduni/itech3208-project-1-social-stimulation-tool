@@ -1,0 +1,6 @@
+$kind: collection
+variables:
+  accessToken: ""
+  LOCAL_URL: ""
+  API_PREFIX: ""
+  PORT: ""

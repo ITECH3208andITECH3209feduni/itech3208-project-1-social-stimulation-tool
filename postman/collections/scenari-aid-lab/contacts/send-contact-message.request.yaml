@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/contacts"
+method: POST
+headers:
+  authorization: Bearer {{accessToken}}
+body:
+  type: urlencoded
+  content:
+    categoryId: 69fb1ef5b12d09f5b482d6fe
+    subject: ""
+    message: Hi I have a question
+    acceptedTerms: "true"
+order: 1000

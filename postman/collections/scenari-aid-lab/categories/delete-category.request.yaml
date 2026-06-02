@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/admin/categories/69fb49b1661dfe8ea270fe5f"
+method: DELETE
+order: 4000
