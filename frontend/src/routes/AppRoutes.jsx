@@ -18,6 +18,8 @@ import RegisterPage from "@/pages/account/RegisterPage";
 import { toaster } from "@/components/ui/toaster";
 import useTokenExpiryCheck from "@/hooks/custom-hooks/useTokenExpiryCheck";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import UpdateProfilePage from "@/pages/account/UpdateProfilePage";
 
 const DocumentTitle = ({ title, children }) => {
     useDocumentTitle(title);
@@ -77,6 +79,16 @@ const AppRoutes = () => {
                         </DocumentTitle>
                     }
                 />
+                <Route element={<ProtectedRoute />}>
+                    <Route
+                        path="/account/update-profile"
+                        element={
+                            <DocumentTitle title="Update Profile">
+                                <UpdateProfilePage />
+                            </DocumentTitle>
+                        }
+                    />
+                </Route>
             </Route>
             <Route element={<TutorialLayout />}>
                 <Route

@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/auth/login-user"
+method: POST
+headers:
+  - key: ""
+    value: ""
+    disabled: true
+body:
+  type: urlencoded
+  content:
+    username: john12345
+    password: "1234567890"
+scripts:
+  - type: afterResponse
+    code: pm.collectionVariables.set("accessToken", pm.response.json().data.accessToken);
+    language: text/javascript
+order: 2000

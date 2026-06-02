@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/admin/categories/bulk"
+method: POST
+order: 1000

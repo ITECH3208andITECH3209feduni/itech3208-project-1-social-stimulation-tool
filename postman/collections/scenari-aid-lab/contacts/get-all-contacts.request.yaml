@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/contacts"
+method: GET
+headers:
+  authorization: Bearer {{accessToken}}
+order: 2000

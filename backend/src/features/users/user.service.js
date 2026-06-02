@@ -78,17 +78,6 @@ const UserService = {
             throw UserMessages.error.USER_IS_NOT_EXIST();
         }
 
-        // Check username duplicate
-        if (payload.username && payload.username !== existedUser.username) {
-            const usernameExist = await UserModel.findOne({
-                username: payload.username,
-            });
-
-            if (usernameExist) {
-                throw UserMessages.error.USERNAME_IS_EXIST();
-            }
-        }
-
         // Check email duplicate
         if (payload.email && payload.email !== existedUser.email) {
             const emailExist = await UserModel.findOne({
@@ -104,9 +93,9 @@ const UserService = {
 
         existedUser.lastName = payload.lastName ?? existedUser.lastName;
 
-        existedUser.username = payload.username ?? existedUser.username;
-
         existedUser.email = payload.email ?? existedUser.email;
+
+        existedUser.location = payload.location ?? existedUser.location;
 
         await existedUser.save();
 

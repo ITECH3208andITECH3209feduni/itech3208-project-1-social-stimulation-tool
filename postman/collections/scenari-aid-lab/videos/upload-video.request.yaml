@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/me/videos/upload-video/69fc785c24612ea9fa64c876"
+method: PATCH
+headers:
+  authorization: Bearer {{accessToken}}
+body:
+  type: formdata
+  content:
+    - type: file
+      key: video
+      src: ""
+order: 3000

@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/auth/register-user"
+method: POST
+body:
+  type: urlencoded
+  content:
+    username: test100
+    email: test100@gmail.com
+    password: "1234567890"
+    confirmedPassword: "1234567890"
+    phone: "1234567890"
+    role: individual
+order: 1000

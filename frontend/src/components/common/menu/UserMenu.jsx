@@ -11,7 +11,7 @@ function UserMenu({ displayName }) {
     const handleMenuAction = ({ value }) => {
         switch (value) {
             case "profile-update":
-                // navigate("/profile");
+                navigate("/account/update-profile");
                 break;
 
             case "send-feedback":
