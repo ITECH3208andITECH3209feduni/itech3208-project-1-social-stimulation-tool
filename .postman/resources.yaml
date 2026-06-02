@@ -1,0 +1,10 @@
+workspace:
+  id: e0d83a84-d8a7-48c0-a74d-b08774c2758d
+localResources:
+  docs:
+    - ../frontend/README.md
+  collections:
+    - ../postman/collections/scenari-aid-lab
+cloudResources:
+  collections:
+    ../postman/collections/scenari-aid-lab: 24891686-4202fdfe-dc0e-461f-bfd5-d220b0fc52a8
