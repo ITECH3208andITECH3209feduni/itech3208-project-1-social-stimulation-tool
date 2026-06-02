@@ -7,11 +7,26 @@ const userApi = {
     },
 
     uploadAvatar: async (formData) => {
-        return await axiosInstance.patch(API_ROUTES.ME.UPLOAD_AVATAR, formData, {
+        const response = await axiosInstance.patch(API_ROUTES.ME.UPLOAD_AVATAR, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         });
+
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
+
+    updateUserProfile: async (payload) => {
+        const response = await axiosInstance.patch(API_ROUTES.ME.UPDATE_PROFILE, payload);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
     },
 };
 
