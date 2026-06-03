@@ -9,10 +9,35 @@ import {
     Text,
     Textarea,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import NormalField from "../common/fields/NormalField";
+import useCategories from "@/hooks/custom-hooks/useCategories";
 
-function ContactForm() {
+function ContactForm({ user, onSubmit }) {
+    const { categories } = useCategories();
+
+    const [inputs, setInputs] = useState({
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        email: user?.email || "",
+        location: user?.location || "",
+        categoryId: "",
+        message: "",
+    });
+
+    const handleInputChange = (key, value) => {
+        setInputs((prev) => ({ ...prev, [key]: value }));
+    };
+
+    const resetForm = () => {
+        setInputs((prev) => ({ ...prev, categoryId: "", message: "" }));
+    };
+
+    const handleSubmit = async () => {
+        const success = await onSubmit(inputs);
+        if (success) resetForm();
+    };
+
     return (
         <Flex
             position={"relative"}
@@ -53,8 +78,20 @@ function ContactForm() {
 
                     {/* First and last name fields */}
                     <Flex gap={"4"}>
-                        <NormalField fieldLabel="First name" inputPlaceholder="Your first name" />
-                        <NormalField fieldLabel="Last name" inputPlaceholder="Your last name" />
+                        <NormalField
+                            fieldLabel="First name"
+                            inputPlaceholder="Your first name"
+                            name="firstName"
+                            value={inputs.firstName}
+                            onChange={(e) => handleInputChange("firstName", e.target.value)}
+                        />
+                        <NormalField
+                            fieldLabel="Last name"
+                            inputPlaceholder="Your last name"
+                            name="lastName"
+                            value={inputs.lastName}
+                            onChange={(e) => handleInputChange("lastName", e.target.value)}
+                        />
                     </Flex>
 
                     {/* Email and location fields */}
@@ -63,11 +100,17 @@ function ContactForm() {
                             fieldLabel="Email"
                             inputPlaceholder="Your email"
                             type="email"
+                            name="email"
+                            value={inputs.email}
+                            onChange={(e) => handleInputChange("email", e.target.value)}
                         />
                         <NormalField
                             fieldLabel="Location"
                             inputPlaceholder="Your location"
                             background="gray.100"
+                            name="location"
+                            value={inputs.location}
+                            onChange={(e) => handleInputChange("location", e.target.value)}
                         />
                     </Flex>
 
@@ -79,11 +122,20 @@ function ContactForm() {
                                 bg={"gray.100"}
                                 borderColor={"gray.400"}
                                 placeholder="Select an option"
+                                color={"black"}
+                                value={inputs.categoryId}
+                                name="categoryId"
+                                onChange={(e) =>
+                                    handleInputChange("categoryId", e.currentTarget.value)
+                                }
                             >
-                                <option value="react">React</option>
-                                <option value="react">React</option>
-                                <option value="react">React</option>
-                                <option value="react">React</option>
+                                {categories.map((cat) => {
+                                    return (
+                                        <option key={cat.id} value={cat.id}>
+                                            {cat.name}
+                                        </option>
+                                    );
+                                })}
                             </NativeSelect.Field>
                             <NativeSelect.Indicator />
                         </NativeSelect.Root>
@@ -92,9 +144,15 @@ function ContactForm() {
                     {/* Message fields */}
                     <Field.Root>
                         <Field.Label>Message</Field.Label>
-                        <Textarea bg={"gray.100"} borderColor={"gray.400"}>
-                            Tell us more about your needs and how we can help you..."
-                        </Textarea>
+                        <Textarea
+                            placeholder="Tell us more about your needs and how we can help you..."
+                            color={"black"}
+                            bg={"gray.100"}
+                            borderColor={"gray.400"}
+                            value={inputs.message}
+                            name="message"
+                            onChange={(e) => handleInputChange("message", e.target.value)}
+                        />
                     </Field.Root>
 
                     {/* Agree to terms and conitions fields */}
@@ -108,8 +166,8 @@ function ContactForm() {
 
                     {/* Submit fields */}
                     <Box justifyContent={"center"}>
-                        <Button w={"80%"} bg={"skyblue.500"}>
-                            <Text>Let's evaluate your print experience</Text>
+                        <Button w={"40%"} bg={"skyblue.500"} onClick={handleSubmit}>
+                            <Text>Submit</Text>
                         </Button>
                     </Box>
                 </Box>
