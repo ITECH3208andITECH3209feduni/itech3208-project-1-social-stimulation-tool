@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
-import { Menu, Avatar, Text, Portal, Button, Box, Image } from "@chakra-ui/react";
+import { Menu, Avatar, Text, Portal, Button, Box, Image, Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import { toaster } from "@/components/ui/toaster";
+import useUserProfile from "@/hooks/custom-hooks/useUserProfile";
 
 function UserMenu({ displayName }) {
     const navigate = useNavigate();
     const { clearAuth } = useAuthStore();
+    const { data: user } = useUserProfile();
 
     const handleMenuAction = ({ value }) => {
         switch (value) {
@@ -33,7 +35,6 @@ function UserMenu({ displayName }) {
             w="9"
             h="9"
             borderRadius="full"
-            bg="brand.500"
             color="white"
             display="flex"
             alignItems="center"
@@ -46,20 +47,25 @@ function UserMenu({ displayName }) {
                 onSelect={handleMenuAction}
             >
                 <Menu.Trigger asChild>
-                    <span
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                            color: "white",
-                            fontSize: "12px",
-                            fontWeight: "bold",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        AP
-                    </span>
+                    <Box position="relative" w="100%" h="100%" rounded="full" overflow="hidden">
+                        <Image src={user?.avatar?.url} width="100%" height="100%" rounded={"full"}/>
+                        {user?.isUploading && (
+                            <Box
+                                position="absolute"
+                                top={0}
+                                left={0}
+                                right={0}
+                                bottom={0}
+                                bg="blackAlpha.500"
+                                display="flex"
+                                justifyContent="center"
+                                alignItems="center"
+                                rounded="full"
+                            >
+                                <Spinner size="sm" color="white" />
+                            </Box>
+                        )}
+                    </Box>
                 </Menu.Trigger>
                 <Portal>
                     <Menu.Positioner>

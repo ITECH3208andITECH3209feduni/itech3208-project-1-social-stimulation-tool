@@ -1,4 +1,5 @@
 $kind: collection
+name: scenari-aid-lab
 variables:
   accessToken: ""
   LOCAL_URL: ""

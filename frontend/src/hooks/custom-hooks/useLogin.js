@@ -1,8 +1,10 @@
 import { authApi } from "@/api";
 import useAuthStore from "../stores/useAuthStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useLogin = () => {
     const setAuth = useAuthStore((state) => state.setAuth);
+    const queryClient = useQueryClient();
 
     const login = async (payload, callback = {}) => {
         try {
@@ -11,8 +13,11 @@ const useLogin = () => {
                 password: payload.password,
             });
             if (res.success) {
-                callback.onSuccess?.(res.data, res.message);
                 setAuth(res.data.accessToken);
+                queryClient.invalidateQueries({
+                    queryKey: ["user-profile"],
+                });
+                callback.onSuccess?.(res.data, res.message);
             }
         } catch (error) {
             callback.onError?.(error.message);
