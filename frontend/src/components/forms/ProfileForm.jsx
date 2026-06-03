@@ -1,46 +1,25 @@
-import { Box, Button, Flex, Heading, Text, FileUpload, Image, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text, Image, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { FaUser } from "react-icons/fa6";
 import NormalField from "../common/fields/NormalField";
+import AvatarUploadField from "../common/fields/AvatarUploadField";
 import useAvatarUpload from "@/hooks/custom-hooks/useAvatarUpload";
-import userFormRequest from "@/utils/buildUserFormRequest";
-import loggerUtil from "@/utils/logger.utils";
-import { toaster } from "../ui/toaster";
 
-function ProfileForm({ onSubmit }) {
-    const { avatarUpload } = useAvatarUpload();
-    const [inputs, setInputs] = useState({});
-    const [preview, setPreview] = useState(null);
+function ProfileForm({ user, onSubmit }) {
+    const [inputs, setInputs] = useState({
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        email: user?.email || "",
+        location: user?.location || "",
+    });
+    const [preview, setPreview] = useState(user?.avatar?.url);
+    const { uploadAvatar } = useAvatarUpload(setPreview);
 
     // This function handle upload avatar image directly in this component
     const handleFileChange = async ({ acceptedFiles }) => {
         const file = acceptedFiles?.[0];
-
-        if (!file) return;
-
-        // Set image in preview mode for good performance
-        const imageUrl = URL.createObjectURL(file);
-        setPreview(imageUrl);
-
-        // Create form data for upload file
-        const avatarFormData = userFormRequest.buildAvatarFormData({ avatar: file });
-
-        // Upload avatar
-        await avatarUpload(avatarFormData, {
-            onSuccess: (data, _) => {
-                // Update real url when upload successfully
-                const avatarUrl = data.avatar.url;
-                setPreview(avatarUrl);
-            },
-            onError: (msg) => {
-                toaster.create({
-                    description: msg,
-                    type: "error",
-                });
-                // Log the error in console for checking any upload file error
-                loggerUtil.error(msg);
-            },
-        });
+        if (file) {
+            uploadAvatar(file);
+        }
     };
 
     const handleInputChange = (key, value) => {
@@ -76,50 +55,11 @@ function ProfileForm({ onSubmit }) {
                     border={"solid"}
                     borderRadius={"10px"}
                 >
-                    <Flex justify={"center"}>
-                        <VStack>
-                            <FileUpload.Root
-                                w="120px"
-                                h="120px"
-                                position={"relative"}
-                                borderWidth={2}
-                                rounded="full"
-                                maxFiles={1}
-                                onFileChange={handleFileChange}
-                                display="flex"
-                                justifyContent="center"
-                                alignItems="center"
-                                flexDirection="column"
-                            >
-                                <FileUpload.HiddenInput />
-                                <FileUpload.Trigger>
-                                    <Box
-                                        w="120px"
-                                        h="120px"
-                                        display="flex"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        flexDirection="column"
-                                        overflow="hidden"
-                                        cursor="pointer"
-                                        rounded="full"
-                                    >
-                                        {preview ? (
-                                            <Image
-                                                src={preview}
-                                                w="100%"
-                                                h="100%"
-                                                objectFit="cover"
-                                            />
-                                        ) : (
-                                            <FaUser size={50} />
-                                        )}
-                                    </Box>
-                                </FileUpload.Trigger>
-                            </FileUpload.Root>
-                            <Text cursor="pointer">Upload your avatar</Text>
-                        </VStack>
-                    </Flex>
+                    <AvatarUploadField
+                        preview={preview}
+                        isUploading={user?.isUploading}
+                        onFileChange={handleFileChange}
+                    />
 
                     {/* First and last name fields */}
                     <Flex gap={"4"}>
@@ -127,12 +67,14 @@ function ProfileForm({ onSubmit }) {
                             name="firstName"
                             fieldLabel="First name"
                             inputPlaceholder="Your first name"
+                            value={inputs.firstName}
                             onChange={(e) => handleInputChange("firstName", e.target.value)}
                         />
                         <NormalField
                             name="lastName"
                             fieldLabel="Last name"
                             inputPlaceholder="Your last name"
+                            value={inputs.lastName}
                             onChange={(e) => handleInputChange("lastName", e.target.value)}
                         />
                     </Flex>
@@ -144,6 +86,7 @@ function ProfileForm({ onSubmit }) {
                             fieldLabel="Email"
                             inputPlaceholder="Your email"
                             type="email"
+                            value={inputs.email}
                             onChange={(e) => handleInputChange("email", e.target.value)}
                         />
                         <NormalField
@@ -151,6 +94,7 @@ function ProfileForm({ onSubmit }) {
                             fieldLabel="Location"
                             inputPlaceholder="Your location"
                             background="gray.100"
+                            value={inputs.location}
                             onChange={(e) => handleInputChange("location", e.target.value)}
                         />
                     </Flex>
