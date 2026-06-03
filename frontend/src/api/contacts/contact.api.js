@@ -3,7 +3,12 @@ import API_ROUTES from "../api.config";
 
 const contactApi = {
     sendContact: async (payload) => {
-        return await axiosInstance.post(API_ROUTES.CONTACT, payload);
+        const response = await axiosInstance.post(API_ROUTES.CONTACT, payload);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data
+        }
     },
 };
 
