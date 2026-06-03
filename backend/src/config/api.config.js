@@ -11,6 +11,7 @@ const apiConfig = {
     feedback: apiPrefix + "/feedbacks",
     category: apiPrefix + "/categories",
     level: apiPrefix + "/levels",
+    contact: apiPrefix + "/contacts",
 
     // MARK: - COMMON (Individual & Organization)
     me: apiPrefix + "/me",
