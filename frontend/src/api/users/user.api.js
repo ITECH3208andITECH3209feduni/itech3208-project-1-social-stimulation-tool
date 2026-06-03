@@ -3,7 +3,12 @@ import API_ROUTES from "../api.config";
 
 const userApi = {
     getUserInfo: async () => {
-        return await axiosInstance.get(API_ROUTES.ME.GET_INFO);
+        const response = await axiosInstance.get(API_ROUTES.ME.GET_INFO);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
     },
 
     uploadAvatar: async (formData) => {
