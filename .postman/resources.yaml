@@ -1,10 +1,16 @@
 workspace:
   id: e0d83a84-d8a7-48c0-a74d-b08774c2758d
+
 localResources:
   docs:
     - ../frontend/README.md
+    - ../README.md
   collections:
     - ../postman/collections/scenari-aid-lab
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
 cloudResources:
   collections:
     ../postman/collections/scenari-aid-lab: 24891686-4202fdfe-dc0e-461f-bfd5-d220b0fc52a8
+c52a8
