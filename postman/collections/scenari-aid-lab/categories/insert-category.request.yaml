@@ -1,8 +1,0 @@
-$kind: http-request
-url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/admin/categories"
-method: POST
-body:
-  type: urlencoded
-  content:
-    name: Test Category
-order: 2000

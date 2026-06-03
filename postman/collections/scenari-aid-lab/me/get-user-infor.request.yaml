@@ -1,6 +1,0 @@
-$kind: http-request
-url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/me/get-user-infor"
-method: GET
-headers:
-  authorization: Bearer {{accessToken}}
-order: 1000

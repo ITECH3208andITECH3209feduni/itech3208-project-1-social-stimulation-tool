@@ -27,10 +27,6 @@ const ContactSchema = new mongoose.Schema(
             enum: ["pending", "in progress", "resolved", "rejected"],
             default: "pending",
         },
-        acceptedTerms: {
-            type: Boolean,
-            default: false,
-        },
     },
     {
         timestamps: true,

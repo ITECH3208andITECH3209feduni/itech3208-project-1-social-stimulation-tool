@@ -3,7 +3,12 @@ import API_ROUTES from "../api.config";
 
 const categoryApi = {
     getCategories: async () => {
-        return await axiosInstance.get(API_ROUTES.PUBLIC.CATEGORIES);
+        const response = await axiosInstance.get(API_ROUTES.PUBLIC.CATEGORIES);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data
+        }
     },
 };
 

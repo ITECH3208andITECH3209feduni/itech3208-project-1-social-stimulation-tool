@@ -32,7 +32,7 @@ const VALIDATION_MESSAGES = {
     },
     categoryId: {
         "string.base": "Category ID must be a string",
-        "string.empty": "Category ID is required",
+        "string.empty": "Category Name (ID) is required",
         "any.required": "Category ID is required",
         "string.hex": "Invalid Category ID format",
         "string.length": "Invalid Category ID format",

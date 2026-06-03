@@ -37,13 +37,12 @@ const ContactService = {
     },
 
     // MARK: - SEND CONTACT
-    sendContact: async ({ userId, categoryId, subject, message, acceptedTerms }) => {
+    sendContact: async ({ userId, categoryId, subject, message }) => {
         const newContact = await ContactModel.create({
             userId,
             categoryId,
             subject,
             message,
-            acceptedTerms,
         });
 
         const contact = await ContactModel.findById(newContact._id)
