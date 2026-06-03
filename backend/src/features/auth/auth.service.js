@@ -20,9 +20,6 @@ const AuthService = {
         
         const payload = {
             id: validUser._id,
-            avatar: validUser.avatar,
-            firstName: validUser.firstName,
-            lastName: validUser.lastName,
             role: validUser.role,
         };
 
