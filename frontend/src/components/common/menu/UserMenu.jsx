@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import { toaster } from "@/components/ui/toaster";
 import useUserProfile from "@/hooks/custom-hooks/useUserProfile";
+import { useQueryClient } from "@tanstack/react-query";
 
-function UserMenu({ displayName }) {
+function UserMenu() {
     const navigate = useNavigate();
     const { clearAuth } = useAuthStore();
     const { data: user } = useUserProfile();
+    const queryClient = useQueryClient();
 
     const handleMenuAction = ({ value }) => {
         switch (value) {
@@ -22,6 +24,7 @@ function UserMenu({ displayName }) {
 
             case "logout":
                 clearAuth();
+                queryClient.clear(); // Clear all cached user data
                 toaster.create({
                     description: "Logout successfully",
                     type: "success",
@@ -48,7 +51,12 @@ function UserMenu({ displayName }) {
             >
                 <Menu.Trigger asChild>
                     <Box position="relative" w="100%" h="100%" rounded="full" overflow="hidden">
-                        <Image src={user?.avatar?.url} width="100%" height="100%" rounded={"full"}/>
+                        <Image
+                            src={user?.avatar?.url}
+                            width="100%"
+                            height="100%"
+                            rounded={"full"}
+                        />
                         {user?.isUploading && (
                             <Box
                                 position="absolute"
@@ -70,12 +78,17 @@ function UserMenu({ displayName }) {
                 <Portal>
                     <Menu.Positioner>
                         <Menu.Content bg={"white"}>
-                            <Menu.Item value="profile-update">Update Your Profile</Menu.Item>
-                            <Menu.Item value="send-feeback">Send Feeback</Menu.Item>
+                            <Menu.Item value="profile-update" cursor={"pointer"}>
+                                Update Your Profile
+                            </Menu.Item>
+                            <Menu.Item value="send-feeback" cursor={"pointer"}>
+                                Send Feeback
+                            </Menu.Item>
                             <Menu.Item
                                 value="logout"
                                 color="fg.error"
                                 _hover={{ bg: "bg.error", color: "fg.error" }}
+                                cursor={"pointer"}
                             >
                                 Logout
                             </Menu.Item>
