@@ -1,6 +1,0 @@
-$kind: http-request
-url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/admin/videos/69fc785c24612ea9fa64c876"
-method: DELETE
-headers:
-  authorization: Bearer {{accessToken}}
-order: 7000

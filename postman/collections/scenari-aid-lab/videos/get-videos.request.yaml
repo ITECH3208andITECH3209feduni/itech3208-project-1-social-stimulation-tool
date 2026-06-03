@@ -1,4 +1,0 @@
-$kind: http-request
-url: "{{LOCAL_URL}}:{{PORT}}{{API_PREFIX}}/videos"
-method: GET
-order: 5000
