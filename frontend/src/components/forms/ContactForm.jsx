@@ -1,7 +1,6 @@
 import {
     Box,
     Button,
-    Checkbox,
     Field,
     Flex,
     Heading,
@@ -154,15 +153,6 @@ function ContactForm({ user, onSubmit }) {
                             onChange={(e) => handleInputChange("message", e.target.value)}
                         />
                     </Field.Root>
-
-                    {/* Agree to terms and conitions fields */}
-                    <Checkbox.Root variant={"solid"} color={"brand.500"}>
-                        <Checkbox.HiddenInput color="brand.500" />
-                        <Checkbox.Control />
-                        <Checkbox.Label color={"brand.500"}>
-                            I agree to recieve terms and conditions from Federation University
-                        </Checkbox.Label>
-                    </Checkbox.Root>
 
                     {/* Submit fields */}
                     <Box justifyContent={"center"}>
