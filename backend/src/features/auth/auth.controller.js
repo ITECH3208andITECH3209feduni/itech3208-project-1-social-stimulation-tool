@@ -12,6 +12,7 @@ const AuthController = {
                 password: req.body.password,
                 confirmedPassword: req.body.confirmedPassword,
                 phone: req.body.phone,
+                acceptedTerms: req.body.acceptedTerms,
             };
 
             const result = await AuthService.registerUser(payload);

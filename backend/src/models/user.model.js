@@ -35,6 +35,9 @@ const UserSchema = new mongoose.Schema(
         location: {
             type: String,
         },
+        acceptedTerms: {
+            type: Boolean,
+        },
         role: {
             type: String,
             enum: ["admin", "individual", "organization"],
