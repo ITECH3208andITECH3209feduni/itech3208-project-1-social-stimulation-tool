@@ -12,34 +12,33 @@ function RegisterPage() {
     const { register } = useRegister();
 
     const handleRegsiter = async (inputs) => {
-        await register(
-            {
-                username: inputs.username,
-                email: inputs.email,
-                phone: inputs.phone,
-                password: inputs.password,
-                confirmedPassword: inputs.confirmedPassword,
+        const payload = {
+            username: inputs.username,
+            email: inputs.email,
+            phone: inputs.phone,
+            password: inputs.password,
+            confirmedPassword: inputs.confirmedPassword,
+            acceptedTerms: inputs.acceptedTerms
+        };
+        await register(payload, {
+            onSuccess: (_, msg) => {
+                setLoading(false);
+                toaster.create({
+                    description: msg,
+                    type: "success",
+                    duration: 3000,
+                });
+                navigate("/account/login");
             },
-            {
-                onSuccess: (_, msg) => {
-                    setLoading(false);
-                    toaster.create({
-                        description: msg,
-                        type: "success",
-                        duration: 3000,
-                    });
-                    navigate("/account/login");
-                },
-                onError: (msg) => {
-                    setLoading(false);
-                    toaster.create({
-                        description: msg,
-                        type: "error",
-                        duration: 3000,
-                    });
-                },
+            onError: (msg) => {
+                setLoading(false);
+                toaster.create({
+                    description: msg,
+                    type: "error",
+                    duration: 3000,
+                });
             },
-        );
+        });
     };
 
     return (
