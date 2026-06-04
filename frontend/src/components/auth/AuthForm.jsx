@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Field, Flex, Heading, Input, Image, Button } from "@chakra-ui/react";
+import { Box, Field, Flex, Heading, Input, Image, Button, Checkbox } from "@chakra-ui/react";
 import PasswordInput from "./PasswordInput";
 import SocialLogin from "./SocialLogin";
 import { federationLogo } from "@/assets";
 
+const LOGIN_FIELDS_NUMBER = 2;
+
 function AuthForm({ fields, onSubmit }) {
-    const isRegister = fields.length > 2;
+    const isRegister = fields.length > LOGIN_FIELDS_NUMBER;
 
     const [input, setInput] = useState({});
 
@@ -57,6 +59,22 @@ function AuthForm({ fields, onSubmit }) {
                         )}
                     </Field.Root>
                 ))}
+
+                {/* Agree to terms and conitions fields */}
+                {isRegister && (
+                    <Checkbox.Root
+                        variant={"solid"}
+                        color={"brand.500"}
+                        onCheckedChange={(details) => handleInputChange("acceptedTerms", details.checked)}
+                    >
+                        <Checkbox.HiddenInput color="brand.500" />
+                        <Checkbox.Control />
+                        <Checkbox.Label color={"brand.500"}>
+                            I agree to recieve terms and conditions from Federation University
+                        </Checkbox.Label>
+                    </Checkbox.Root>
+                )}
+
                 <Button w={"100%"} bg={"skyblue.500"} onClick={() => onSubmit?.(input)}>
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>
