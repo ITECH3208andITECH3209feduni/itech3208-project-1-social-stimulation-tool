@@ -19,7 +19,7 @@ function UserMenu() {
                 break;
 
             case "send-feedback":
-                // navigate("/feedback");
+                navigate("/account/send-feedback");
                 break;
 
             case "logout":
@@ -81,8 +81,8 @@ function UserMenu() {
                             <Menu.Item value="profile-update" cursor={"pointer"}>
                                 Update Your Profile
                             </Menu.Item>
-                            <Menu.Item value="send-feeback" cursor={"pointer"}>
-                                Send Feeback
+                            <Menu.Item value="send-feedback" cursor={"pointer"}>
+                                Send Feedback
                             </Menu.Item>
                             <Menu.Item
                                 value="logout"
