@@ -8,12 +8,10 @@ const FeedbackController = {
     createFeedback: async (req, res) => {
         try {
             const userId = req.user?._id || req.user?.id;
-            const { videoId, parentId, content, rating } = req.body;
+            const { content, rating } = req.body;
 
             const newFeedback = await FeedbackService.createFeedback({
                 userId,
-                videoId,
-                parentId,
                 content,
                 rating,
             });
@@ -23,6 +21,30 @@ const FeedbackController = {
                 statusCode: StatusCodes.CREATED,
                 message: FeedbackMessages.success.CREATE_FEEDBACK_SUCCESSFULLY,
                 data: newFeedback,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.createFeedback]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // POST /promt/dismiss
+    dismissPopup: async (req, res) => {
+        try {
+            const userId = req.user?._id || req.user?.id;
+
+            const finished = await FeedbackService.dismissPopup(userId);
+
+            return resUtil.sendSuccess({
+                res,
+                statusCode: StatusCodes.CREATED,
+                message: FeedbackMessages.success.DISMISS_FEEDBACK_POPUP_SUCCESSFULLY,
+                data: { finished },
             });
         } catch (error) {
             loggerUtil.error(`[FeedbackController.createFeedback]: ${error}`);
