@@ -7,16 +7,6 @@ const FeedbackSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
-        videoId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Video",
-            required: true,
-        },
-        parentId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Feedback",
-            default: null, // For replies
-        },
         rating: {
             type: Number,
             min: 0,
@@ -27,6 +17,10 @@ const FeedbackSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
+        },
+        isPinned: {
+            type: Boolean,
+            default: false,
         },
         isDeleted: {
             type: Boolean,
