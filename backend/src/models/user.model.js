@@ -38,6 +38,20 @@ const UserSchema = new mongoose.Schema(
         acceptedTerms: {
             type: Boolean,
         },
+        feedbackMeta: {
+            // the time to show popup recently
+            lastPromptAt: {
+                type: Date,
+            },
+            // the time that user click "Maybe later" recently
+            lastDismissedAt: {
+                type: Date,
+            },
+            // the time that user sent feedback recently
+            lastSubmittedAt: {
+                type: Date,
+            },
+        },
         role: {
             type: String,
             enum: ["admin", "individual", "organization"],
