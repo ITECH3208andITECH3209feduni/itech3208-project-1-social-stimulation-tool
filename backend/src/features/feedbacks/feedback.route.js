@@ -8,9 +8,20 @@ const router = express.Router();
 // POST /api/v1/feedbacks — Create feedback (Authenticated users)
 router.post(
     "/",
-    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization, authMw.UserRole.admin]),
+    authMw.authorizeRole([
+        authMw.UserRole.individual,
+        authMw.UserRole.organization,
+        authMw.UserRole.admin,
+    ]),
     bodyMw.validate(FeedbackSchema.createFeedback),
-    FeedbackController.createFeedback
+    FeedbackController.createFeedback,
+);
+
+// POST /feedback/prompt/dismiss
+router.post(
+    "/prompt/dismiss",
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
+    FeedbackController.dismissPopup,
 );
 
 // GET /api/v1/feedbacks/top-feedbacks — Get top feedbacks for landing page (Public)
@@ -22,8 +33,12 @@ router.get("/:videoId", FeedbackController.getFeedbacksByVideo);
 // DELETE /api/v1/feedbacks/:id — Delete feedback (Owner only)
 router.delete(
     "/:id",
-    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization, authMw.UserRole.admin]),
-    FeedbackController.deleteFeedback
+    authMw.authorizeRole([
+        authMw.UserRole.individual,
+        authMw.UserRole.organization,
+        authMw.UserRole.admin,
+    ]),
+    FeedbackController.deleteFeedback,
 );
 
 export default router;

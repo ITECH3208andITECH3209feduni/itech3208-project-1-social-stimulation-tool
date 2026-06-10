@@ -4,6 +4,7 @@ import createError from "#config/error.config.js";
 // MARK: - BUSINESS SUCCESS MESSAGES
 const SUCCESS_MESSAGES = {
     CREATE_FEEDBACK_SUCCESSFULLY: "Your feedback has been posted successfully.",
+    DISMISS_FEEDBACK_POPUP_SUCCESSFULLY: "Dismiss popup successfully.",
     GET_FEEDBACKS_SUCCESSFULLY: "Get feedbacks successfully.",
     GET_TOP_FEEDBACKS_SUCCESSFULLY: "Get top feedbacks successfully.",
     DELETE_FEEDBACK_SUCCESSFULLY: "Feedback deleted successfully.",

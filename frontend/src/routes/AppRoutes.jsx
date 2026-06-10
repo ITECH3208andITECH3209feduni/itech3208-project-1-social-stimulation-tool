@@ -20,6 +20,7 @@ import useTokenExpiryCheck from "@/hooks/custom-hooks/useTokenExpiryCheck";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import UpdateProfilePage from "@/pages/account/UpdateProfilePage";
+import SendFeedbackPage from "@/pages/account/SendFeebackPage";
 
 const DocumentTitle = ({ title, children }) => {
     useDocumentTitle(title);
@@ -50,7 +51,7 @@ const AppRoutes = () => {
                             <HomePage />
                         </DocumentTitle>
                     }
-                ></Route>
+                />
                 <Route path="/about">
                     <Route
                         index
@@ -85,6 +86,16 @@ const AppRoutes = () => {
                         element={
                             <DocumentTitle title="Update Profile">
                                 <UpdateProfilePage />
+                            </DocumentTitle>
+                        }
+                    />
+                </Route>
+                <Route element={<ProtectedRoute />}>
+                    <Route
+                        path="/account/send-feedback"
+                        element={
+                            <DocumentTitle title="Send Feedback">
+                                <SendFeedbackPage />
                             </DocumentTitle>
                         }
                     />

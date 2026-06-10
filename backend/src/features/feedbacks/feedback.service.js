@@ -1,5 +1,5 @@
 import FeedbackModel from "#models/feedback.model.js";
-import VideoModel from "#models/video.model.js";
+import UserModel from "#models/user.model.js";
 import FeedbackMessages from "./feedback.message.js";
 
 const FeedbackService = {
@@ -9,57 +9,66 @@ const FeedbackService = {
 
         const feedbackObj = feedback._doc || feedback;
         const { _id, __v, isDeleted, userId, videoId, ...rest } = feedbackObj;
-        
+
         const formatted = { id: _id, ...rest };
 
         if (userId) {
-            formatted.user = userId._id ? {
-                id: userId._id,
-                username: userId.username,
-                avatar: userId.avatar,
-            } : userId;
+            formatted.user = userId._id
+                ? {
+                      id: userId._id,
+                      username: userId.username,
+                      avatar: userId.avatar,
+                  }
+                : userId;
         }
 
-        if (videoId) {
-            formatted.video = videoId._id ? {
-                id: videoId._id,
-                title: videoId.title,
-                thumbnail: videoId.thumbnail,
-            } : videoId;
-        }
+        // if (videoId) {
+        //     formatted.video = videoId._id ? {
+        //         id: videoId._id,
+        //         title: videoId.title,
+        //         thumbnail: videoId.thumbnail,
+        //     } : videoId;
+        // }
 
         return formatted;
     },
 
     // MARK: - CREATE FEEDBACK
-    createFeedback: async ({ userId, videoId, parentId, content, rating }) => {
-        const normalizedParentId = parentId === "" ? null : parentId;
-
-        const video = await VideoModel.findById(videoId);
-        if (!video) {
-            throw new Error("Video not found");
-        }
-
-        if (normalizedParentId) {
-            const parent = await FeedbackModel.findById(normalizedParentId);
-            if (!parent || parent.isDeleted) {
-                throw FeedbackMessages.error.PARENT_NOT_FOUND();
-            }
-        }
-
+    createFeedback: async ({ userId, content, rating }) => {
         const newFeedback = await FeedbackModel.create({
             userId,
-            videoId,
-            parentId: normalizedParentId,
             content,
             rating,
         });
+
+        await UserModel.updateOne(
+            { _id: userId },
+            {
+                $set: {
+                    "feedbackMeta.lastSubmittedAt": new Date(),
+                },
+            },
+        );
 
         const feedback = await FeedbackModel.findById(newFeedback._id)
             .populate("userId", "username avatar")
             .lean();
 
         return FeedbackService._formatFeedback(feedback);
+    },
+
+    // MARK: - DISMISS FEEDBACK POPUP
+    dismissPopup: async (userId) => {
+        const result = await UserModel.updateOne(
+            { _id: userId },
+            {
+                $set: {
+                    "feedbackMeta.lastDismissedAt": new Date(),
+                    "feedbackMeta.lastPromptAt": new Date(),
+                },
+            },
+        );
+        return result.modifiedCount == 1;
     },
 
     // MARK: - GET FEEDBACKS BY VIDEO
@@ -87,7 +96,7 @@ const FeedbackService = {
                 const formattedFb = FeedbackService._formatFeedback(fb);
 
                 return { ...formattedFb, replies: formattedReplies };
-            })
+            }),
         );
 
         return {
