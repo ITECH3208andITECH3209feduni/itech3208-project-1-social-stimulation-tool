@@ -13,7 +13,21 @@ const feedbackApi = {
 
     // AUTHENTICATED
     createFeedback: async (payload) => {
-        return await axiosInstance.post(API_ROUTES.ME.FEEDBACK, payload);
+        const response = await axiosInstance.post(API_ROUTES.ME.FEEDBACK, payload);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
+
+    dismissFeedbackPopup: async () => {
+        const response = await axiosInstance.post(API_ROUTES.ME.DISMISS_FEEDBACK_POPUP);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
     },
 };
 
