@@ -2,18 +2,6 @@ import Joi from "joi";
 import FeedbackMessages from "./feedback.message.js";
 
 const createFeedback = Joi.object({
-    videoId: Joi.string()
-        .hex()
-        .length(24)
-        .required()
-        .messages(FeedbackMessages.validation.videoId),
-    
-    parentId: Joi.string()
-        .hex()
-        .length(24)
-        .optional()
-        .allow(null, ""),
-    
     content: Joi.string()
         .max(1000)
         .required()
