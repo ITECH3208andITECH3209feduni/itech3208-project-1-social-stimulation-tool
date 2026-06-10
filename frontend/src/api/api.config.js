@@ -21,6 +21,7 @@ const API_ROUTES = {
         UPLOAD_AVATAR: "/me/upload-avatar",
         UPDATE_PROFILE: "/me/update-profile",
         FEEDBACK: "/feedbacks", // POST feedback
+        DISMISS_FEEDBACK_POPUP: "/feedbacks/prompt/dismiss", // POST dismiss feedback popup
     },
 
     // MARK: - INDIVIDUAL (Individual Role Only)
