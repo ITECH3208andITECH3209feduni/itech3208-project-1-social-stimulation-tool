@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 // layouts
 import BaseLayout from "@/layouts/BaseLayout";
@@ -15,9 +15,15 @@ import UserPage from "@/pages/users/UserPage";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import { useEffect } from "react";
 import { publicRoutes } from "./routes.config";
+import useTokenExpiryCheck from "@/hooks/common/useTokenExpiryCheck";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import { toaster } from "@/components/ui/toaster";
 
 const AppRoutes = () => {
+    const { accessToken, clearAuth } = useAuthStore();
     const location = useLocation();
+    const navigate = useNavigate();
+
     useEffect(() => {
         const publicPath = publicRoutes.find((route) => route.path === location.pathname);
         if (publicPath) {
@@ -26,6 +32,18 @@ const AppRoutes = () => {
             }
         }
     }, [location]);
+
+    useTokenExpiryCheck({
+        tokenValue: accessToken,
+        onExpired: () => {
+            clearAuth();
+            toaster.create({
+                description: "Your current session is expired. Please login again to continue!",
+                type: "warning",
+            });
+            navigate("/admin/login");
+        },
+    });
 
     return (
         <Routes>
