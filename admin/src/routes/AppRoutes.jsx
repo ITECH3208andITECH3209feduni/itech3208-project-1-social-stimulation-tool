@@ -20,7 +20,6 @@ const AppRoutes = () => {
     const location = useLocation();
     useEffect(() => {
         const publicPath = publicRoutes.find((route) => route.path === location.pathname);
-        console.log(location.pathname);
         if (publicPath) {
             if (publicPath.title) {
                 document.title = publicPath.title;

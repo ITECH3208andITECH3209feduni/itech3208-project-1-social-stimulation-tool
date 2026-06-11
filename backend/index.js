@@ -30,6 +30,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5173", // Frontend Domain
+            "http://localhost:5174", // Admin Domain
         ],
         credentials: true,
     }),

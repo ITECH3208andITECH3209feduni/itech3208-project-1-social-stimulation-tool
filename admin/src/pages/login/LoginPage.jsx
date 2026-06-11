@@ -1,20 +1,45 @@
-import {
-    Button,
-    Field,
-    Heading,
-    Input,
-    Box,
-    Flex,
-    Text,
-    Image,
-    HStack,
-    VStack,
-    Center,
-} from "@chakra-ui/react";
+import { Button, Field, Heading, Input, Box, Flex, Image, HStack, VStack } from "@chakra-ui/react";
 import React from "react";
 import { federationLogo } from "@/assets";
+import { useState } from "react";
+import useLogin from "@/hooks/common/useLogin";
+import { toaster } from "@/components/ui/toaster";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+    const navigate = useNavigate();
+    const { loading, login } = useLogin();
+    const [inputs, setInputs] = useState({
+        username: "",
+        password: "",
+    });
+
+    const handleInputsChange = (key, value) => setInputs((prev) => ({ ...prev, [key]: value }));
+
+    const handleSubmit = async () => {
+        const payload = {
+            username: inputs.username,
+            password: inputs.password,
+        };
+        await login(payload, {
+            onSuccess: (_, msg) => {
+                toaster.create({
+                    description: msg,
+                    type: "success",
+                });
+                setTimeout(() => {
+                    navigate("/admin/dashboard");
+                }, 300);
+            },
+            onError: (msg) => {
+                toaster.create({
+                    description: msg,
+                    type: "error",
+                });
+            },
+        });
+    };
+
     return (
         <Flex
             h={"100vh"}
@@ -54,6 +79,9 @@ function LoginPage() {
                         border="none"
                         _focus={{ bg: "whiteAlpha.50", boxShadow: "md" }}
                         color={"gray.500"}
+                        value={inputs.username}
+                        name="username"
+                        onChange={(e) => handleInputsChange("username", e.target.value)}
                     />
                 </Field.Root>
 
@@ -67,6 +95,9 @@ function LoginPage() {
                         border="none"
                         _focus={{ bg: "whiteAlpha.50", boxShadow: "md" }}
                         color={"gray.500"}
+                        value={inputs.password}
+                        name="password"
+                        onChange={(e) => handleInputsChange("password", e.target.value)}
                     />
                 </Field.Root>
 
@@ -75,7 +106,9 @@ function LoginPage() {
                     borderRadius="full"
                     bg="brand.500"
                     color="white"
-                    _hover={{ bg: "gray.800" }}
+                    loading={loading}
+                    loadingText="Logging in..."
+                    onClick={handleSubmit}
                 >
                     Log in
                 </Button>
