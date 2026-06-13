@@ -3,6 +3,21 @@ const API_ROUTES = {
     AUTH: {
         LOGIN: "/auth/login-user",
     },
+
+    // MARK: - PUBLIC (No Auth Required)
+    PUBLIC: {
+        CATEGORIES: "/categories",
+    },
+
+    // MARK: - ADMIN
+    ADMIN: {
+        VIDEOS: "/admin/videos",
+    },
+
+    ME: {
+        CREATE_VIDEO: "/me/videos",
+        UPLOAD_VIDEO: "/me/videos/upload-video",
+    },
 };
 
 export default API_ROUTES;

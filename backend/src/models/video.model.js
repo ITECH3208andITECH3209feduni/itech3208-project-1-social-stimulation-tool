@@ -48,11 +48,6 @@ const VideoSchema = new mongoose.Schema(
             ref: "Category",
             required: true,
         },
-        levelId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Level",
-            required: true,
-        },
         uploadedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",

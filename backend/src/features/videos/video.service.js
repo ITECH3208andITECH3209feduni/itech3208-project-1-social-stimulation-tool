@@ -7,7 +7,7 @@ const VideoService = {
     _formatVideo: (video) => {
         if (!video) return null;
         const videoObj = video._doc || video;
-        const { _id, __v, isDeleted, uploadedBy, categoryId, levelId, ...rest } = videoObj;
+        const { _id, __v, isDeleted, uploadedBy, categoryId, ...rest } = videoObj;
 
         const formatted = {
             id: _id,
@@ -15,25 +15,22 @@ const VideoService = {
         };
 
         if (uploadedBy) {
-            formatted.user = uploadedBy._id ? {
-                id: uploadedBy._id,
-                username: uploadedBy.username,
-                avatar: uploadedBy.avatar,
-            } : uploadedBy;
+            formatted.user = uploadedBy._id
+                ? {
+                      id: uploadedBy._id,
+                      username: uploadedBy.username,
+                      avatar: uploadedBy.avatar,
+                  }
+                : uploadedBy;
         }
 
         if (categoryId) {
-            formatted.category = categoryId._id ? {
-                id: categoryId._id,
-                name: categoryId.name,
-            } : categoryId;
-        }
-
-        if (levelId) {
-            formatted.level = levelId._id ? {
-                id: levelId._id,
-                name: levelId.name,
-            } : levelId;
+            formatted.category = categoryId._id
+                ? {
+                      id: categoryId._id,
+                      name: categoryId.name,
+                  }
+                : categoryId;
         }
 
         return formatted;
@@ -132,7 +129,6 @@ const VideoService = {
             title: payload.title,
             description: payload.description || "",
             categoryId: payload.categoryId,
-            levelId: payload.levelId,
             tags: parsedTags,
             uploadedBy: userId,
             status: "draft",
