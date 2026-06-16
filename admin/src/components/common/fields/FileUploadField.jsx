@@ -14,6 +14,7 @@ function FileUploadField({
     onFileRemove,
     initialPreviewUrl,
     errorText,
+    value,
 }) {
     const [preview, setPreview] = useState(initialPreviewUrl || null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -24,10 +25,18 @@ function FileUploadField({
         }
     }, [initialPreviewUrl]);
 
+    // Sync internal state with external value prop
+    useEffect(() => {
+        if (value === null || value === undefined) {
+            setSelectedFile(null);
+            setPreview(initialPreviewUrl || null);
+        }
+    }, [value, initialPreviewUrl]);
+
     // Clean up object URL to avoid memory leaks
     useEffect(() => {
         return () => {
-            if (preview && preview.startsWith("blob:")) {
+            if (typeof preview === "string" && preview.startsWith("blob:")) {
                 URL.revokeObjectURL(preview);
             }
         };
