@@ -67,6 +67,7 @@ function UploadVideoPage() {
                                 fieldLabel="Video File"
                                 accept={["video/mp4", "video/webm", "video/ogg"]}
                                 helpText="Click or drag a video file here (MP4, WebM)"
+                                value={formData.video}
                                 onFileChange={(file) => handleInputChange("video", file)}
                                 onFileRemove={() => handleInputChange("video", null)}
                             />
