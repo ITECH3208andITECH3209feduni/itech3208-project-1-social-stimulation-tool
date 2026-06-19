@@ -113,10 +113,10 @@ export const videoList = [
     },
 ];
 
-function VideoGrid() {
+function VideoGrid({ videos = videoList }) {
     return (
-        <Grid gap={4} templateColumns={"repeat(3, 1fr)"} templateRows={"repeat(4, 1fr)"}>
-            {videoList.map((video) => (
+        <Grid gap={4} templateColumns={"repeat(3, 1fr)"}>
+            {videos.map((video) => (
                 <GridItem key={video.id}>
                     <VideoCard video={video} />
                 </GridItem>
