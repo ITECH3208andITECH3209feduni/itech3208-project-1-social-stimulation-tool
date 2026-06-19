@@ -11,7 +11,7 @@ const API_ROUTES = {
 
     // MARK: - ADMIN
     ADMIN: {
-        VIDEOS: "/admin/videos",
+        GET_VIDEOS: "/videos",
     },
 
     ME: {

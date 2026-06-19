@@ -29,6 +29,23 @@ const videoApi = {
             data: res.data,
         };
     },
+
+    getVideos: async (payload) => {
+        const res = await axiosInstance.get(API_ROUTES.ADMIN.GET_VIDEOS, {
+            params: {
+                page: payload.page,
+                limit: payload.limit,
+                ...(payload.status && { status: payload.status }), // Only append when `status` has value
+                ...(payload.categoryId && { categoryId: payload.categoryId }), // Only append when `categoryId` has value
+            },
+        });
+
+        return {
+            success: res.success,
+            message: res.message,
+            data: res.data,
+        };
+    },
 };
 
 export default videoApi;
