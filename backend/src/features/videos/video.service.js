@@ -176,20 +176,18 @@ const VideoService = {
     },
 
     // MARK: - GET ALL VIDEOS (with optional filters)
-    getVideos: async ({ categoryId, levelId, status = "published", page = 1, limit = 10 } = {}) => {
+    getVideos: async ({ categoryId, status = "draft", page = 1, limit = 10 } = {}) => {
         const filter = { isDeleted: false, status };
 
         if (categoryId) filter.categoryId = categoryId;
-        if (levelId) filter.levelId = levelId;
 
         const skip = (page - 1) * limit;
 
         const [videos, total] = await Promise.all([
             VideoModel.find(filter)
                 .populate("categoryId", "name")
-                .populate("levelId", "name")
                 .populate("uploadedBy", "username avatar")
-                .sort({ createdAt: -1 })
+                .sort({ createdAt: 1 })
                 .skip(skip)
                 .limit(limit),
             VideoModel.countDocuments(filter),

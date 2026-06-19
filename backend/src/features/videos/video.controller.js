@@ -81,11 +81,11 @@ const VideoController = {
     // GET /videos — Get all published videos
     getVideos: async (req, res) => {
         try {
-            const { categoryId, levelId, page, limit } = req.query;
+            const { categoryId, status, page, limit } = req.query;
 
             const result = await VideoService.getVideos({
                 categoryId,
-                levelId,
+                status,
                 page: parseInt(page) || 1,
                 limit: parseInt(limit) || 10,
             });
