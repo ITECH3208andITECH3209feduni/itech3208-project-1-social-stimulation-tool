@@ -23,7 +23,7 @@ function TutorialPage() {
     const handlePrefetchPage = (targetNumber) => {
         if (targetNumber < 1 || targetNumber > pagination.totalPages) return;
 
-        queryClient.prefetchQuery(videoQueries.list({ page, limit, status, categoryId }));
+        queryClient.prefetchQuery(videoQueries.list({ page: targetNumber, limit, status, categoryId }));
     };
 
     return (

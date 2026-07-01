@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { toaster } from "@/components/ui/toaster";
 import { videoQueries } from "@/api/videos/video.queries";
 import { useSearchParams } from "react-router-dom";
@@ -51,9 +51,10 @@ const useVideo = ({ initialLimit = 6 } = {}) => {
         });
     };
 
-    const { data, isLoading, isError, error } = useQuery(
-        videoQueries.list({ page, limit, status, categoryId }),
-    );
+    const { data, isLoading, isError, error } = useQuery({
+        ...videoQueries.list({ page, limit, status, categoryId }),
+        placeholderData: keepPreviousData,
+    });
 
     if (isError) {
         toaster.create({
