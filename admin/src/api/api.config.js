@@ -18,6 +18,11 @@ const API_ROUTES = {
         CREATE_VIDEO: "/me/videos",
         UPLOAD_VIDEO: "/me/videos/upload-video",
     },
+
+    // MARK: - Contacts
+    CONTACTS: {
+        GET_All_CONTACTS: "/contacts",
+    },
 };
 
 export default API_ROUTES;
