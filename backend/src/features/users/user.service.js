@@ -133,6 +133,31 @@ const UserService = {
 
         return UserService._formatUser(existedUser);
     },
+
+    getAllUsers: async ({ page = 1, limit = 12, role } = {}) => {
+        const pageNum = Math.max(1, Number(page) || 1);
+        const limitNum = Math.max(1, Number(limit) || 12);
+        const filter = { isDeleted: false };
+
+        if (role) filter.role = role;
+
+        const skip = (pageNum - 1) * limitNum;
+
+        const [users, total] = await Promise.all([
+            UserModel.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limitNum).lean(),
+            UserModel.countDocuments(filter),
+        ]);
+
+        return {
+            users: users.map(UserService._formatUser),
+            pagination: {
+                total,
+                page: pageNum,
+                limit: limitNum,
+                totalPages: Math.ceil(total / limitNum),
+            },
+        };
+    },
 };
 
 export default UserService;

@@ -26,6 +26,8 @@ const apiConfig = {
     admin: apiPrefix + "/admin",
     manageVideo: apiPrefix + "/admin/videos",
     manageCategory: apiPrefix + "/admin/categories",
+    manageUser: apiPrefix + "/admin/users",
+    manageContact: apiPrefix + "/admin/contacts",
 };
 
 export default apiConfig;

@@ -9,7 +9,11 @@ const userRouter = express.Router();
 const adminRouter = express.Router();
 
 // MARK: - PUBLIC ROUTES
-publicRouter.get("/", authMw.authorizeRole([authMw.UserRole.admin]), VideoController.getVideos);
+publicRouter.get(
+    "/",
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
+    VideoController.getVideos,
+);
 publicRouter.get("/:id", VideoController.getVideoById);
 
 // MARK: - USER ROUTES (Organization Management)
@@ -58,6 +62,8 @@ adminRouter.delete(
     authMw.authorizeRole([authMw.UserRole.admin]),
     VideoController.deleteVideo,
 );
+
+adminRouter.get("/", authMw.authorizeRole([authMw.UserRole.admin]), VideoController.getVideos);
 
 export {
     publicRouter as VideoPublicRouter,

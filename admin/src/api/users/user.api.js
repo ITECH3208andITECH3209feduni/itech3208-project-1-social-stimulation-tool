@@ -33,6 +33,22 @@ const userApi = {
             data: response.data,
         };
     },
+
+    getAllUsers: async (payload) => {
+        const response = await axiosInstance.get(API_ROUTES.ADMIN.GET_ALL_USERS, {
+            params: {
+                page: payload.page,
+                limit: payload.limit,
+                ...(payload.role && { role: payload.role }),
+            },
+        });
+
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
 };
 
 export default userApi;

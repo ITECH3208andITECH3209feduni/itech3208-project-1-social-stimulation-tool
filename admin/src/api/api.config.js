@@ -11,17 +11,14 @@ const API_ROUTES = {
 
     // MARK: - ADMIN
     ADMIN: {
-        GET_VIDEOS: "/videos",
+        GET_VIDEOS: "/admin/videos",
+        GET_ALL_USERS: "/admin/users",
+        GET_All_CONTACTS: "/admin/contacts",
     },
 
     ME: {
         CREATE_VIDEO: "/me/videos",
         UPLOAD_VIDEO: "/me/videos/upload-video",
-    },
-
-    // MARK: - Contacts
-    CONTACTS: {
-        GET_All_CONTACTS: "/contacts",
     },
 };
 

@@ -57,6 +57,10 @@ const UserSchema = new mongoose.Schema(
             enum: ["admin", "individual", "organization"],
             default: "individual",
         },
+        isDeleted: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,
