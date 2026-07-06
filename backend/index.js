@@ -13,12 +13,14 @@ import {
     LevelAdminRouter,
     AuthRouter,
     UserRouter,
+    UserAdminRouter,
     VideoPublicRouter,
     VideoUserRouter,
     VideoAdminRouter,
     FeedbackRouter,
     WishlistRouter,
-    ContactRouter,
+    ContactPublicRouter,
+    ContactAdminRouter,
 } from "#routes/index.js";
 
 const app = express();
@@ -47,7 +49,7 @@ app.use(apiConfig.feedback, FeedbackRouter);
 
 // 2. COMMON AUTHENTICATED ROUTES (Me/Profile)
 app.use(apiConfig.me, UserRouter);
-app.use(apiConfig.contact, ContactRouter);
+app.use(apiConfig.contact, ContactPublicRouter);
 
 // 3. ROLE-SPECIFIC ROUTES
 // Individual
@@ -60,6 +62,8 @@ app.use(apiConfig.me + "/videos", VideoUserRouter);
 app.use(apiConfig.manageCategory, CategoryAdminRouter);
 app.use(apiConfig.admin + "/levels", LevelAdminRouter);
 app.use(apiConfig.manageVideo, VideoAdminRouter);
+app.use(apiConfig.manageUser, UserAdminRouter);
+app.use(apiConfig.manageContact, ContactAdminRouter);
 
 // MARK: - Handle 404 Not Found
 app.use((req, res, next) => {
