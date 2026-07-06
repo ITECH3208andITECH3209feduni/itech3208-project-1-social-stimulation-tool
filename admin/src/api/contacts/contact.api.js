@@ -3,7 +3,7 @@ import API_ROUTES from "../api.config";
 
 const contactApi = {
     getAllContacts: async (payload) => {
-        const response = await axiosInstance.get(API_ROUTES.CONTACTS.GET_All_CONTACTS, {
+        const response = await axiosInstance.get(API_ROUTES.ADMIN.GET_All_CONTACTS, {
             params: {
                 page: payload.page,
                 limit: payload.limit,
