@@ -5,6 +5,7 @@ import UserController from "./user.controller.js";
 import UserSchema from "./user.validation.js";
 
 const router = express.Router();
+const adminRouter = express.Router();
 
 router.get(
     "/get-user-infor",
@@ -14,10 +15,7 @@ router.get(
 
 router.patch(
     "/update-profile",
-    authMw.authorizeRole([
-        authMw.UserRole.individual,
-        authMw.UserRole.organization,
-    ]),
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
     bodyMw.validate(UserSchema.updateProfile),
     UserController.updateProfile,
 );
@@ -31,4 +29,6 @@ router.patch(
     UserController.uploadAvatar,
 );
 
-export default router;
+adminRouter.get("/", authMw.authorizeRole([authMw.UserRole.admin]), UserController.getAllUsers);
+
+export { router as UserRouter, adminRouter as UserAdminRouter };
