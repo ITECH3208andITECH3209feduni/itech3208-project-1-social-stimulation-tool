@@ -239,6 +239,73 @@ const VideoService = {
         await video.save();
         return VideoService._formatVideo(video);
     },
+
+    // MARK: - UPDATE VIDEO DETAIL (Admin)
+    updateVideoDetailAdmin: async ({ videoId, payload, file }) => {
+        const video = await VideoModel.findById(videoId);
+        if (!video) {
+            throw VideoMessages.error.VIDEO_NOT_FOUND();
+        }
+
+        // 1. Process Video File Upload if provided
+        if (file) {
+            // Delete existing video and thumbnail in Cloudinary if they exist
+            if (video.video?.cloudinaryId) {
+                await cloudinaryUtil.deleteFile(video.video.cloudinaryId, "video");
+            }
+            if (video.thumbnail?.cloudinaryId) {
+                await cloudinaryUtil.deleteFile(video.thumbnail.cloudinaryId, "image");
+            }
+
+            // Upload new video
+            const fileName = cloudinaryUtil.genFileName({
+                prefix: "video",
+                entityId: video._id,
+            });
+
+            const uploadedVideo = await cloudinaryUtil.uploadVideo({
+                fileBuffer: file.buffer,
+                folder: UPLOAD_FOLDERS.VIDEOS.CLIPS,
+                fileName,
+            });
+
+            // Update video properties
+            video.video = {
+                url: uploadedVideo.secure_url,
+                cloudinaryId: uploadedVideo.public_id,
+            };
+
+            // Calculate duration automatically
+            if (uploadedVideo.duration) {
+                video.duration = Math.round(uploadedVideo.duration);
+            }
+
+            // Generate thumbnail automatically by replacing video extension with .jpg
+            // Cloudinary will generate it on the fly
+            const thumbnailUrl = uploadedVideo.secure_url.replace(/\.[^/.]+$/, ".jpg");
+            video.thumbnail = {
+                url: thumbnailUrl,
+                // For auto-generated thumbnail from video, we don't have a separate image public_id. 
+                // We'll leave cloudinaryId empty or set it to null so it doesn't get deleted as an image later.
+                cloudinaryId: null,
+            };
+        }
+
+        // 2. Process Text Fields Updates
+        const updateFields = ["title", "description", "status", "tags", "categoryId", "levelId"];
+        updateFields.forEach((field) => {
+            if (payload[field] !== undefined) {
+                if (field === "tags") {
+                    video[field] = VideoService._parseTags(payload[field]);
+                } else {
+                    video[field] = payload[field];
+                }
+            }
+        });
+
+        await video.save();
+        return VideoService._formatVideo(video);
+    },
 };
 
 export default VideoService;
