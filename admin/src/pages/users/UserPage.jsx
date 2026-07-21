@@ -25,7 +25,8 @@ function UserPage() {
         isOpen: isDeleteOpen, 
         onClose: closeDelete, 
         handleDelete,
-        user: deleteTargetUser
+        user: deleteTargetUser,
+        isDeleting
     } = useDeleteUser();
 
     const handlePrefetchPage = (targetNumber) => {
@@ -86,7 +87,7 @@ function UserPage() {
             <UserDetailDrawer isOpen={isUpdateOpen} onClose={closeUpdate} onSave={handleUpdate} user={updateTargetUser} />
 
             {/* Open User Delete Dialog */}
-            <UserDeleteDialog isOpen={isDeleteOpen} onClose={closeDelete} onSave={handleDelete} user={deleteTargetUser} />
+            <UserDeleteDialog isOpen={isDeleteOpen} onClose={closeDelete} onSave={handleDelete} user={deleteTargetUser} isDeleting={isDeleting} />
         </VStack>
     );
 }
