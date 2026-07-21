@@ -8,6 +8,7 @@ const SUCCESS_MESSAGES = {
     UPDATE_USER_PROFILE_SUCCESSFULLY: "Your profile updated successfully.",
     GET_USERS_SUCCESSFULLY: "Get all users successfully.",
     UPDATE_ACCOUNT_STATUS_SUCCESSFULLY: "User account status updated successfully.",
+    DELETE_USER_SUCCESSFULLY: "User deleted successfully.",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
