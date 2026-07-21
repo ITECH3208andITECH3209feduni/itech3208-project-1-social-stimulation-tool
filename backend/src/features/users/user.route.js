@@ -38,4 +38,10 @@ adminRouter.patch(
     UserController.updateAccountStatus
 );
 
+adminRouter.delete(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    UserController.deleteUser
+);
+
 export { router as UserRouter, adminRouter as UserAdminRouter };
