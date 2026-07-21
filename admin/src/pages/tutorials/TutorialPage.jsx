@@ -14,7 +14,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { videoQueries } from "@/api/videos/video.queries";
 import { useSearchParams } from "react-router-dom";
 import useUpdateVideo from "@/hooks/videos/useUpdateVideo";
+import useDeleteVideo from "@/hooks/videos/useDeleteVideo";
 import VideoDetailDrawer from "@/components/common/drawers/VideoDetailDrawer";
+import VideoDeleteDialog from "@/components/common/dialogs/VideoDeleteDialog";
 
 function TutorialPage() {
     const queryClient = useQueryClient();
@@ -22,6 +24,7 @@ function TutorialPage() {
         initialLimit: 12,
     });
     const { isOpen: isUpdateOpen, onClose: closeUpdate, handleUpdate, video: updateTargetVideo } = useUpdateVideo();
+    const { isOpen: isDeleteOpen, onClose: closeDelete, handleDelete, video: deleteTargetVideo, isDeleting } = useDeleteVideo();
 
     const handlePrefetchPage = (targetNumber) => {
         if (targetNumber < 1 || targetNumber > pagination.totalPages) return;
@@ -87,6 +90,14 @@ function TutorialPage() {
                 onClose={closeUpdate} 
                 onSave={handleUpdate} 
                 video={updateTargetVideo} 
+            />
+
+            <VideoDeleteDialog 
+                isOpen={isDeleteOpen}
+                onClose={closeDelete}
+                onSave={handleDelete}
+                video={deleteTargetVideo}
+                isDeleting={isDeleting}
             />
         </VStack>
     );

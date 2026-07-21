@@ -18,7 +18,7 @@ import useVideoUIStore from "@/hooks/stores/useVideoUIStore";
 
 function VideoCard({ video }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { openUpdateDrawer } = useVideoUIStore();
+    const { openUpdateDrawer, openDeleteDialog } = useVideoUIStore();
 
     const thumbnailUrl =
         typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
@@ -98,7 +98,7 @@ function VideoCard({ video }) {
                             <Button flex="1" color={"whiteAlpha.900"} bg={"skyblue.300"} onClick={() => openUpdateDrawer(video)}>
                                 Edit
                             </Button>
-                            <Button flex="1" color={"whiteAlpha.900"} bg={"brand.300"}>
+                            <Button flex="1" color={"whiteAlpha.900"} bg={"brand.300"} onClick={() => openDeleteDialog(video)}>
                                 Delete
                             </Button>
                         </HStack>

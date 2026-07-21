@@ -60,6 +60,15 @@ const videoApi = {
             data: response.data,
         };
     },
+
+    deleteVideo: async (id) => {
+        const response = await axiosInstance.delete(API_ROUTES.VIDEOS.DELETE_VIDEO(id));
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
 };
 
 export default videoApi;
