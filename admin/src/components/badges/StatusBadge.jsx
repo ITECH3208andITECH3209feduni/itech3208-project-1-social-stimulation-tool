@@ -27,6 +27,27 @@ export const STATUS = {
         label: "Closed",
         color: "#718096", // gray.500
     },
+    // User account statuses
+    ACTIVE: {
+        value: "active",
+        label: "Active",
+        color: "#48BB78", // green.500
+    },
+    INACTIVE: {
+        value: "inactive",
+        label: "Inactive",
+        color: "#A0AEC0", // gray.400
+    },
+    SUSPENDED: {
+        value: "suspended",
+        label: "Suspended",
+        color: "#ED8936", // orange.500
+    },
+    BANNED: {
+        value: "banned",
+        label: "Banned",
+        color: "#E53E3E", // red.500
+    },
 };
 
 function StatusBadge({ status = STATUS.PENDING.value }) {

@@ -31,4 +31,11 @@ router.patch(
 
 adminRouter.get("/", authMw.authorizeRole([authMw.UserRole.admin]), UserController.getAllUsers);
 
+adminRouter.patch(
+    "/:id/account-status",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    bodyMw.validate(UserSchema.updateAccountStatus),
+    UserController.updateAccountStatus
+);
+
 export { router as UserRouter, adminRouter as UserAdminRouter };

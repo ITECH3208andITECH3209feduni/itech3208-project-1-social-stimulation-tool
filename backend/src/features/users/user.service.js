@@ -78,22 +78,22 @@ const UserService = {
             throw UserMessages.error.USER_IS_NOT_EXIST();
         }
 
-        // Check email duplicate
         if (payload.email && payload.email !== existedUser.email) {
             const emailExist = await UserModel.findOne({
                 email: payload.email,
+                _id: { $ne: userId },
             });
 
             if (emailExist) {
-                throw UserMessages.error.EMAIL_IS_EXIST();
+                throw UserMessages.error.EMAIL_ALREADY_EXISTS();
             }
+
+            existedUser.email = payload.email;
         }
 
         existedUser.firstName = payload.firstName ?? existedUser.firstName;
 
         existedUser.lastName = payload.lastName ?? existedUser.lastName;
-
-        existedUser.email = payload.email ?? existedUser.email;
 
         existedUser.location = payload.location ?? existedUser.location;
 
@@ -157,6 +157,19 @@ const UserService = {
                 totalPages: Math.ceil(total / limitNum),
             },
         };
+    },
+
+    updateAccountStatus: async ({ userId, accountStatus }) => {
+        const existedUser = await UserModel.findById(userId);
+
+        if (!existedUser) {
+            throw UserMessages.error.USER_IS_NOT_EXIST();
+        }
+
+        existedUser.accountStatus = accountStatus;
+        await existedUser.save();
+
+        return UserService._formatUser(existedUser);
     },
 };
 
