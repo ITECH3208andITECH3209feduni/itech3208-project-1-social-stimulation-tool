@@ -175,6 +175,31 @@ const VideoController = {
             });
         }
     },
+
+    // PATCH /admin/videos/:id — Update video detail (title, description, and optional file upload with auto thumbnail/duration extraction)
+    updateVideoDetailAdmin: async (req, res) => {
+        try {
+            const videoId = req.params.id;
+            const payload = req.body;
+            const file = req.file;
+
+            const updatedVideo = await VideoService.updateVideoDetailAdmin({ videoId, payload, file });
+
+            return resUtil.sendSuccess({
+                res,
+                message: VideoMessages.success.UPDATE_VIDEO_INFO_SUCCESSFULLY,
+                data: updatedVideo,
+            });
+        } catch (error) {
+            loggerUtil.error(`[VideoController.updateVideoDetailAdmin]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default VideoController;
