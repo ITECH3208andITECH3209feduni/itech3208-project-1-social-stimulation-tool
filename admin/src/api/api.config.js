@@ -18,6 +18,13 @@ const API_ROUTES = {
         DELETE_USER: (id) => `/admin/users/${id}`,
     },
 
+    VIDEOS: {
+        UPLOAD_VIDEO: "/videos",
+        GET_ALL: "/videos",
+        DELETE_VIDEO: (id) => `/admin/videos/${id}`,
+        UPDATE_VIDEO: (id) => `/admin/videos/${id}`,
+    },
+
     ME: {
         CREATE_VIDEO: "/me/videos",
         UPLOAD_VIDEO: "/me/videos/upload-video",
