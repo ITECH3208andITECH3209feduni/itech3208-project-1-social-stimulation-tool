@@ -123,6 +123,27 @@ const UserController = {
             });
         }
     },
+
+    deleteUser: async (req, res) => {
+        try {
+            const userId = req.params.id;
+
+            await UserService.deleteUser(userId);
+
+            return resUtil.sendSuccess({
+                res,
+                message: UserMessages.success.DELETE_USER_SUCCESSFULLY,
+            });
+        } catch (error) {
+            loggerUtil.error(`[UserController.deleteUser]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default UserController;

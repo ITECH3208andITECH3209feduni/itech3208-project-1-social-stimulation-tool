@@ -58,6 +58,15 @@ const userApi = {
             data: response.data,
         };
     },
+
+    deleteUser: async (id) => {
+        const response = await axiosInstance.delete(API_ROUTES.ADMIN.DELETE_USER(id));
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
 };
 
 export default userApi;

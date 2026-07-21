@@ -15,6 +15,7 @@ const API_ROUTES = {
         GET_ALL_USERS: "/admin/users",
         GET_All_CONTACTS: "/admin/contacts",
         UPDATE_USER_STATUS: (id) => `/admin/users/${id}/account-status`,
+        DELETE_USER: (id) => `/admin/users/${id}`,
     },
 
     ME: {
