@@ -63,6 +63,15 @@ adminRouter.delete(
     VideoController.deleteVideo,
 );
 
+adminRouter.patch(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    multerConfig.single("video"),
+    // skip fileMw.check to make video file optional
+    bodyMw.validate(VideoSchema.updateVideoInfo),
+    VideoController.updateVideoDetailAdmin,
+);
+
 adminRouter.get("/", authMw.authorizeRole([authMw.UserRole.admin]), VideoController.getVideos);
 
 export {
