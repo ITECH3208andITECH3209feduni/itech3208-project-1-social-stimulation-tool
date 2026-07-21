@@ -171,6 +171,19 @@ const UserService = {
 
         return UserService._formatUser(existedUser);
     },
+
+    deleteUser: async (userId) => {
+        const existedUser = await UserModel.findById(userId);
+
+        if (!existedUser) {
+            throw UserMessages.error.USER_IS_NOT_EXIST();
+        }
+
+        existedUser.isDeleted = true;
+        await existedUser.save();
+
+        return true;
+    },
 };
 
 export default UserService;
