@@ -13,12 +13,15 @@ import useVideo from "@/hooks/common/useVideo";
 import { useQueryClient } from "@tanstack/react-query";
 import { videoQueries } from "@/api/videos/video.queries";
 import { useSearchParams } from "react-router-dom";
+import useUpdateVideo from "@/hooks/videos/useUpdateVideo";
+import VideoDetailDrawer from "@/components/common/drawers/VideoDetailDrawer";
 
 function TutorialPage() {
     const queryClient = useQueryClient();
     const { page, setPage, limit, status, categoryId, videos, pagination, isLoading } = useVideo({
         initialLimit: 12,
     });
+    const { isOpen: isUpdateOpen, onClose: closeUpdate, handleUpdate, video: updateTargetVideo } = useUpdateVideo();
 
     const handlePrefetchPage = (targetNumber) => {
         if (targetNumber < 1 || targetNumber > pagination.totalPages) return;
@@ -78,6 +81,13 @@ function TutorialPage() {
                     </Pagination.Root>
                 </Center>
             )}
+
+            <VideoDetailDrawer 
+                isOpen={isUpdateOpen} 
+                onClose={closeUpdate} 
+                onSave={handleUpdate} 
+                video={updateTargetVideo} 
+            />
         </VStack>
     );
 }
