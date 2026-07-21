@@ -49,6 +49,15 @@ const userApi = {
             data: response.data,
         };
     },
+
+    updateAccountStatus: async (id, payload) => {
+        const response = await axiosInstance.patch(API_ROUTES.ADMIN.UPDATE_USER_STATUS(id), payload);
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
 };
 
 export default userApi;

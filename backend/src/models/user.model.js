@@ -57,6 +57,11 @@ const UserSchema = new mongoose.Schema(
             enum: ["admin", "individual", "organization"],
             default: "individual",
         },
+        accountStatus: {
+            type: String,
+            enum: ["active", "inactive", "suspended", "banned"],
+            default: "active",
+        },
         isDeleted: {
             type: Boolean,
             default: false,

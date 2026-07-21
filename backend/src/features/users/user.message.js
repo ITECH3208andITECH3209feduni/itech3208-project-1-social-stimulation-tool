@@ -7,6 +7,7 @@ const SUCCESS_MESSAGES = {
     UPLOAD_AVATAR_SUCCESSFULLY: "Your avatar upload successfully.",
     UPDATE_USER_PROFILE_SUCCESSFULLY: "Your profile updated successfully.",
     GET_USERS_SUCCESSFULLY: "Get all users successfully.",
+    UPDATE_ACCOUNT_STATUS_SUCCESSFULLY: "User account status updated successfully.",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES
@@ -17,11 +18,11 @@ const ERROR_MESSAGES = {
             statusCode: StatusCodes.BAD_REQUEST,
             errorCode: "USERNAME_IS_EXIST",
         }),
-    EMAIL_IS_EXIST: () =>
+    SAME_EMAIL: () =>
         createError({
-            message: "This email is exist.",
+            message: "This email is the same as the current one. Please check it again.",
             statusCode: StatusCodes.BAD_REQUEST,
-            errorCode: "EMAIL_IS_EXIST",
+            errorCode: "SAME_EMAIL",
         }),
     EMAIL_OR_USERNAME_IS_EXIST: () =>
         createError({
@@ -52,6 +53,12 @@ const ERROR_MESSAGES = {
             message: `This account (${username}) is not exist.`,
             statusCode: StatusCodes.BAD_REQUEST,
             errorCode: "ACCOUNT_IS_NOT_EXIST",
+        }),
+    EMAIL_ALREADY_EXISTS: () =>
+        createError({
+            message: `This email is already exist.`,
+            statusCode: StatusCodes.BAD_REQUEST,
+            errorCode: "EMAIL_ALREADY_EXISTS",
         }),
 };
 
@@ -118,6 +125,12 @@ const VALIDATION_MESSAGES = {
         "string.base": "Location must be a string",
         "string.empty": "Location name is required",
         "any.required": "Location name is required",
+    },
+    accountStatus: {
+        "string.base": "Account status must be a string",
+        "string.empty": "Account status is required",
+        "any.required": "Account status is required",
+        "any.only": "Account status must be one of: active, inactive, suspended, banned",
     },
 };
 

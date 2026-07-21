@@ -11,8 +11,13 @@ import {
 } from "react-icons/fa";
 import StatusBadge from "@/components/badges/StatusBadge";
 import UserAvatar from "@/components/common/avatar/UserAvatar";
+import useUpdateUser from "@/hooks/users/useUpdateUser";
+import useDeleteUser from "@/hooks/users/useDeleteUser";
 
-function UserCard({ user = sampleUser }) {
+function UserCard({ user }) {
+    const { onOpen: onOpenUpdate } = useUpdateUser();
+    const { onOpen: onOpenDelete } = useDeleteUser();
+
     return (
         <Card.Root
             bg="dark.800"
@@ -48,7 +53,7 @@ function UserCard({ user = sampleUser }) {
                             ID: {user.id ? user.id.slice(-6).toUpperCase() : "N/A"}
                         </Text>
                     </HStack>
-                    <StatusBadge status={user.status} />
+                    <StatusBadge status={user.accountStatus || "active"} />
                 </Flex>
 
                 {/* Avatar & Name Section */}
@@ -122,10 +127,10 @@ function UserCard({ user = sampleUser }) {
                 p={4}
                 gap={3}
             >
-                <Button flex={1} bg="dark.900" color="red.400">
+                <Button flex={1} bg="dark.900" color="red.400" onClick={() => onOpenDelete(user)}>
                     <Icon as={FaTrash} mr={2} /> Delete
                 </Button>
-                <Button flex={1} bg="brand.500" color="white">
+                <Button flex={1} bg="brand.500" color="white" onClick={() => onOpenUpdate(user)}>
                     <Icon as={FaEdit} mr={2} /> Update
                 </Button>
             </Flex>

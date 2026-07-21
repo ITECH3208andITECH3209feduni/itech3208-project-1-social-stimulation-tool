@@ -25,9 +25,17 @@ const updateProfile = Joi.object({
     location: Joi.string().messages(UserMessages.validation.location),
 });
 
+const updateAccountStatus = Joi.object({
+    accountStatus: Joi.string()
+        .valid("active", "inactive", "suspended", "banned")
+        .required()
+        .messages(UserMessages.validation.accountStatus),
+});
+
 const UserSchema = {
     uploadAvatar,
     updateProfile,
+    updateAccountStatus,
 };
 
 export default UserSchema;

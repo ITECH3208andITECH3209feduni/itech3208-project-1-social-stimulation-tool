@@ -97,6 +97,32 @@ const UserController = {
             });
         }
     },
+
+    updateAccountStatus: async (req, res) => {
+        try {
+            const userId = req.params.id;
+            const { accountStatus } = req.body;
+
+            const updatedUser = await UserService.updateAccountStatus({
+                userId,
+                accountStatus,
+            });
+
+            return resUtil.sendSuccess({
+                res,
+                message: UserMessages.success.UPDATE_ACCOUNT_STATUS_SUCCESSFULLY,
+                data: updatedUser,
+            });
+        } catch (error) {
+            loggerUtil.error(`[UserController.updateAccountStatus]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default UserController;

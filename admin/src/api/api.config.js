@@ -14,6 +14,7 @@ const API_ROUTES = {
         GET_VIDEOS: "/admin/videos",
         GET_ALL_USERS: "/admin/users",
         GET_All_CONTACTS: "/admin/contacts",
+        UPDATE_USER_STATUS: (id) => `/admin/users/${id}/account-status`,
     },
 
     ME: {
