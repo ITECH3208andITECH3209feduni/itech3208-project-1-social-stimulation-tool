@@ -46,6 +46,20 @@ const videoApi = {
             data: res.data,
         };
     },
+
+    updateVideo: async (id, formData) => {
+        // formData is expected because we can upload a new video file optionally
+        const response = await axiosInstance.patch(API_ROUTES.VIDEOS.UPDATE_VIDEO(id), formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return {
+            success: response.success,
+            message: response.message,
+            data: response.data,
+        };
+    },
 };
 
 export default videoApi;
