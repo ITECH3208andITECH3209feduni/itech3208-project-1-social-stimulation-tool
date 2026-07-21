@@ -14,8 +14,11 @@ import { FaPlay } from "react-icons/fa";
 import { formatDuration } from "@/utils/formatDuration";
 import VideoPlayerModal from "@/components/common/modals/VideoPlayerModal";
 
+import useVideoUIStore from "@/hooks/stores/useVideoUIStore";
+
 function VideoCard({ video }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { openUpdateDrawer } = useVideoUIStore();
 
     const thumbnailUrl =
         typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
@@ -92,7 +95,7 @@ function VideoCard({ video }) {
                     </Card.Body>
                     <Card.Footer>
                         <HStack w={"100%"} justify={"end"}>
-                            <Button flex="1" color={"whiteAlpha.900"} bg={"skyblue.300"}>
+                            <Button flex="1" color={"whiteAlpha.900"} bg={"skyblue.300"} onClick={() => openUpdateDrawer(video)}>
                                 Edit
                             </Button>
                             <Button flex="1" color={"whiteAlpha.900"} bg={"brand.300"}>
