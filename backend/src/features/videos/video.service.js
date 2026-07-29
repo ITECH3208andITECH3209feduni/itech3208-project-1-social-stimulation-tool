@@ -68,6 +68,12 @@ const VideoService = {
             existedVideo.duration = Math.round(uploadedVideo.duration);
         }
 
+        const thumbnailUrl = uploadedVideo.secure_url.replace(/\.[^/.]+$/, ".jpg");
+        existedVideo.thumbnail = {
+            url: thumbnailUrl,
+            cloudinaryId: null,
+        };
+
         await existedVideo.save();
 
         return VideoService._formatVideo(existedVideo);
@@ -153,6 +159,12 @@ const VideoService = {
         if (uploadedVideo.duration) {
             newVideo.duration = Math.round(uploadedVideo.duration);
         }
+
+        const thumbnailUrl = uploadedVideo.secure_url.replace(/\.[^/.]+$/, ".jpg");
+        newVideo.thumbnail = {
+            url: thumbnailUrl,
+            cloudinaryId: null,
+        };
 
         await newVideo.save();
 

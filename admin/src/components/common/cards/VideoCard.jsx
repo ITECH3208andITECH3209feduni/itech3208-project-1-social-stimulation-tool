@@ -20,8 +20,9 @@ function VideoCard({ video }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { openUpdateDrawer, openDeleteDialog } = useVideoUIStore();
 
-    const thumbnailUrl =
-        typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
+    const rawThumbnail = typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
+    const videoUrl = typeof video.video === "object" ? video.video?.url : video.video;
+    const thumbnailUrl = rawThumbnail || (videoUrl ? videoUrl.replace(/\.[^/.]+$/, ".jpg") : "");
 
     return (
         <>
