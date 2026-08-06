@@ -8,6 +8,7 @@ import {
     MdFileCopy,
     MdSupervisedUserCircle,
     MdContactPage,
+    MdCategory,
 } from "react-icons/md";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { videoQueries } from "@/api/videos/video.queries";
@@ -45,6 +46,11 @@ const tabs = [
         label: "Users",
         icon: <MdSupervisedUserCircle />,
         path: "/admin/users",
+    },
+    {
+        label: "Categories",
+        icon: <MdCategory />,
+        path: "/admin/categories",
     },
     {
         label: "Contacts",
