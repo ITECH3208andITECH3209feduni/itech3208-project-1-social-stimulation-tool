@@ -9,6 +9,8 @@ import { loggerUtil, resUtil } from "#utils/index.js";
 import {
     CategoryPublicRouter,
     CategoryAdminRouter,
+    SubCategoryPublicRouter,
+    SubCategoryAdminRouter,
     LevelPublicRouter,
     LevelAdminRouter,
     AuthRouter,
@@ -43,6 +45,7 @@ app.use(
 // 1. PUBLIC ROUTES
 app.use(apiConfig.auth, AuthRouter);
 app.use(apiConfig.category, CategoryPublicRouter);
+app.use(apiConfig.subcategory, SubCategoryPublicRouter);
 app.use(apiConfig.level, LevelPublicRouter);
 app.use(apiConfig.video, VideoPublicRouter);
 app.use(apiConfig.feedback, FeedbackRouter);
@@ -60,6 +63,7 @@ app.use(apiConfig.me + "/videos", VideoUserRouter);
 
 // 4. ADMIN ROUTES
 app.use(apiConfig.manageCategory, CategoryAdminRouter);
+app.use(apiConfig.manageSubCategory, SubCategoryAdminRouter);
 app.use(apiConfig.admin + "/levels", LevelAdminRouter);
 app.use(apiConfig.manageVideo, VideoAdminRouter);
 app.use(apiConfig.manageUser, UserAdminRouter);

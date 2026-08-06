@@ -12,6 +12,7 @@ import LoginPage from "@/pages/login/LoginPage";
 import TutorialPage from "@/pages/tutorials/TutorialPage";
 import UploadVideoPage from "@/pages/upload_videos/UploadVideoPage";
 import UserPage from "@/pages/users/UserPage";
+import CategoryPage from "@/pages/categories/CategoryPage";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import { useEffect } from "react";
 import { publicRoutes } from "./routes.config";
@@ -62,6 +63,7 @@ const AppRoutes = () => {
                     <Route path="video-management" element={<TutorialPage />} />
                     <Route path="upload-video" element={<UploadVideoPage />} />
                     <Route path="users" element={<UserPage />} />
+                    <Route path="categories" element={<CategoryPage />} />
                 </Route>
             </Route>
 

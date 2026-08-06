@@ -80,6 +80,27 @@ const CategoryController = {
             });
         }
     },
+
+    updateCategory: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const categoryName = req.body.name;
+            const result = await CategoryService.updateCategory(id, categoryName);
+            return resUtil.sendSuccess({
+                res,
+                message: CategoryMessages.success.UPDATE_CATEGORY_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[CategoryController.updateCategory]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default CategoryController;
