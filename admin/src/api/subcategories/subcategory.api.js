@@ -1,9 +1,9 @@
 import axiosInstance from "../axios";
 import API_ROUTES from "../api.config";
 
-const categoryApi = {
-    getCategories: async () => {
-        const response = await axiosInstance.get(API_ROUTES.PUBLIC.CATEGORIES);
+const subCategoryApi = {
+    getSubCategories: async (params = {}) => {
+        const response = await axiosInstance.get(API_ROUTES.PUBLIC.SUBCATEGORIES, { params });
         return {
             success: response.success,
             message: response.message,
@@ -11,8 +11,8 @@ const categoryApi = {
         };
     },
 
-    createCategory: async (payload) => {
-        const response = await axiosInstance.post(API_ROUTES.ADMIN.MANAGE_CATEGORIES, payload);
+    createSubCategory: async (payload) => {
+        const response = await axiosInstance.post(API_ROUTES.ADMIN.MANAGE_SUBCATEGORIES, payload);
         return {
             success: response.success,
             message: response.message,
@@ -20,8 +20,8 @@ const categoryApi = {
         };
     },
 
-    deleteCategory: async (id) => {
-        const response = await axiosInstance.delete(API_ROUTES.ADMIN.DELETE_CATEGORY(id));
+    updateSubCategory: async (id, payload) => {
+        const response = await axiosInstance.put(API_ROUTES.ADMIN.UPDATE_SUBCATEGORY(id), payload);
         return {
             success: response.success,
             message: response.message,
@@ -29,8 +29,8 @@ const categoryApi = {
         };
     },
 
-    updateCategory: async (id, payload) => {
-        const response = await axiosInstance.put(API_ROUTES.ADMIN.UPDATE_CATEGORY(id), payload);
+    deleteSubCategory: async (id) => {
+        const response = await axiosInstance.delete(API_ROUTES.ADMIN.DELETE_SUBCATEGORY(id));
         return {
             success: response.success,
             message: response.message,
@@ -39,4 +39,4 @@ const categoryApi = {
     },
 };
 
-export default categoryApi;
+export default subCategoryApi;
