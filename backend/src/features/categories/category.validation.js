@@ -5,8 +5,13 @@ const insertCategory = Joi.object({
     name: Joi.string().required().min(3).max(50).messages(CategoryMessages.validation),
 });
 
+const updateCategory = Joi.object({
+    name: Joi.string().required().min(3).max(50).messages(CategoryMessages.validation),
+});
+
 const CategorySchema = {
     insert: insertCategory,
+    update: updateCategory,
 };
 
 export default CategorySchema;

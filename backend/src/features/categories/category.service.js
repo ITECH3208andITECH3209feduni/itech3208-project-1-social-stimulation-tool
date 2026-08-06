@@ -1,4 +1,4 @@
-import { CategoryModel } from "#models/index.js";
+import { CategoryModel, SubCategoryModel } from "#models/index.js";
 import CategoryMessages from "./category.message.js";
 
 const CategoryService = {
@@ -46,15 +46,37 @@ const CategoryService = {
     },
 
     getCategories: async () => {
-        const categories = await CategoryModel.find().lean();
+        const [categories, subCategories] = await Promise.all([
+            CategoryModel.find().lean(),
+            SubCategoryModel.find().sort({ name: 1 }).lean(),
+        ]);
 
-        if (!categories || categories.length == 0) {
+        if (!categories || categories.length === 0) {
             throw CategoryMessages.error.LIST_CATEGORIES_EMPTY();
         }
 
+        const subCategoryMap = {};
+        subCategories.forEach((subCat) => {
+            const catIdStr = subCat.categoryId.toString();
+            if (!subCategoryMap[catIdStr]) {
+                subCategoryMap[catIdStr] = [];
+            }
+            const { _id, __v, categoryId, ...rest } = subCat;
+            subCategoryMap[catIdStr].push({
+                id: _id,
+                ...rest,
+            });
+        });
+
+        const formattedCategories = categories.map((category) => {
+            const formatted = CategoryService._formatCategory(category);
+            formatted.subCategories = subCategoryMap[formatted.id.toString()] || [];
+            return formatted;
+        });
+
         return {
-            total: categories.length,
-            categories: categories.map(CategoryService._formatCategory),
+            total: formattedCategories.length,
+            categories: formattedCategories,
         };
     },
 
@@ -66,6 +88,27 @@ const CategoryService = {
         }
         
         await CategoryModel.deleteOne({ _id: existCategory._id });
+    },
+
+    updateCategory: async (id, name) => {
+        const category = await CategoryModel.findById(id);
+        if (!category) {
+            throw CategoryMessages.error.CATEGORY_IS_NOT_EXIST();
+        }
+
+        const duplicate = await CategoryModel.findOne({
+            _id: { $ne: id },
+            name,
+        });
+
+        if (duplicate) {
+            throw CategoryMessages.error.CATEGORY_NAME_EXIST();
+        }
+
+        category.name = name;
+        await category.save();
+
+        return CategoryService._formatCategory(category);
     },
 };
 
