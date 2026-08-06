@@ -23,4 +23,8 @@ export const publicRoutes = [
         path: "/admin/users",
         title: "Scenari-Aid Admin - Users",
     },
+    {
+        path: "/admin/categories",
+        title: "Scenari-Aid Admin - Categories",
+    },
 ];
