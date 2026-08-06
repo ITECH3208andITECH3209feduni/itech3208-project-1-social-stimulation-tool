@@ -1,4 +1,5 @@
 import CategoryModel from "./category.model.js";
+import SubCategoryModel from "./subcategory.model.js";
 import ContactModel from "./contact.model.js";
 import FeedbackModel from "./feedback.model.js";
 import LevelModel from "./level.model.js";
@@ -9,6 +10,7 @@ import WishlistModel from "./wishlist.model.js";
 
 export {
     CategoryModel,
+    SubCategoryModel,
     ContactModel,
     FeedbackModel,
     LevelModel,
