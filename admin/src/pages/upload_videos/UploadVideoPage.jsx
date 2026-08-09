@@ -7,6 +7,7 @@ import FileUploadField from "@/components/common/fields/FileUploadField";
 import TextareaField from "@/components/common/fields/TextareaField";
 import SelectionField from "@/components/common/fields/SelectionField";
 import useCategories from "@/hooks/common/useCategories";
+import useSubCategories from "@/hooks/common/useSubCategories";
 import useCreateVideo from "@/hooks/common/useCreateVideo";
 import { buildVideoFormData } from "@/utils/buildVideoFormData";
 
@@ -19,10 +20,19 @@ function UploadVideoPage() {
         title: "",
         description: "",
         categoryId: "",
+        subCategoryId: "",
         tags: [],
     });
 
+    // Dynamically fetch sub-categories whenever categoryId changes
+    const { subCategories } = useSubCategories(formData.categoryId);
+
     const handleInputChange = (key, value) => setFormData((prev) => ({ ...prev, [key]: value }));
+
+    const handleCategoryChange = (e) => {
+        // Reset subCategoryId whenever the parent category changes
+        setFormData((prev) => ({ ...prev, categoryId: e.target.value, subCategoryId: "" }));
+    };
 
     const handleUpload = async () => {
         const payload = buildVideoFormData(formData);
@@ -49,6 +59,7 @@ function UploadVideoPage() {
             title: "",
             description: "",
             categoryId: "",
+            subCategoryId: "",
             tags: [],
         });
 
@@ -98,8 +109,25 @@ function UploadVideoPage() {
                                 fieldLabel={"Category"}
                                 inputPlaceholder="Choose category"
                                 value={formData.categoryId}
-                                onChange={(e) => handleInputChange("categoryId", e.target.value)}
+                                onChange={handleCategoryChange}
                             />
+
+                            {/* Sub-category selector — only visible after a category is chosen */}
+                            {formData.categoryId && (
+                                <SelectionField
+                                    items={subCategories}
+                                    fieldLabel={"Sub-Category"}
+                                    inputPlaceholder={
+                                        subCategories.length === 0
+                                            ? "No sub-categories available"
+                                            : "Choose sub-category"
+                                    }
+                                    value={formData.subCategoryId}
+                                    onChange={(e) =>
+                                        handleInputChange("subCategoryId", e.target.value)
+                                    }
+                                />
+                            )}
 
                             <TagsInputField
                                 name="tags"
