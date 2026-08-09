@@ -7,7 +7,7 @@ const VideoService = {
     _formatVideo: (video) => {
         if (!video) return null;
         const videoObj = video._doc || video;
-        const { _id, __v, isDeleted, uploadedBy, categoryId, ...rest } = videoObj;
+        const { _id, __v, isDeleted, uploadedBy, categoryId, subCategoryId, ...rest } = videoObj;
 
         const formatted = {
             id: _id,
@@ -31,6 +31,15 @@ const VideoService = {
                       name: categoryId.name,
                   }
                 : categoryId;
+        }
+
+        if (subCategoryId) {
+            formatted.subCategory = subCategoryId._id
+                ? {
+                      id: subCategoryId._id,
+                      name: subCategoryId.name,
+                  }
+                : subCategoryId;
         }
 
         return formatted;
@@ -135,6 +144,7 @@ const VideoService = {
             title: payload.title,
             description: payload.description || "",
             categoryId: payload.categoryId,
+            subCategoryId: payload.subCategoryId || null,
             tags: parsedTags,
             uploadedBy: userId,
             status: "draft",
@@ -175,6 +185,7 @@ const VideoService = {
     getVideoById: async (videoId) => {
         const video = await VideoModel.findOne({ _id: videoId, isDeleted: false })
             .populate("categoryId", "name")
+            .populate("subCategoryId", "name")
             .populate("levelId", "name")
             .populate("uploadedBy", "username avatar");
 
@@ -188,16 +199,18 @@ const VideoService = {
     },
 
     // MARK: - GET ALL VIDEOS (with optional filters)
-    getVideos: async ({ categoryId, status = "draft", page = 1, limit = 10 } = {}) => {
+    getVideos: async ({ categoryId, subCategoryId, status = "draft", page = 1, limit = 10 } = {}) => {
         const filter = { isDeleted: false, status };
 
         if (categoryId) filter.categoryId = categoryId;
+        if (subCategoryId) filter.subCategoryId = subCategoryId;
 
         const skip = (page - 1) * limit;
 
         const [videos, total] = await Promise.all([
             VideoModel.find(filter)
                 .populate("categoryId", "name")
+                .populate("subCategoryId", "name")
                 .populate("uploadedBy", "username avatar")
                 .sort({ createdAt: 1 })
                 .skip(skip)
@@ -237,7 +250,7 @@ const VideoService = {
             throw VideoMessages.error.VIDEO_NOT_FOUND();
         }
 
-        const updateFields = ["title", "description", "status", "tags", "categoryId", "levelId"];
+        const updateFields = ["title", "description", "status", "tags", "categoryId", "subCategoryId", "levelId"];
         updateFields.forEach((field) => {
             if (payload[field] !== undefined) {
                 if (field === "tags") {
@@ -304,7 +317,7 @@ const VideoService = {
         }
 
         // 2. Process Text Fields Updates
-        const updateFields = ["title", "description", "status", "tags", "categoryId", "levelId"];
+        const updateFields = ["title", "description", "status", "tags", "categoryId", "subCategoryId", "levelId"];
         updateFields.forEach((field) => {
             if (payload[field] !== undefined) {
                 if (field === "tags") {
