@@ -43,6 +43,8 @@ const createVideo = Joi.object({
 
     categoryId: Joi.string().required().messages(VideoMessages.validation.categoryId),
 
+    subCategoryId: Joi.string().allow("").optional(),
+
     // multipart sends array fields as string (single value) or array (multiple values)
     tags: Joi.alternatives()
         .try(Joi.array().items(Joi.string()), Joi.string())
@@ -61,6 +63,8 @@ const updateVideoInfo = Joi.object({
         .messages(VideoMessages.validation.description),
 
     categoryId: Joi.string().optional().messages(VideoMessages.validation.categoryId),
+
+    subCategoryId: Joi.string().allow("").optional(),
 
     levelId: Joi.string().optional().messages(VideoMessages.validation.levelId),
 

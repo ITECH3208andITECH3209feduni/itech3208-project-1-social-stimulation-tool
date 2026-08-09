@@ -1,16 +1,23 @@
-import { Button, CloseButton, Drawer, Portal, HStack, VStack, Text, Box, Flex, Image } from "@chakra-ui/react";
+import { Button, CloseButton, Drawer, Portal, HStack, VStack, Text, Box, Image } from "@chakra-ui/react";
 import NormalField from "../fields/NormalField";
 import TextareaField from "../fields/TextareaField";
 import FileUploadField from "../fields/FileUploadField";
+import SelectionField from "../fields/SelectionField";
 import useVideoDetailDrawerForm from "@/hooks/videos/useVideoDetailDrawerForm";
+import useCategories from "@/hooks/common/useCategories";
+import useSubCategories from "@/hooks/common/useSubCategories";
 import { formatDuration } from "@/utils/formatDuration";
 
 function VideoDetailDrawer({ isOpen, onClose, onSave, video }) {
     const {
         formData,
         handleInputChange,
+        handleCategoryChange,
         handleSave,
     } = useVideoDetailDrawerForm(video, isOpen, onSave);
+
+    const { categories } = useCategories();
+    const { subCategories } = useSubCategories(formData.categoryId);
 
     const thumbnailUrl =
         typeof video?.thumbnail === "object" ? video?.thumbnail?.url : video?.thumbnail;
@@ -89,14 +96,57 @@ function VideoDetailDrawer({ isOpen, onClose, onSave, video }) {
                                     value={formData.description}
                                     onChange={(e) => handleInputChange("description", e.target.value)}
                                 />
+
+                                <SelectionField
+                                    items={categories}
+                                    fieldLabel="Category"
+                                    inputPlaceholder="Choose category"
+                                    value={formData.categoryId}
+                                    onChange={handleCategoryChange}
+                                />
+
+                                {/* Sub-category selector — only visible once a category is selected */}
+                                {formData.categoryId && (
+                                    <SelectionField
+                                        items={subCategories}
+                                        fieldLabel="Sub-Category"
+                                        inputPlaceholder={
+                                            subCategories.length === 0
+                                                ? "No sub-categories available"
+                                                : "Choose sub-category"
+                                        }
+                                        value={formData.subCategoryId}
+                                        onChange={(e) =>
+                                            handleInputChange("subCategoryId", e.target.value)
+                                        }
+                                    />
+                                )}
                             </VStack>
                         </Drawer.Body>
-                        <Drawer.Footer borderTopWidth="1px" borderColor="whiteAlpha.200">
+                        <Drawer.Footer borderTopWidth="1px" borderColor="whiteAlpha.200" px={5} py={4}>
                             <HStack w="full" justify="flex-end" gap={3}>
-                                <Button variant="ghost" onClick={() => onClose()}>
+                                <Button
+                                    bg="whiteAlpha.100"
+                                    color="whiteAlpha.900"
+                                    px={6}
+                                    style={{ border: "1px solid rgba(255,255,255,0.25)" }}
+                                    _hover={{ bg: "whiteAlpha.200", color: "white" }}
+                                    _active={{ bg: "whiteAlpha.300" }}
+                                    transition="all 0.15s ease"
+                                    onClick={() => onClose()}
+                                >
                                     Cancel
                                 </Button>
-                                <Button bg={"brand.500"} onClick={handleSave}>
+                                <Button
+                                    bg="brand.500"
+                                    color="white"
+                                    px={6}
+                                    fontWeight="semibold"
+                                    _hover={{ bg: "brand.600", transform: "translateY(-1px)", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}
+                                    _active={{ transform: "translateY(0)", boxShadow: "none" }}
+                                    transition="all 0.15s ease"
+                                    onClick={handleSave}
+                                >
                                     Save Changes
                                 </Button>
                             </HStack>

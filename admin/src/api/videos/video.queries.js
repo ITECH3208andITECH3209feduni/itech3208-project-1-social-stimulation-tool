@@ -12,14 +12,15 @@ export const videoQueries = {
      * @param {number} params.page - Current page number
      * @param {number} params.limit - Number of items per page
      */
-    list: ({ page, limit, status = "", categoryId = "" }) => ({
-        queryKey: ["videos", { page, limit, status, categoryId }],
+    list: ({ page, limit, status = "", categoryId = "", subCategoryId = "" }) => ({
+        queryKey: ["videos", { page, limit, status, categoryId, subCategoryId }],
         queryFn: async () => {
             const payload = {
-                page: page,
-                limit: limit,
-                status: status,
-                categoryId: categoryId,
+                page,
+                limit,
+                status,
+                categoryId,
+                subCategoryId,
             };
             const res = await videoApi.getVideos(payload);
             if (!res.success) {
@@ -27,9 +28,7 @@ export const videoQueries = {
             }
             return res.data;
         },
-        // Data is considered fresh for 30 seconds — no refetch within this window
         staleTime: 30 * 1000,
-        // Automatically refetch in the background every 60 seconds
         refetchInterval: 60 * 1000,
     }),
 };

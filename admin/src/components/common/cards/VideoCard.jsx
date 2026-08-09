@@ -8,6 +8,7 @@ import {
     Float,
     IconButton,
     Text,
+    Badge,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
@@ -20,7 +21,8 @@ function VideoCard({ video }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { openUpdateDrawer, openDeleteDialog } = useVideoUIStore();
 
-    const rawThumbnail = typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
+    const rawThumbnail =
+        typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
     const videoUrl = typeof video.video === "object" ? video.video?.url : video.video;
     const thumbnailUrl = rawThumbnail || (videoUrl ? videoUrl.replace(/\.[^/.]+$/, ".jpg") : "");
 
@@ -93,13 +95,51 @@ function VideoCard({ video }) {
                         <Card.Description color={"gray.400"} noOfLines={2}>
                             {video.description}
                         </Card.Description>
+                        <HStack align="start" gap={2} flex={1} overflow="hidden">
+                            {video.category?.name && (
+                                <Badge
+                                    bg="blue.500"
+                                    color="white"
+                                    fontSize="xs"
+                                    px={2}
+                                    py={0.5}
+                                    borderRadius="md"
+                                    fontWeight="semibold"
+                                >
+                                    {video.category.name}
+                                </Badge>
+                            )}
+                            {video.subCategory?.name && (
+                                <Badge
+                                    bg="purple.500"
+                                    color="white"
+                                    fontSize="xs"
+                                    px={2}
+                                    py={0.5}
+                                    borderRadius="md"
+                                    fontWeight="semibold"
+                                >
+                                    {video.subCategory.name}
+                                </Badge>
+                            )}
+                        </HStack>
                     </Card.Body>
                     <Card.Footer>
                         <HStack w={"100%"} justify={"end"}>
-                            <Button flex="1" color={"whiteAlpha.900"} bg={"skyblue.300"} onClick={() => openUpdateDrawer(video)}>
+                            <Button
+                                flex="1"
+                                color={"whiteAlpha.900"}
+                                bg={"skyblue.300"}
+                                onClick={() => openUpdateDrawer(video)}
+                            >
                                 Edit
                             </Button>
-                            <Button flex="1" color={"whiteAlpha.900"} bg={"brand.300"} onClick={() => openDeleteDialog(video)}>
+                            <Button
+                                flex="1"
+                                color={"whiteAlpha.900"}
+                                bg={"brand.300"}
+                                onClick={() => openDeleteDialog(video)}
+                            >
                                 Delete
                             </Button>
                         </HStack>

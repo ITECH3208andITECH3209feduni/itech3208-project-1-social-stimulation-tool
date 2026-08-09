@@ -11,7 +11,7 @@
  * @returns {Object} Result object with `success`, `formData` (if success), and `error` (if failed)
  */
 export const buildVideoFormData = (data) => {
-    const { video, title, description, categoryId, tags } = data;
+    const { video, title, description, categoryId, subCategoryId, tags } = data;
 
     const formData = new FormData();
     
@@ -19,6 +19,9 @@ export const buildVideoFormData = (data) => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("categoryId", categoryId);
+    if (subCategoryId) {
+        formData.append("subCategoryId", subCategoryId);
+    }
     
     // For arrays, backend usually expects either JSON string or multiple fields
     // Here we use JSON stringification which is standard for REST APIs receiving FormData

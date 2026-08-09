@@ -35,8 +35,9 @@ const videoApi = {
             params: {
                 page: payload.page,
                 limit: payload.limit,
-                ...(payload.status && { status: payload.status }), // Only append when `status` has value
-                ...(payload.categoryId && { categoryId: payload.categoryId }), // Only append when `categoryId` has value
+                ...(payload.status && { status: payload.status }),
+                ...(payload.categoryId && { categoryId: payload.categoryId }),
+                ...(payload.subCategoryId && { subCategoryId: payload.subCategoryId }),
             },
         });
 

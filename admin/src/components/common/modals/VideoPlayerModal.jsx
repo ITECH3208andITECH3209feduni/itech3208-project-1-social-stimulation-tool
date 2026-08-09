@@ -1,14 +1,5 @@
-import {
-    Dialog,
-    Box,
-    VStack,
-    HStack,
-    Text,
-    IconButton,
-    Badge,
-} from "@chakra-ui/react";
+import { Dialog, Box, VStack, HStack, Text, IconButton, Badge } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
-import { FaComment, FaEye } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { formatDuration } from "@/utils/formatDuration";
 
@@ -16,7 +7,8 @@ function VideoPlayerModal({ video, isOpen, onClose }) {
     if (!video) return null;
 
     const videoUrl = typeof video.video === "object" ? video.video?.url : video.video;
-    const thumbnailUrl = typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
+    const thumbnailUrl =
+        typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
 
     return (
         <Dialog.Root
@@ -24,10 +16,7 @@ function VideoPlayerModal({ video, isOpen, onClose }) {
             onOpenChange={(detail) => !detail.open && onClose()}
             size="cover"
         >
-            <Dialog.Backdrop
-                bg="blackAlpha.800"
-                backdropFilter="blur(6px)"
-            />
+            <Dialog.Backdrop bg="blackAlpha.800" backdropFilter="blur(6px)" />
 
             <Dialog.Positioner>
                 <Dialog.Content
@@ -49,23 +38,47 @@ function VideoPlayerModal({ video, isOpen, onClose }) {
                         align="center"
                     >
                         <VStack align="start" gap={0} flex={1} overflow="hidden">
-                            <Text
-                                color="white"
-                                fontWeight="bold"
-                                fontSize="lg"
-                                noOfLines={1}
-                            >
+                            <Text color="white" fontWeight="bold" fontSize="lg" noOfLines={1}>
                                 {video.title}
                             </Text>
-                            <HStack gap={4} mt={1}>
+                            <HStack gap={2} mt={1} flexWrap="wrap">
                                 {video.duration && (
-                                    <Badge colorScheme="red" variant="solid" fontSize="xs">
+                                    <Badge
+                                        bg="red.500"
+                                        color="white"
+                                        fontSize="xs"
+                                        px={2}
+                                        py={0.5}
+                                        borderRadius="md"
+                                        fontWeight="semibold"
+                                    >
                                         {formatDuration(video.duration)}
                                     </Badge>
                                 )}
                                 {video.category?.name && (
-                                    <Badge colorScheme="blue" variant="outline" fontSize="xs">
+                                    <Badge
+                                        bg="blue.500"
+                                        color="white"
+                                        fontSize="xs"
+                                        px={2}
+                                        py={0.5}
+                                        borderRadius="md"
+                                        fontWeight="semibold"
+                                    >
                                         {video.category.name}
+                                    </Badge>
+                                )}
+                                {video.subCategory?.name && (
+                                    <Badge
+                                        bg="purple.500"
+                                        color="white"
+                                        fontSize="xs"
+                                        px={2}
+                                        py={0.5}
+                                        borderRadius="md"
+                                        fontWeight="semibold"
+                                    >
+                                        {video.subCategory.name}
                                     </Badge>
                                 )}
                             </HStack>
@@ -92,7 +105,9 @@ function VideoPlayerModal({ video, isOpen, onClose }) {
                             width="100%"
                             height="100%"
                             style={{ display: "block" }}
-                            onError={(e) => console.error("[VideoPlayerModal] ReactPlayer error:", e)}
+                            onError={(e) =>
+                                console.error("[VideoPlayerModal] ReactPlayer error:", e)
+                            }
                             config={{
                                 file: {
                                     attributes: {

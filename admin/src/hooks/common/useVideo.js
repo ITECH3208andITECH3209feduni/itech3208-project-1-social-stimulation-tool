@@ -11,18 +11,19 @@ const useVideo = ({ initialLimit = 6 } = {}) => {
     const limit = Number(searchParams.get("limit")) || initialLimit;
     const status = searchParams.get("status") || "";
     const categoryId = searchParams.get("categoryId") || "";
+    const subCategoryId = searchParams.get("subCategoryId") || "";
 
     const setPage = (newPage) => {
         setSearchParams((prev) => {
             prev.set("page", String(newPage));
-            return prev; // keep other params
+            return prev;
         });
     };
 
     const setLimit = (newLimit) => {
         setSearchParams((prev) => {
             prev.set("limit", String(newLimit));
-            prev.set("page", "1"); // reset page when limit change
+            prev.set("page", "1");
             return prev;
         });
     };
@@ -32,7 +33,7 @@ const useVideo = ({ initialLimit = 6 } = {}) => {
             if (newStatus) {
                 prev.set("status", newStatus);
             } else {
-                prev.delete("status"); // Delete params if it empty → URL more clean
+                prev.delete("status");
             }
             prev.set("page", "1");
             return prev;
@@ -46,13 +47,27 @@ const useVideo = ({ initialLimit = 6 } = {}) => {
             } else {
                 prev.delete("categoryId");
             }
+            // Reset sub-category whenever category changes
+            prev.delete("subCategoryId");
+            prev.set("page", "1");
+            return prev;
+        });
+    };
+
+    const setSubCategoryId = (newSubCategoryId) => {
+        setSearchParams((prev) => {
+            if (newSubCategoryId) {
+                prev.set("subCategoryId", newSubCategoryId);
+            } else {
+                prev.delete("subCategoryId");
+            }
             prev.set("page", "1");
             return prev;
         });
     };
 
     const { data, isLoading, isError, error } = useQuery({
-        ...videoQueries.list({ page, limit, status, categoryId }),
+        ...videoQueries.list({ page, limit, status, categoryId, subCategoryId }),
         placeholderData: keepPreviousData,
     });
 
@@ -72,6 +87,8 @@ const useVideo = ({ initialLimit = 6 } = {}) => {
         setStatus,
         categoryId,
         setCategoryId,
+        subCategoryId,
+        setSubCategoryId,
         videos: data?.videos || [],
         pagination: data?.pagination || { total: 0, page: 1, limit, totalPages: 0 },
         isLoading,
