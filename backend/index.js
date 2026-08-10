@@ -20,6 +20,7 @@ import {
     VideoUserRouter,
     VideoAdminRouter,
     FeedbackRouter,
+    FeedbackAdminRouter,
     WishlistRouter,
     ContactPublicRouter,
     ContactAdminRouter,
@@ -68,6 +69,7 @@ app.use(apiConfig.admin + "/levels", LevelAdminRouter);
 app.use(apiConfig.manageVideo, VideoAdminRouter);
 app.use(apiConfig.manageUser, UserAdminRouter);
 app.use(apiConfig.manageContact, ContactAdminRouter);
+app.use(apiConfig.admin + "/feedbacks", FeedbackAdminRouter);
 
 // MARK: - Handle 404 Not Found
 app.use((req, res, next) => {
