@@ -13,6 +13,7 @@ import TutorialPage from "@/pages/tutorials/TutorialPage";
 import UploadVideoPage from "@/pages/upload_videos/UploadVideoPage";
 import UserPage from "@/pages/users/UserPage";
 import CategoryPage from "@/pages/categories/CategoryPage";
+import FeedbackPage from "@/pages/feedbacks/FeedbackPage";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import { useEffect } from "react";
 import { publicRoutes } from "./routes.config";
@@ -64,6 +65,7 @@ const AppRoutes = () => {
                     <Route path="upload-video" element={<UploadVideoPage />} />
                     <Route path="users" element={<UserPage />} />
                     <Route path="categories" element={<CategoryPage />} />
+                    <Route path="feedbacks" element={<FeedbackPage />} />
                 </Route>
             </Route>
 
