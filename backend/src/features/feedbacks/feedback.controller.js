@@ -128,6 +128,79 @@ const FeedbackController = {
             });
         }
     },
+
+    // GET /admin/feedbacks — Get all feedbacks (Admin, paginated)
+    getAllFeedbacks: async (req, res) => {
+        try {
+            const { page, limit, isPinned, rating } = req.query;
+            const result = await FeedbackService.getAllFeedbacks({
+                page: parseInt(page) || 1,
+                limit: parseInt(limit) || 9,
+                isPinned: isPinned === "true" ? true : isPinned === "false" ? false : undefined,
+                rating: rating !== undefined ? parseInt(rating) : undefined,
+            });
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.GET_FEEDBACKS_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.getAllFeedbacks]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // PATCH /admin/feedbacks/:id/pin — Toggle isPinned (Admin)
+    togglePin: async (req, res) => {
+        try {
+            const feedbackId = req.params.id;
+
+            const updated = await FeedbackService.togglePin(feedbackId);
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.UPDATE_FEEDBACK_SUCCESSFULLY,
+                data: updated,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.togglePin]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // DELETE /admin/feedbacks/:id — Admin delete feedback
+    adminDeleteFeedback: async (req, res) => {
+        try {
+            const feedbackId = req.params.id;
+
+            const result = await FeedbackService.adminDeleteFeedback(feedbackId);
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.DELETE_FEEDBACK_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.adminDeleteFeedback]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
 };
 
 export default FeedbackController;

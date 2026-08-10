@@ -4,6 +4,7 @@ import FeedbackController from "./feedback.controller.js";
 import FeedbackSchema from "./feedback.validation.js";
 
 const router = express.Router();
+const adminRouter = express.Router();
 
 // POST /api/v1/feedbacks — Create feedback (Authenticated users)
 router.post(
@@ -41,4 +42,28 @@ router.delete(
     FeedbackController.deleteFeedback,
 );
 
-export default router;
+// MARK: - ADMIN ROUTES
+
+// GET /admin/feedbacks — List all feedbacks (paginated, filterable)
+adminRouter.get(
+    "/",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    bodyMw.validate(FeedbackSchema.getFeedbacks),
+    FeedbackController.getAllFeedbacks,
+);
+
+// PATCH /admin/feedbacks/:id/pin — Toggle isPinned
+adminRouter.patch(
+    "/:id/pin",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    FeedbackController.togglePin,
+);
+
+// DELETE /admin/feedbacks/:id — Admin soft-delete any feedback
+adminRouter.delete(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    FeedbackController.adminDeleteFeedback,
+);
+
+export { router as FeedbackRouter, adminRouter as FeedbackAdminRouter };

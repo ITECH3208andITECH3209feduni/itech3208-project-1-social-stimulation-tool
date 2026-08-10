@@ -161,6 +161,67 @@ const FeedbackService = {
 
         return { id: feedback._id };
     },
+
+    // MARK: - GET ALL FEEDBACKS (Admin — paginated)
+    getAllFeedbacks: async ({ page = 1, limit = 9, isPinned, rating } = {}) => {
+        const filter = { isDeleted: false };
+        if (isPinned !== undefined) filter.isPinned = isPinned;
+        if (rating !== undefined && rating !== 0) filter.rating = rating;
+
+        const skip = (page - 1) * limit;
+
+        const [feedbacks, total] = await Promise.all([
+            FeedbackModel.find(filter)
+                .populate("userId", "username avatar")
+                .sort({ isPinned: -1, createdAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            FeedbackModel.countDocuments(filter),
+        ]);
+
+        return {
+            feedbacks: feedbacks.map(FeedbackService._formatFeedback),
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+            },
+        };
+    },
+
+    // MARK: - TOGGLE PIN FEEDBACK (Admin)
+    togglePin: async (feedbackId) => {
+        const feedback = await FeedbackModel.findOne({ _id: feedbackId, isDeleted: false });
+
+        if (!feedback) {
+            throw FeedbackMessages.error.FEEDBACK_NOT_FOUND();
+        }
+
+        feedback.isPinned = !feedback.isPinned;
+        await feedback.save();
+
+        const populated = await FeedbackModel.findById(feedbackId)
+            .populate("userId", "username avatar")
+            .lean();
+
+        return FeedbackService._formatFeedback(populated);
+    },
+
+    // MARK: - ADMIN HARD DELETE FEEDBACK
+    adminDeleteFeedback: async (feedbackId) => {
+        const feedback = await FeedbackModel.findById(feedbackId);
+
+        if (!feedback) {
+            throw FeedbackMessages.error.FEEDBACK_NOT_FOUND();
+        }
+
+        feedback.isDeleted = true;
+        await feedback.save();
+
+        return { id: feedback._id };
+    },
 };
 
 export default FeedbackService;
