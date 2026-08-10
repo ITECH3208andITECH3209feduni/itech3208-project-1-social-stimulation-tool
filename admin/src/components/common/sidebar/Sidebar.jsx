@@ -9,6 +9,7 @@ import {
     MdSupervisedUserCircle,
     MdContactPage,
     MdCategory,
+    MdFeedback,
 } from "react-icons/md";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { videoQueries } from "@/api/videos/video.queries";
@@ -56,6 +57,11 @@ const tabs = [
         label: "Contacts",
         icon: <MdContactPage />,
         path: "/admin/contact",
+    },
+    {
+        label: "Feedbacks",
+        icon: <MdFeedback />,
+        path: "/admin/feedbacks",
     },
 ];
 

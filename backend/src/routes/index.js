@@ -8,7 +8,7 @@ import {
     VideoUserRouter,
     VideoAdminRouter,
 } from "#features/videos/video.route.js";
-import FeedbackRouter from "#features/feedbacks/feedback.route.js";
+import { FeedbackRouter, FeedbackAdminRouter } from "#features/feedbacks/feedback.route.js";
 import WishlistRouter from "#features/wishlists/wishlist.route.js";
 import { ContactPublicRouter, ContactAdminRouter } from "#features/contacts/contact.route.js";
 
@@ -26,6 +26,7 @@ export {
     VideoUserRouter,
     VideoAdminRouter,
     FeedbackRouter,
+    FeedbackAdminRouter,
     WishlistRouter,
     ContactPublicRouter,
     ContactAdminRouter,

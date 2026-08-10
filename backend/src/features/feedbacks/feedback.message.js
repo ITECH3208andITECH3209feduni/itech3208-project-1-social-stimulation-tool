@@ -42,6 +42,15 @@ const VALIDATION_MESSAGES = {
         "string.hex": "Invalid Video ID format",
         "string.length": "Invalid Video ID format",
     },
+    page: {
+        "number.base": "Page must be a number",
+    },
+    limit: {
+        "number.base": "Limit must be a number",
+    },
+    isPinned: {
+        "any.required": "isPinned must be boolean",
+    },
     rating: {
         "number.base": "Rating must be a number",
         "number.min": "Rating must be at least 0",

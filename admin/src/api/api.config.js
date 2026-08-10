@@ -23,6 +23,9 @@ const API_ROUTES = {
         MANAGE_SUBCATEGORIES: "/admin/subcategories",
         UPDATE_SUBCATEGORY: (id) => `/admin/subcategories/${id}`,
         DELETE_SUBCATEGORY: (id) => `/admin/subcategories/${id}`,
+        GET_ALL_FEEDBACKS: "/admin/feedbacks",
+        TOGGLE_PIN_FEEDBACK: (id) => `/admin/feedbacks/${id}/pin`,
+        DELETE_FEEDBACK: (id) => `/admin/feedbacks/${id}`,
     },
 
     VIDEOS: {
