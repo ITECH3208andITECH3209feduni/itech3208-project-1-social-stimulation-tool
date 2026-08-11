@@ -1,5 +1,5 @@
 import StatusBadge from "@/components/badges/StatusBadge";
-import { Card, Text, VStack, HStack, Icon, Badge, Spacer, Button } from "@chakra-ui/react";
+import { Card, Text, VStack, HStack, Icon, Badge, Spacer, Button, Box } from "@chakra-ui/react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaCircle } from "react-icons/fa";
 import UserAvatar from "@/components/common/avatar/UserAvatar";
 
@@ -49,20 +49,32 @@ function ContactCard({ contact }) {
             </Card.Body>
 
             {/* Footer */}
-            <Card.Footer>
-                <HStack w="100%" justify="end" gap={2}>
-                    <Button flex={1} bg={"#48BB78"}>
-                        Reply
-                        <FaPhone />
-                    </Button>
-                    <Button flex={1} bg={"#0BC5EA"}>
-                        Reply <FaEnvelope />
-                    </Button>
-                    <Button flex={1} bg={"#0BC5EA"}>
-                        Update Status
-                    </Button>
-                </HStack>
-            </Card.Footer>
+           <Card.Footer>
+    <VStack w="100%" gap={2}>
+        
+        <Button
+            bg="#0BC5EA"
+            color="white"
+            w="100%"
+            justifyContent="center"
+        >
+            <HStack gap={2}>
+                <Text>Reply</Text>
+                <FaEnvelope />
+            </HStack>
+        </Button>
+
+        <Button
+            bg="#0BC5EA"
+            color="white"
+            w="100%"
+            justifyContent="center"
+        >
+            Update Status
+        </Button>
+
+    </VStack>
+</Card.Footer>
         </Card.Root>
     );
 }
