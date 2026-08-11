@@ -2,8 +2,11 @@ import { Box, Button, Container, Grid, GridItem, Heading } from "@chakra-ui/reac
 import Banner from "./Banner";
 import VideoCarousel from "@/components/common/carousels/VideoCarousel";
 import UsersFeedbackGrid from "@/components/common/grids/UsersFeedbackGrid";
+import useGetFeedback from "@/hooks/custom-hooks/useGetFeedback";
 
 function HomePage() {
+    const feedbacks  = useGetFeedback();
+
     return (
         <div style={{ background: "white" }}>
             <Banner />
@@ -16,7 +19,7 @@ function HomePage() {
                     OUR USERS FEEDBACK
                 </Heading>
                 <Box spaceY={5}>
-                    <UsersFeedbackGrid />
+                    <UsersFeedbackGrid feedbacks={feedbacks}/>
                     <Button size={"sm"} color={"white"} bg={"brand.500"} fontFamily={"Sora"}>
                         View All
                     </Button>
