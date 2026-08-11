@@ -111,37 +111,18 @@ const FeedbackService = {
     },
 
     // MARK: - GET TOP FEEDBACKS (For Landing Page)
-    getTopFeedbacks: async (limit = 6) => {
-        const topVideos = await FeedbackModel.aggregate([
-            { $match: { isDeleted: false, rating: { $gt: 0 } } },
-            {
-                $group: {
-                    _id: "$videoId",
-                    avgRating: { $avg: "$rating" },
-                    count: { $sum: 1 },
-                },
-            },
-            { $match: { count: { $gte: 1 } } },
-            { $sort: { avgRating: -1, count: -1 } },
-            { $limit: 10 },
-        ]);
+    getTopFeedbacks: async () => {
+    const feedbacks = await FeedbackModel.find({
+        isPinned: true,
+        isDeleted: false,
+        parentId: null,
+        content: { $ne: "" },
+    })
+        .populate("userId", "username avatar")
+        .sort({ createdAt: -1 })
+        .lean();
 
-        const videoIds = topVideos.map((v) => v._id);
-
-        const feedbacks = await FeedbackModel.find({
-            videoId: { $in: videoIds },
-            isDeleted: false,
-            parentId: null,
-            rating: { $gte: 4 },
-            content: { $ne: "" },
-        })
-            .populate("userId", "username avatar")
-            .populate("videoId", "title thumbnail")
-            .sort({ rating: -1, createdAt: -1 })
-            .limit(limit)
-            .lean();
-
-        return feedbacks.map(FeedbackService._formatFeedback);
+    return feedbacks.map(FeedbackService._formatFeedback);
     },
 
     // MARK: - DELETE FEEDBACK
