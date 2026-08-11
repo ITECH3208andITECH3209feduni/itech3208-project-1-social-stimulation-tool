@@ -87,7 +87,7 @@ const FeedbackController = {
     // GET /feedbacks/top-feedbacks
     getTopFeedbacks: async (req, res) => {
         try {
-            const result = await FeedbackService.getTopFeedbacks(6);
+            const result = await FeedbackService.getTopFeedbacks();
 
             return resUtil.sendSuccess({
                 res,
