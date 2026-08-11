@@ -1,4 +1,4 @@
-import { landingPage, star2 } from "@/assets";
+import { landingPage, star2, testImg } from "@/assets";
 import { Box, Button, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
 import GeneralInfor from "./GeneralInfor";
 
@@ -50,7 +50,7 @@ function Banner() {
 
                 {/* Section3: Landing Image */}
                 <Flex flex={1}>
-                    <Image src={landingPage} fit={"cover"} w="full" h="100%" />
+                    <Image src={testImg} fit={"cover"} w="full" h="100%" />
                 </Flex>
             </Flex>
         </Box>
