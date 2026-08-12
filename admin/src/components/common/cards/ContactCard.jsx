@@ -50,31 +50,28 @@ function ContactCard({ contact }) {
 
             {/* Footer */}
            <Card.Footer>
-    <VStack w="100%" gap={2}>
-        
-        <Button
-            bg="#0BC5EA"
-            color="white"
-            w="100%"
-            justifyContent="center"
-        >
-            <HStack gap={2}>
-                <Text>Reply</Text>
-                <FaEnvelope />
-            </HStack>
-        </Button>
-
-        <Button
-            bg="#0BC5EA"
-            color="white"
-            w="100%"
-            justifyContent="center"
-        >
-            Update Status
-        </Button>
-
-    </VStack>
-</Card.Footer>
+                <VStack w="100%" gap={2}>
+                    <Button
+                        bg="#0BC5EA"
+                        color="white"
+                        w="100%"
+                        justifyContent="center"
+                    >
+                        <HStack gap={2}>
+                            <Text>Reply</Text>
+                            <FaEnvelope />
+                        </HStack>
+                    </Button>
+                    <Button
+                        bg="#0BC5EA"
+                        color="white"
+                        w="100%"
+                        justifyContent="center"
+                    >
+                        Update Status
+                    </Button>
+                 </VStack>
+            </Card.Footer>
         </Card.Root>
     );
 }
