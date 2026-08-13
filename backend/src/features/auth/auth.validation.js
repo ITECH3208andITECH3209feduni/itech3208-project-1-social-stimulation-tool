@@ -16,6 +16,10 @@ const registerUser = Joi.object({
         .default("individual")
         .optional()
         .messages(AuthMessages.validation.role),
+    acceptedTerms: Joi.boolean()
+        .valid(true)
+        .required()
+        .messages(AuthMessages.validation.acceptedTerms),
 });
 
 const loginUser = Joi.object({

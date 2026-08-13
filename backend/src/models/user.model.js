@@ -32,10 +32,39 @@ const UserSchema = new mongoose.Schema(
                 type: String,
             },
         },
+        location: {
+            type: String,
+        },
+        acceptedTerms: {
+            type: Boolean,
+        },
+        feedbackMeta: {
+            // the time to show popup recently
+            lastPromptAt: {
+                type: Date,
+            },
+            // the time that user click "Maybe later" recently
+            lastDismissedAt: {
+                type: Date,
+            },
+            // the time that user sent feedback recently
+            lastSubmittedAt: {
+                type: Date,
+            },
+        },
         role: {
             type: String,
             enum: ["admin", "individual", "organization"],
             default: "individual",
+        },
+        accountStatus: {
+            type: String,
+            enum: ["active", "inactive", "suspended", "banned"],
+            default: "active",
+        },
+        isDeleted: {
+            type: Boolean,
+            default: false,
         },
     },
     {

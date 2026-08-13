@@ -8,12 +8,10 @@ const FeedbackController = {
     createFeedback: async (req, res) => {
         try {
             const userId = req.user?._id || req.user?.id;
-            const { videoId, parentId, content, rating } = req.body;
+            const { content, rating } = req.body;
 
             const newFeedback = await FeedbackService.createFeedback({
                 userId,
-                videoId,
-                parentId,
                 content,
                 rating,
             });
@@ -23,6 +21,30 @@ const FeedbackController = {
                 statusCode: StatusCodes.CREATED,
                 message: FeedbackMessages.success.CREATE_FEEDBACK_SUCCESSFULLY,
                 data: newFeedback,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.createFeedback]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // POST /promt/dismiss
+    dismissPopup: async (req, res) => {
+        try {
+            const userId = req.user?._id || req.user?.id;
+
+            const finished = await FeedbackService.dismissPopup(userId);
+
+            return resUtil.sendSuccess({
+                res,
+                statusCode: StatusCodes.CREATED,
+                message: FeedbackMessages.success.DISMISS_FEEDBACK_POPUP_SUCCESSFULLY,
+                data: { finished },
             });
         } catch (error) {
             loggerUtil.error(`[FeedbackController.createFeedback]: ${error}`);
@@ -65,7 +87,7 @@ const FeedbackController = {
     // GET /feedbacks/top-feedbacks
     getTopFeedbacks: async (req, res) => {
         try {
-            const result = await FeedbackService.getTopFeedbacks(6);
+            const result = await FeedbackService.getTopFeedbacks();
 
             return resUtil.sendSuccess({
                 res,
@@ -98,6 +120,79 @@ const FeedbackController = {
             });
         } catch (error) {
             loggerUtil.error(`[FeedbackController.deleteFeedback]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // GET /admin/feedbacks — Get all feedbacks (Admin, paginated)
+    getAllFeedbacks: async (req, res) => {
+        try {
+            const { page, limit, isPinned, rating } = req.query;
+            const result = await FeedbackService.getAllFeedbacks({
+                page: parseInt(page) || 1,
+                limit: parseInt(limit) || 9,
+                isPinned: isPinned === "true" ? true : isPinned === "false" ? false : undefined,
+                rating: rating !== undefined ? parseInt(rating) : undefined,
+            });
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.GET_FEEDBACKS_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.getAllFeedbacks]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // PATCH /admin/feedbacks/:id/pin — Toggle isPinned (Admin)
+    togglePin: async (req, res) => {
+        try {
+            const feedbackId = req.params.id;
+
+            const updated = await FeedbackService.togglePin(feedbackId);
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.UPDATE_FEEDBACK_SUCCESSFULLY,
+                data: updated,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.togglePin]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // DELETE /admin/feedbacks/:id — Admin delete feedback
+    adminDeleteFeedback: async (req, res) => {
+        try {
+            const feedbackId = req.params.id;
+
+            const result = await FeedbackService.adminDeleteFeedback(feedbackId);
+
+            return resUtil.sendSuccess({
+                res,
+                message: FeedbackMessages.success.DELETE_FEEDBACK_SUCCESSFULLY,
+                data: result,
+            });
+        } catch (error) {
+            loggerUtil.error(`[FeedbackController.adminDeleteFeedback]: ${error}`);
             return resUtil.sendError({
                 res,
                 message: error.message,

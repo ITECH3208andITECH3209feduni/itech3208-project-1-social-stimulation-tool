@@ -81,11 +81,12 @@ const VideoController = {
     // GET /videos — Get all published videos
     getVideos: async (req, res) => {
         try {
-            const { categoryId, levelId, page, limit } = req.query;
+            const { categoryId, subCategoryId, status, page, limit } = req.query;
 
             const result = await VideoService.getVideos({
                 categoryId,
-                levelId,
+                subCategoryId,
+                status,
                 page: parseInt(page) || 1,
                 limit: parseInt(limit) || 10,
             });
@@ -167,6 +168,31 @@ const VideoController = {
             });
         } catch (error) {
             loggerUtil.error(`[VideoController.updateVideoInfo]: ${error}`);
+            return resUtil.sendError({
+                res,
+                message: error.message,
+                statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+                errorCode: error.errorCode,
+            });
+        }
+    },
+
+    // PATCH /admin/videos/:id — Update video detail (title, description, and optional file upload with auto thumbnail/duration extraction)
+    updateVideoDetailAdmin: async (req, res) => {
+        try {
+            const videoId = req.params.id;
+            const payload = req.body;
+            const file = req.file;
+
+            const updatedVideo = await VideoService.updateVideoDetailAdmin({ videoId, payload, file });
+
+            return resUtil.sendSuccess({
+                res,
+                message: VideoMessages.success.UPDATE_VIDEO_INFO_SUCCESSFULLY,
+                data: updatedVideo,
+            });
+        } catch (error) {
+            loggerUtil.error(`[VideoController.updateVideoDetailAdmin]: ${error}`);
             return resUtil.sendError({
                 res,
                 message: error.message,

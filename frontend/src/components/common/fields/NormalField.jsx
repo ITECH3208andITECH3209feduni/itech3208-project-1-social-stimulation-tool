@@ -3,15 +3,28 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function NormalField({
+    name = "",
     inputPlaceholder = "",
     fieldLabel,
     inputColor = "gray.100",
     borderColor = "gray.400",
+    onChange,
+    value,
+    type = "text",
 }) {
     return (
         <Field.Root>
             <Field.Label>{fieldLabel}</Field.Label>
-            <Input placeholder={inputPlaceholder} bg={inputColor} borderColor={borderColor} />
+            <Input
+                name={name}
+                type={type}
+                placeholder={inputPlaceholder}
+                color={"dark.700"}
+                bg={inputColor}
+                borderColor={borderColor}
+                onChange={(e) => onChange(e)}
+                value={value}
+            />
         </Field.Root>
     );
 }

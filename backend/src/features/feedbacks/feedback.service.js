@@ -1,5 +1,5 @@
 import FeedbackModel from "#models/feedback.model.js";
-import VideoModel from "#models/video.model.js";
+import UserModel from "#models/user.model.js";
 import FeedbackMessages from "./feedback.message.js";
 
 const FeedbackService = {
@@ -9,57 +9,66 @@ const FeedbackService = {
 
         const feedbackObj = feedback._doc || feedback;
         const { _id, __v, isDeleted, userId, videoId, ...rest } = feedbackObj;
-        
+
         const formatted = { id: _id, ...rest };
 
         if (userId) {
-            formatted.user = userId._id ? {
-                id: userId._id,
-                username: userId.username,
-                avatar: userId.avatar,
-            } : userId;
+            formatted.user = userId._id
+                ? {
+                      id: userId._id,
+                      username: userId.username,
+                      avatar: userId.avatar,
+                  }
+                : userId;
         }
 
-        if (videoId) {
-            formatted.video = videoId._id ? {
-                id: videoId._id,
-                title: videoId.title,
-                thumbnail: videoId.thumbnail,
-            } : videoId;
-        }
+        // if (videoId) {
+        //     formatted.video = videoId._id ? {
+        //         id: videoId._id,
+        //         title: videoId.title,
+        //         thumbnail: videoId.thumbnail,
+        //     } : videoId;
+        // }
 
         return formatted;
     },
 
     // MARK: - CREATE FEEDBACK
-    createFeedback: async ({ userId, videoId, parentId, content, rating }) => {
-        const normalizedParentId = parentId === "" ? null : parentId;
-
-        const video = await VideoModel.findById(videoId);
-        if (!video) {
-            throw new Error("Video not found");
-        }
-
-        if (normalizedParentId) {
-            const parent = await FeedbackModel.findById(normalizedParentId);
-            if (!parent || parent.isDeleted) {
-                throw FeedbackMessages.error.PARENT_NOT_FOUND();
-            }
-        }
-
+    createFeedback: async ({ userId, content, rating }) => {
         const newFeedback = await FeedbackModel.create({
             userId,
-            videoId,
-            parentId: normalizedParentId,
             content,
             rating,
         });
+
+        await UserModel.updateOne(
+            { _id: userId },
+            {
+                $set: {
+                    "feedbackMeta.lastSubmittedAt": new Date(),
+                },
+            },
+        );
 
         const feedback = await FeedbackModel.findById(newFeedback._id)
             .populate("userId", "username avatar")
             .lean();
 
         return FeedbackService._formatFeedback(feedback);
+    },
+
+    // MARK: - DISMISS FEEDBACK POPUP
+    dismissPopup: async (userId) => {
+        const result = await UserModel.updateOne(
+            { _id: userId },
+            {
+                $set: {
+                    "feedbackMeta.lastDismissedAt": new Date(),
+                    "feedbackMeta.lastPromptAt": new Date(),
+                },
+            },
+        );
+        return result.modifiedCount == 1;
     },
 
     // MARK: - GET FEEDBACKS BY VIDEO
@@ -87,7 +96,7 @@ const FeedbackService = {
                 const formattedFb = FeedbackService._formatFeedback(fb);
 
                 return { ...formattedFb, replies: formattedReplies };
-            })
+            }),
         );
 
         return {
@@ -102,37 +111,18 @@ const FeedbackService = {
     },
 
     // MARK: - GET TOP FEEDBACKS (For Landing Page)
-    getTopFeedbacks: async (limit = 6) => {
-        const topVideos = await FeedbackModel.aggregate([
-            { $match: { isDeleted: false, rating: { $gt: 0 } } },
-            {
-                $group: {
-                    _id: "$videoId",
-                    avgRating: { $avg: "$rating" },
-                    count: { $sum: 1 },
-                },
-            },
-            { $match: { count: { $gte: 1 } } },
-            { $sort: { avgRating: -1, count: -1 } },
-            { $limit: 10 },
-        ]);
+    getTopFeedbacks: async () => {
+    const feedbacks = await FeedbackModel.find({
+        isPinned: true,
+        isDeleted: false,
+        parentId: null,
+        content: { $ne: "" },
+    })
+        .populate("userId", "username avatar")
+        .sort({ createdAt: -1 })
+        .lean();
 
-        const videoIds = topVideos.map((v) => v._id);
-
-        const feedbacks = await FeedbackModel.find({
-            videoId: { $in: videoIds },
-            isDeleted: false,
-            parentId: null,
-            rating: { $gte: 4 },
-            content: { $ne: "" },
-        })
-            .populate("userId", "username avatar")
-            .populate("videoId", "title thumbnail")
-            .sort({ rating: -1, createdAt: -1 })
-            .limit(limit)
-            .lean();
-
-        return feedbacks.map(FeedbackService._formatFeedback);
+    return feedbacks.map(FeedbackService._formatFeedback);
     },
 
     // MARK: - DELETE FEEDBACK
@@ -145,6 +135,67 @@ const FeedbackService = {
 
         if (feedback.userId.toString() !== userId.toString()) {
             throw new Error("Unauthorized to delete this feedback");
+        }
+
+        feedback.isDeleted = true;
+        await feedback.save();
+
+        return { id: feedback._id };
+    },
+
+    // MARK: - GET ALL FEEDBACKS (Admin — paginated)
+    getAllFeedbacks: async ({ page = 1, limit = 9, isPinned, rating } = {}) => {
+        const filter = { isDeleted: false };
+        if (isPinned !== undefined) filter.isPinned = isPinned;
+        if (rating !== undefined && rating !== 0) filter.rating = rating;
+
+        const skip = (page - 1) * limit;
+
+        const [feedbacks, total] = await Promise.all([
+            FeedbackModel.find(filter)
+                .populate("userId", "username avatar")
+                .sort({ isPinned: -1, createdAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            FeedbackModel.countDocuments(filter),
+        ]);
+
+        return {
+            feedbacks: feedbacks.map(FeedbackService._formatFeedback),
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+            },
+        };
+    },
+
+    // MARK: - TOGGLE PIN FEEDBACK (Admin)
+    togglePin: async (feedbackId) => {
+        const feedback = await FeedbackModel.findOne({ _id: feedbackId, isDeleted: false });
+
+        if (!feedback) {
+            throw FeedbackMessages.error.FEEDBACK_NOT_FOUND();
+        }
+
+        feedback.isPinned = !feedback.isPinned;
+        await feedback.save();
+
+        const populated = await FeedbackModel.findById(feedbackId)
+            .populate("userId", "username avatar")
+            .lean();
+
+        return FeedbackService._formatFeedback(populated);
+    },
+
+    // MARK: - ADMIN HARD DELETE FEEDBACK
+    adminDeleteFeedback: async (feedbackId) => {
+        const feedback = await FeedbackModel.findById(feedbackId);
+
+        if (!feedback) {
+            throw FeedbackMessages.error.FEEDBACK_NOT_FOUND();
         }
 
         feedback.isDeleted = true;

@@ -23,6 +23,13 @@ adminRouter.post(
     CategoryController.bulkInsertCategories
 );
 
+adminRouter.put(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    bodyMw.validate(CategorySchema.update),
+    CategoryController.updateCategory
+);
+
 adminRouter.delete(
     "/:id",
     authMw.authorizeRole([authMw.UserRole.admin]),

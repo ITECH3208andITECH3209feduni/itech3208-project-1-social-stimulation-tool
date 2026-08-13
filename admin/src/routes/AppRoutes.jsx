@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 // layouts
 import BaseLayout from "@/layouts/BaseLayout";
@@ -12,21 +12,40 @@ import LoginPage from "@/pages/login/LoginPage";
 import TutorialPage from "@/pages/tutorials/TutorialPage";
 import UploadVideoPage from "@/pages/upload_videos/UploadVideoPage";
 import UserPage from "@/pages/users/UserPage";
+import CategoryPage from "@/pages/categories/CategoryPage";
+import FeedbackPage from "@/pages/feedbacks/FeedbackPage";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import { useEffect } from "react";
 import { publicRoutes } from "./routes.config";
+import useTokenExpiryCheck from "@/hooks/common/useTokenExpiryCheck";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import { toaster } from "@/components/ui/toaster";
 
 const AppRoutes = () => {
+    const { accessToken, clearAuth } = useAuthStore();
     const location = useLocation();
+    const navigate = useNavigate();
+
     useEffect(() => {
         const publicPath = publicRoutes.find((route) => route.path === location.pathname);
-        console.log(location.pathname);
         if (publicPath) {
             if (publicPath.title) {
                 document.title = publicPath.title;
             }
         }
     }, [location]);
+
+    useTokenExpiryCheck({
+        tokenValue: accessToken,
+        onExpired: () => {
+            clearAuth();
+            toaster.create({
+                description: "Your current session is expired. Please login again to continue!",
+                type: "warning",
+            });
+            navigate("/admin/login");
+        },
+    });
 
     return (
         <Routes>
@@ -42,9 +61,11 @@ const AppRoutes = () => {
                     <Route path="dashboard" element={<DashboardPage />} />
                     {/* <Route path="article" element={<ArticlePage />} /> */}
                     <Route path="contact" element={<ContactPage />} />
-                    <Route path="tutorial" element={<TutorialPage />} />
+                    <Route path="video-management" element={<TutorialPage />} />
                     <Route path="upload-video" element={<UploadVideoPage />} />
                     <Route path="users" element={<UserPage />} />
+                    <Route path="categories" element={<CategoryPage />} />
+                    <Route path="feedbacks" element={<FeedbackPage />} />
                 </Route>
             </Route>
 

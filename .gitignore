@@ -1,0 +1,6 @@
+# Postman local config
+.postman/
+
+# Postman environments and globals (usually contain sensitive tokens/passwords)
+postman/environments/
+postman/globals/

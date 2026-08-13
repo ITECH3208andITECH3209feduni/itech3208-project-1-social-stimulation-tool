@@ -10,7 +10,9 @@ const apiConfig = {
     video: apiPrefix + "/videos",
     feedback: apiPrefix + "/feedbacks",
     category: apiPrefix + "/categories",
+    subcategory: apiPrefix + "/subcategories",
     level: apiPrefix + "/levels",
+    contact: apiPrefix + "/contacts",
 
     // MARK: - COMMON (Individual & Organization)
     me: apiPrefix + "/me",
@@ -25,6 +27,9 @@ const apiConfig = {
     admin: apiPrefix + "/admin",
     manageVideo: apiPrefix + "/admin/videos",
     manageCategory: apiPrefix + "/admin/categories",
+    manageSubCategory: apiPrefix + "/admin/subcategories",
+    manageUser: apiPrefix + "/admin/users",
+    manageContact: apiPrefix + "/admin/contacts",
 };
 
 export default apiConfig;

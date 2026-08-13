@@ -16,6 +16,8 @@
         "@chakra-ui/theme-tools": "^2.2.6",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
+        "@tanstack/react-query": "^5.101.0",
+        "axios": "^1.17.0",
         "jwt-decode": "^4.0.0",
         "next-themes": "^0.4.6",
         "proptypes": "^1.1.0",

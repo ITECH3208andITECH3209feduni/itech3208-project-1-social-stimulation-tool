@@ -4,6 +4,7 @@ import createError from "#config/error.config.js";
 // MARK: - BUSINESS SUCCESS MESSAGES
 const SUCCESS_MESSAGES = {
     CREATE_FEEDBACK_SUCCESSFULLY: "Your feedback has been posted successfully.",
+    DISMISS_FEEDBACK_POPUP_SUCCESSFULLY: "Dismiss popup successfully.",
     GET_FEEDBACKS_SUCCESSFULLY: "Get feedbacks successfully.",
     GET_TOP_FEEDBACKS_SUCCESSFULLY: "Get top feedbacks successfully.",
     DELETE_FEEDBACK_SUCCESSFULLY: "Feedback deleted successfully.",
@@ -40,6 +41,15 @@ const VALIDATION_MESSAGES = {
         "any.required": "Video ID is required",
         "string.hex": "Invalid Video ID format",
         "string.length": "Invalid Video ID format",
+    },
+    page: {
+        "number.base": "Page must be a number",
+    },
+    limit: {
+        "number.base": "Limit must be a number",
+    },
+    isPinned: {
+        "any.required": "isPinned must be boolean",
     },
     rating: {
         "number.base": "Rating must be a number",

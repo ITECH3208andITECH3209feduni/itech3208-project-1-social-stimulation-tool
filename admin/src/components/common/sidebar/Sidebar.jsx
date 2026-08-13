@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
     MdHome,
     MdVideoLibrary,
@@ -7,8 +8,19 @@ import {
     MdFileCopy,
     MdSupervisedUserCircle,
     MdContactPage,
+    MdCategory,
+    MdFeedback,
 } from "react-icons/md";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
+import { videoQueries } from "@/api/videos/video.queries";
+
+// Paths that support prefetch on hover, mapped to a prefetch function
+const PREFETCH_MAP = {
+    "/admin/video-management": (queryClient) =>
+        queryClient.prefetchQuery(
+            videoQueries.list({ page: 1, limit: 12, status: "", categoryId: "" }),
+        ),
+};
 
 const tabs = [
     {
@@ -17,9 +29,9 @@ const tabs = [
         path: "/admin/dashboard",
     },
     {
-        label: "Tutorial",
+        label: "Video Management",
         icon: <MdPlayLesson />,
-        path: "/admin/tutorial",
+        path: "/admin/video-management",
     },
     {
         label: "Videos",
@@ -37,20 +49,43 @@ const tabs = [
         path: "/admin/users",
     },
     {
+        label: "Categories",
+        icon: <MdCategory />,
+        path: "/admin/categories",
+    },
+    {
         label: "Contacts",
         icon: <MdContactPage />,
         path: "/admin/contact",
+    },
+    {
+        label: "Feedbacks",
+        icon: <MdFeedback />,
+        path: "/admin/feedbacks",
     },
 ];
 
 function Sidebar() {
     const location = useLocation();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
     const [selectedPath, setSelectedPath] = useState("/home");
 
     useEffect(() => {
         setSelectedPath(location.pathname);
     }, [location.pathname]);
+
+    const handleTabClick = (path) => {
+        setSelectedPath(path);
+        navigate(path);
+    };
+
+    const handleTabHover = (path) => {
+        const prefetch = PREFETCH_MAP[path];
+        if (prefetch) {
+            prefetch(queryClient);
+        }
+    };
 
     const renderTab = (tab, isChild = false) => {
         const isSelected = selectedPath === tab.path;
@@ -69,6 +104,7 @@ function Sidebar() {
                     bg={isSelected ? "brand.50" : "transparent"}
                     color={isSelected ? "brand.500" : "white"}
                     onClick={() => handleTabClick(tab.path)}
+                    onMouseEnter={() => handleTabHover(tab.path)}
                 >
                     {tab.icon && <Box mr={2}>{tab.icon}</Box>}
                     <Text>{tab.label}</Text>
@@ -76,11 +112,6 @@ function Sidebar() {
                 {tab.children?.map((child) => renderTab(child, true))}
             </VStack>
         );
-    };
-
-    const handleTabClick = (path) => {
-        setSelectedPath(path);
-        navigate(path);
     };
 
     return (

@@ -1,5 +1,6 @@
 // MARK: - Standard Libraries
 import express from "express";
+import cors from "cors";
 import { StatusCodes } from "http-status-codes";
 
 // MARK: - Packages Customization
@@ -8,16 +9,21 @@ import { loggerUtil, resUtil } from "#utils/index.js";
 import {
     CategoryPublicRouter,
     CategoryAdminRouter,
+    SubCategoryPublicRouter,
+    SubCategoryAdminRouter,
     LevelPublicRouter,
     LevelAdminRouter,
     AuthRouter,
     UserRouter,
+    UserAdminRouter,
     VideoPublicRouter,
     VideoUserRouter,
     VideoAdminRouter,
     FeedbackRouter,
+    FeedbackAdminRouter,
     WishlistRouter,
-    ContactRouter
+    ContactPublicRouter,
+    ContactAdminRouter,
 } from "#routes/index.js";
 
 const app = express();
@@ -25,19 +31,29 @@ const app = express();
 // MARK: - App Middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+    cors({
+        origin: [
+            "http://localhost:5173", // Frontend Domain
+            "http://localhost:5174", // Admin Domain
+        ],
+        credentials: true,
+    }),
+);
 
 // MARK: - App API Routes
 
 // 1. PUBLIC ROUTES
 app.use(apiConfig.auth, AuthRouter);
 app.use(apiConfig.category, CategoryPublicRouter);
+app.use(apiConfig.subcategory, SubCategoryPublicRouter);
 app.use(apiConfig.level, LevelPublicRouter);
 app.use(apiConfig.video, VideoPublicRouter);
 app.use(apiConfig.feedback, FeedbackRouter);
 
 // 2. COMMON AUTHENTICATED ROUTES (Me/Profile)
 app.use(apiConfig.me, UserRouter);
-app.use(apiConfig.contact, ContactRouter);
+app.use(apiConfig.contact, ContactPublicRouter);
 
 // 3. ROLE-SPECIFIC ROUTES
 // Individual
@@ -48,8 +64,12 @@ app.use(apiConfig.me + "/videos", VideoUserRouter);
 
 // 4. ADMIN ROUTES
 app.use(apiConfig.manageCategory, CategoryAdminRouter);
+app.use(apiConfig.manageSubCategory, SubCategoryAdminRouter);
 app.use(apiConfig.admin + "/levels", LevelAdminRouter);
 app.use(apiConfig.manageVideo, VideoAdminRouter);
+app.use(apiConfig.manageUser, UserAdminRouter);
+app.use(apiConfig.manageContact, ContactAdminRouter);
+app.use(apiConfig.admin + "/feedbacks", FeedbackAdminRouter);
 
 // MARK: - Handle 404 Not Found
 app.use((req, res, next) => {

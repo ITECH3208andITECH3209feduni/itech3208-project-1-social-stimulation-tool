@@ -7,7 +7,7 @@ const VideoService = {
     _formatVideo: (video) => {
         if (!video) return null;
         const videoObj = video._doc || video;
-        const { _id, __v, isDeleted, uploadedBy, categoryId, levelId, ...rest } = videoObj;
+        const { _id, __v, isDeleted, uploadedBy, categoryId, subCategoryId, ...rest } = videoObj;
 
         const formatted = {
             id: _id,
@@ -15,25 +15,31 @@ const VideoService = {
         };
 
         if (uploadedBy) {
-            formatted.user = uploadedBy._id ? {
-                id: uploadedBy._id,
-                username: uploadedBy.username,
-                avatar: uploadedBy.avatar,
-            } : uploadedBy;
+            formatted.user = uploadedBy._id
+                ? {
+                      id: uploadedBy._id,
+                      username: uploadedBy.username,
+                      avatar: uploadedBy.avatar,
+                  }
+                : uploadedBy;
         }
 
         if (categoryId) {
-            formatted.category = categoryId._id ? {
-                id: categoryId._id,
-                name: categoryId.name,
-            } : categoryId;
+            formatted.category = categoryId._id
+                ? {
+                      id: categoryId._id,
+                      name: categoryId.name,
+                  }
+                : categoryId;
         }
 
-        if (levelId) {
-            formatted.level = levelId._id ? {
-                id: levelId._id,
-                name: levelId.name,
-            } : levelId;
+        if (subCategoryId) {
+            formatted.subCategory = subCategoryId._id
+                ? {
+                      id: subCategoryId._id,
+                      name: subCategoryId.name,
+                  }
+                : subCategoryId;
         }
 
         return formatted;
@@ -70,6 +76,12 @@ const VideoService = {
         if (uploadedVideo.duration) {
             existedVideo.duration = Math.round(uploadedVideo.duration);
         }
+
+        const thumbnailUrl = uploadedVideo.secure_url.replace(/\.[^/.]+$/, ".jpg");
+        existedVideo.thumbnail = {
+            url: thumbnailUrl,
+            cloudinaryId: null,
+        };
 
         await existedVideo.save();
 
@@ -132,7 +144,7 @@ const VideoService = {
             title: payload.title,
             description: payload.description || "",
             categoryId: payload.categoryId,
-            levelId: payload.levelId,
+            subCategoryId: payload.subCategoryId || null,
             tags: parsedTags,
             uploadedBy: userId,
             status: "draft",
@@ -158,6 +170,12 @@ const VideoService = {
             newVideo.duration = Math.round(uploadedVideo.duration);
         }
 
+        const thumbnailUrl = uploadedVideo.secure_url.replace(/\.[^/.]+$/, ".jpg");
+        newVideo.thumbnail = {
+            url: thumbnailUrl,
+            cloudinaryId: null,
+        };
+
         await newVideo.save();
 
         return VideoService._formatVideo(newVideo);
@@ -167,6 +185,7 @@ const VideoService = {
     getVideoById: async (videoId) => {
         const video = await VideoModel.findOne({ _id: videoId, isDeleted: false })
             .populate("categoryId", "name")
+            .populate("subCategoryId", "name")
             .populate("levelId", "name")
             .populate("uploadedBy", "username avatar");
 
@@ -180,20 +199,20 @@ const VideoService = {
     },
 
     // MARK: - GET ALL VIDEOS (with optional filters)
-    getVideos: async ({ categoryId, levelId, status = "published", page = 1, limit = 10 } = {}) => {
+    getVideos: async ({ categoryId, subCategoryId, status = "draft", page = 1, limit = 10 } = {}) => {
         const filter = { isDeleted: false, status };
 
         if (categoryId) filter.categoryId = categoryId;
-        if (levelId) filter.levelId = levelId;
+        if (subCategoryId) filter.subCategoryId = subCategoryId;
 
         const skip = (page - 1) * limit;
 
         const [videos, total] = await Promise.all([
             VideoModel.find(filter)
                 .populate("categoryId", "name")
-                .populate("levelId", "name")
+                .populate("subCategoryId", "name")
                 .populate("uploadedBy", "username avatar")
-                .sort({ createdAt: -1 })
+                .sort({ createdAt: 1 })
                 .skip(skip)
                 .limit(limit),
             VideoModel.countDocuments(filter),
@@ -231,7 +250,74 @@ const VideoService = {
             throw VideoMessages.error.VIDEO_NOT_FOUND();
         }
 
-        const updateFields = ["title", "description", "status", "tags", "categoryId", "levelId"];
+        const updateFields = ["title", "description", "status", "tags", "categoryId", "subCategoryId", "levelId"];
+        updateFields.forEach((field) => {
+            if (payload[field] !== undefined) {
+                if (field === "tags") {
+                    video[field] = VideoService._parseTags(payload[field]);
+                } else {
+                    video[field] = payload[field];
+                }
+            }
+        });
+
+        await video.save();
+        return VideoService._formatVideo(video);
+    },
+
+    // MARK: - UPDATE VIDEO DETAIL (Admin)
+    updateVideoDetailAdmin: async ({ videoId, payload, file }) => {
+        const video = await VideoModel.findById(videoId);
+        if (!video) {
+            throw VideoMessages.error.VIDEO_NOT_FOUND();
+        }
+
+        // 1. Process Video File Upload if provided
+        if (file) {
+            // Delete existing video and thumbnail in Cloudinary if they exist
+            if (video.video?.cloudinaryId) {
+                await cloudinaryUtil.deleteFile(video.video.cloudinaryId, "video");
+            }
+            if (video.thumbnail?.cloudinaryId) {
+                await cloudinaryUtil.deleteFile(video.thumbnail.cloudinaryId, "image");
+            }
+
+            // Upload new video
+            const fileName = cloudinaryUtil.genFileName({
+                prefix: "video",
+                entityId: video._id,
+            });
+
+            const uploadedVideo = await cloudinaryUtil.uploadVideo({
+                fileBuffer: file.buffer,
+                folder: UPLOAD_FOLDERS.VIDEOS.CLIPS,
+                fileName,
+            });
+
+            // Update video properties
+            video.video = {
+                url: uploadedVideo.secure_url,
+                cloudinaryId: uploadedVideo.public_id,
+            };
+
+            // Calculate duration automatically
+            if (uploadedVideo.duration) {
+                video.duration = Math.round(uploadedVideo.duration);
+            }
+
+            // Generate thumbnail automatically by replacing video extension with .jpg
+            // Cloudinary will generate it on the fly
+            const thumbnailUrl = uploadedVideo.secure_url.replace(/\.[^/.]+$/, ".jpg");
+            video.thumbnail = {
+                url: thumbnailUrl,
+                // For auto-generated thumbnail from video, we don't have a separate image public_id. 
+                // We'll leave cloudinaryId empty or set it to null so it doesn't get deleted as an image later.
+                cloudinaryId: null,
+            };
+        }
+
+        // 2. Process Text Fields Updates
+        const updateFields = ["title", "description", "status", "tags", "categoryId", "subCategoryId", "levelId"];
         updateFields.forEach((field) => {
             if (payload[field] !== undefined) {
                 if (field === "tags") {

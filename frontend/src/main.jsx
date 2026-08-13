@@ -4,10 +4,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "./index.css";
 import system from "@/theme/index.js";
 import App from "./routes/App.jsx";
+import { Toaster } from "./components/ui/toaster";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <ChakraProvider value={system}>
+            <Toaster />
             <App />
         </ChakraProvider>
     </StrictMode>,

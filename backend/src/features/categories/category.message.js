@@ -7,6 +7,7 @@ const SUCCESS_MESSAGES = {
     BULK_INSERT_CATEGORY: "Initilize list categories successfully",
     LIST_CATEGORIES_SUCCESSFULLY: "Get list categories successfully",
     DELETE_CATEGORY_SUCCESSFULLY: "Delete category successfully",
+    UPDATE_CATEGORY_SUCCESSFULLY: "Update category successfully",
 };
 
 // MARK: - BUSINESS ERROR MESSAGES

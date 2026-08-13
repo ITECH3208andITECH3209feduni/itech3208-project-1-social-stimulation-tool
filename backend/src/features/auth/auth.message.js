@@ -55,6 +55,11 @@ const VALIDATION_MESSAGES = {
         "string.base": "Role must be a string",
         "any.only": "Role must be either individual or organization",
     },
+    acceptedTerms: {
+        "boolean.base": "Accepted terms must be a boolean",
+        "any.required": "You must accept the terms",
+        "any.only": "You must accept the terms",
+    },
 };
 
 const AuthMessages = {

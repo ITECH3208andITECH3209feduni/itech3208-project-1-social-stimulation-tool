@@ -2,8 +2,9 @@ import { Box, Carousel, IconButton, Float, Button, Flex } from "@chakra-ui/react
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { FiPlus } from "react-icons/fi";
 import VideoCard from "../cards/VideoCard";
+import { imgBanner5,imgBanner6,imgBanner7,imgBanner8 } from "@/assets";
 
-const items = Array.from({ length: 5 });
+const items = [imgBanner5, imgBanner6, imgBanner7, imgBanner8];
 
 function VideoCarousel() {
     return (
@@ -33,10 +34,10 @@ function VideoCarousel() {
 
                 {/* List Items */}
                 <Carousel.ItemGroup>
-                    {items.map((_, index) => {
+                    {items.map((item, index) => {
                         return (
                             <Carousel.Item key={index} index={index} h={"100%"}>
-                                <VideoCard />
+                                <VideoCard imgSrc={item} />
                             </Carousel.Item>
                         );
                     })}

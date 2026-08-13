@@ -9,18 +9,26 @@ const userRouter = express.Router();
 const adminRouter = express.Router();
 
 // MARK: - PUBLIC ROUTES
-publicRouter.get("/", VideoController.getVideos);
+publicRouter.get(
+    "/",
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
+    VideoController.getVideos,
+);
 publicRouter.get("/:id", VideoController.getVideoById);
 
 // MARK: - USER ROUTES (Organization Management)
 userRouter.post(
     "/",
-    authMw.authorizeRole([authMw.UserRole.organization, authMw.UserRole.admin, authMw.UserRole.individual]),
+    authMw.authorizeRole([
+        authMw.UserRole.organization,
+        authMw.UserRole.admin,
+        authMw.UserRole.individual,
+    ]),
     multerConfig.single("video"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadVideo),
     bodyMw.validate(VideoSchema.createVideo),
-    VideoController.createVideo
+    VideoController.createVideo,
 );
 
 userRouter.patch(
@@ -29,7 +37,7 @@ userRouter.patch(
     multerConfig.single("video"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadVideo),
-    VideoController.uploadVideo
+    VideoController.uploadVideo,
 );
 
 userRouter.patch(
@@ -38,21 +46,36 @@ userRouter.patch(
     multerConfig.single("thumbnail"),
     fileMw.check,
     fileMw.validate(VideoSchema.uploadThumbnail),
-    VideoController.uploadThumbnail
+    VideoController.uploadThumbnail,
 );
 
 userRouter.patch(
     "/:id",
     authMw.authorizeRole([authMw.UserRole.organization]),
     bodyMw.validate(VideoSchema.updateVideoInfo),
-    VideoController.updateVideoInfo
+    VideoController.updateVideoInfo,
 );
 
 // MARK: - ADMIN ROUTES
 adminRouter.delete(
     "/:id",
     authMw.authorizeRole([authMw.UserRole.admin]),
-    VideoController.deleteVideo
+    VideoController.deleteVideo,
 );
 
-export { publicRouter as VideoPublicRouter, userRouter as VideoUserRouter, adminRouter as VideoAdminRouter };
+adminRouter.patch(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.admin]),
+    multerConfig.single("video"),
+    // skip fileMw.check to make video file optional
+    bodyMw.validate(VideoSchema.updateVideoInfo),
+    VideoController.updateVideoDetailAdmin,
+);
+
+adminRouter.get("/", authMw.authorizeRole([authMw.UserRole.admin]), VideoController.getVideos);
+
+export {
+    publicRouter as VideoPublicRouter,
+    userRouter as VideoUserRouter,
+    adminRouter as VideoAdminRouter,
+};

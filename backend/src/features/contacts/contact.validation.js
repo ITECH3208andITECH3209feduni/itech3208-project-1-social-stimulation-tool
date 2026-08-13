@@ -18,10 +18,6 @@ const sendContact = Joi.object({
         .max(2000)
         .required()
         .messages(ContactMessages.validation.message),
-    
-    acceptedTerms: Joi.boolean()
-        .optional()
-        .default(true),
 });
 
 const updateStatus = Joi.object({

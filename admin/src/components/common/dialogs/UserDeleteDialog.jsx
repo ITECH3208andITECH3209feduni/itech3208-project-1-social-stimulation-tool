@@ -1,6 +1,6 @@
 import { Box, Button, CloseButton, Dialog, HStack, Portal, Text } from "@chakra-ui/react";
 
-function UserDeleteDialog({ isOpen, onClose, onSave }) {
+function UserDeleteDialog({ isOpen, onClose, onSave, isDeleting }) {
     return (
         <Dialog.Root
             open={isOpen}
@@ -24,10 +24,10 @@ function UserDeleteDialog({ isOpen, onClose, onSave }) {
                         </Dialog.Body>
                         <Dialog.Footer>
                             <HStack w={200}>
-                                <Button flex={1} bg={"brand.300"} onClick={() => onClose()}>
+                                <Button flex={1} bg={"brand.300"} onClick={() => onClose()} disabled={isDeleting}>
                                     Cancel
                                 </Button>
-                                <Button flex={1} bg={"skyblue.300"} onClick={onSave}>
+                                <Button flex={1} bg={"skyblue.300"} onClick={onSave} loading={isDeleting}>
                                     OK
                                 </Button>
                             </HStack>

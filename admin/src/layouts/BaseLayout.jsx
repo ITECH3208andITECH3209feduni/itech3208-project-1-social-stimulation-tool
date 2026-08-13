@@ -10,7 +10,7 @@ function BaseLayout() {
         <Flex minH="100vh" bg="dark.900">
             {/* Sidebar */}
             <Box
-                flex={"1"}
+                flex={"1.25"}
                 bg="dark.800"
                 color="white"
                 p={4}

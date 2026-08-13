@@ -1,197 +1,153 @@
-import PublishMediaCard from "@/components/cards/PublishMediaCard";
-import { Box, Button, Input, Textarea, VStack, Field, Grid, Heading } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import EmptyState from "@/components/common/EmptyState";
-import { BiVideo } from "react-icons/bi";
-
-const getYouTubeEmbedUrl = (url) => {
-    try {
-        const parsed = new URL(url);
-        let videoId = null;
-
-        if (parsed.hostname.includes("youtube.com")) {
-            videoId = parsed.searchParams.get("v");
-        } else if (parsed.hostname.includes("youtu.be")) {
-            videoId = parsed.pathname.slice(1);
-        }
-
-        if (!videoId) return null;
-        return `https://www.youtube.com/embed/${videoId}`;
-    } catch {
-        return null;
-    }
-};
+import { Box, Button, VStack, Heading } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
+import { useState } from "react";
+import NormalField from "@/components/common/fields/NormalField";
+import TagsInputField from "@/components/common/fields/TagsInputField";
+import FileUploadField from "@/components/common/fields/FileUploadField";
+import TextareaField from "@/components/common/fields/TextareaField";
+import SelectionField from "@/components/common/fields/SelectionField";
+import useCategories from "@/hooks/common/useCategories";
+import useSubCategories from "@/hooks/common/useSubCategories";
+import useCreateVideo from "@/hooks/common/useCreateVideo";
+import { buildVideoFormData } from "@/utils/buildVideoFormData";
 
 function UploadVideoPage() {
-    const [form, setForm] = useState({
+    const { categories } = useCategories();
+    const { loading, createVideo } = useCreateVideo();
+
+    const [formData, setFormData] = useState({
+        video: null,
         title: "",
         description: "",
-        url: "",
+        categoryId: "",
+        subCategoryId: "",
+        tags: [],
     });
 
-    const [errors, setErrors] = useState({
-        title: "",
-        description: "",
-        url: "",
-    });
+    // Dynamically fetch sub-categories whenever categoryId changes
+    const { subCategories } = useSubCategories(formData.categoryId);
 
-    const [videos, setVideos] = useState(() => {
-        try {
-            const stored = localStorage.getItem("publishedVideos");
-            return stored ? JSON.parse(stored) : [];
-        } catch {
-            return [];
-        }
-    });
-    // Save to localStorage whenever videos change
-    useEffect(() => {
-        localStorage.setItem("publishedVideos", JSON.stringify(videos));
-    }, [videos]);
+    const handleInputChange = (key, value) => setFormData((prev) => ({ ...prev, [key]: value }));
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
-        setErrors((prev) => ({ ...prev, [name]: "" }));
+    const handleCategoryChange = (e) => {
+        // Reset subCategoryId whenever the parent category changes
+        setFormData((prev) => ({ ...prev, categoryId: e.target.value, subCategoryId: "" }));
     };
 
-    const validate = () => {
-        const newErrors = { title: "", description: "", url: "" };
-        let valid = true;
-
-        if (!form.title.trim()) {
-            newErrors.title = "Title is required.";
-            valid = false;
-        }
-        if (!form.description.trim()) {
-            newErrors.description = "Description is required.";
-            valid = false;
-        }
-        if (!form.url.trim()) {
-            newErrors.url = "URL is required.";
-            valid = false;
-        } else if (!getYouTubeEmbedUrl(form.url)) {
-            newErrors.url = "Please enter a valid YouTube URL.";
-            valid = false;
-        }
-
-        setErrors(newErrors);
-        return valid;
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!validate()) return;
-
-        const embedUrl = getYouTubeEmbedUrl(form.url);
-
-        const newVideo = {
-            id: Date.now(),
-            title: form.title,
-            description: form.description,
-            url: embedUrl,
-            originalUrl: form.url, // ← keep the original watch URL
-            actions: ["edit", "delete", "open"],
-        };
-
-        setVideos((prev) => [newVideo, ...prev]);
-        setForm({ title: "", description: "", url: "" });
+    const handleUpload = async () => {
+        const payload = buildVideoFormData(formData);
+        await createVideo(payload, {
+            onSuccess: (_, msg) => {
+                toaster.create({
+                    description: msg,
+                    type: "success",
+                });
+                clearForm();
+            },
+            onError: (msg) => {
+                toaster.create({
+                    description: msg,
+                    type: "error",
+                });
+            },
+        });
     };
 
-    const handleMediaClick = (media) => {
-        if (media?.originalUrl) window.open(media.originalUrl, "_blank");
-    };
-
-    const handleEdit = (media) => {
-        // TODO: populate form or open edit drawer
-    };
-
-    const handleDelete = (media) => {
-        setVideos((prev) => prev.filter((v) => v.id !== media.id));
-    };
+    const clearForm = () =>
+        setFormData({
+            video: null,
+            title: "",
+            description: "",
+            categoryId: "",
+            subCategoryId: "",
+            tags: [],
+        });
 
     return (
-        <VStack spacing={8} align="stretch">
+        <VStack spacing={8} align="stretch" position={"relative"}>
             {/* Publish Form Section */}
             <Heading alignSelf={"start"} color="dark.500" fontSize={"30px"} fontWeight="bold">
                 Video Upload
             </Heading>
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Box maxW="100%" w="full" p={6} bg="dark" borderRadius="md" boxShadow="md">
-                    <Heading size="lg" color="white" mb={6} textAlign="center">
-                        Upload new video
-                    </Heading>
-                    <form onSubmit={handleSubmit}>
-                        <VStack gap={"4"}>
-                            <Field.Root invalid={!!errors.title}>
-                                <Field.Label color="white">Title</Field.Label>
-                                <Input
-                                    name="title"
-                                    value={form.title}
-                                    onChange={handleChange}
-                                    color="brand.500"
-                                    p={"3"}
-                                />
-                                <Field.ErrorText>{errors.title}</Field.ErrorText>
-                            </Field.Root>
+                    <Box>
+                        <VStack gap={"4"} align="stretch">
+                            <FileUploadField
+                                name="video"
+                                fieldLabel="Video File"
+                                accept={["video/mp4", "video/webm", "video/ogg"]}
+                                helpText="Click or drag a video file here (MP4, WebM)"
+                                value={formData.video}
+                                onFileChange={(file) => handleInputChange("video", file)}
+                                onFileRemove={() => handleInputChange("video", null)}
+                            />
 
-                            <Field.Root invalid={!!errors.description}>
-                                <Field.Label color="white">Description</Field.Label>
-                                <Textarea
-                                    name="description"
-                                    value={form.description}
-                                    onChange={handleChange}
-                                    size="xl"
-                                    color="brand.500"
-                                    p={"3"}
-                                />
-                                <Field.ErrorText>{errors.description}</Field.ErrorText>
-                            </Field.Root>
+                            <NormalField
+                                fieldLabel="Title"
+                                inputPlaceholder="Enter video title"
+                                name="title"
+                                value={formData.title}
+                                onChange={(e) => handleInputChange("title", e.target.value)}
+                            />
 
-                            <Field.Root invalid={!!errors.url}>
-                                <Field.Label color="white">YouTube URL</Field.Label>
-                                <Input
-                                    name="url"
-                                    value={form.url}
-                                    onChange={handleChange}
-                                    placeholder="https://www.youtube.com/watch?v=..."
-                                    color="brand.500"
-                                    p={"3"}
-                                />
-                                <Field.ErrorText>{errors.url}</Field.ErrorText>
-                            </Field.Root>
+                            <TextareaField
+                                name="description"
+                                fieldLabel="Description"
+                                placeholder="Tell us more about your needs and how we can help you..."
+                                required={true}
+                                maxLength={500}
+                                rows={3}
+                                autoresize={true}
+                                helpText="Max 500 characters."
+                                value={formData.description}
+                                onChange={(e) => handleInputChange("description", e.target.value)}
+                            />
 
-                            <Button type="submit" bg="brand.500" p={"4"}>
+                            <SelectionField
+                                items={categories}
+                                fieldLabel={"Category"}
+                                inputPlaceholder="Choose category"
+                                value={formData.categoryId}
+                                onChange={handleCategoryChange}
+                            />
+
+                            {/* Sub-category selector — only visible after a category is chosen */}
+                            {formData.categoryId && (
+                                <SelectionField
+                                    items={subCategories}
+                                    fieldLabel={"Sub-Category"}
+                                    inputPlaceholder={
+                                        subCategories.length === 0
+                                            ? "No sub-categories available"
+                                            : "Choose sub-category"
+                                    }
+                                    value={formData.subCategoryId}
+                                    onChange={(e) =>
+                                        handleInputChange("subCategoryId", e.target.value)
+                                    }
+                                />
+                            )}
+
+                            <TagsInputField
+                                name="tags"
+                                value={formData.tags}
+                                onChange={(tags) => handleInputChange("tags", tags)}
+                            />
+
+                            <Button
+                                type="button"
+                                bg="brand.500"
+                                p={"4"}
+                                onClick={handleUpload}
+                                loading={loading}
+                                loadingText="Uploading..."
+                            >
                                 Upload Video
                             </Button>
                         </VStack>
-                    </form>
+                    </Box>
                 </Box>
-            </Box>
-
-            {/* Published Media Grid Section */}
-            <Box>
-                <Heading size="lg" color="white" mb={6}>
-                    Your Published Media
-                </Heading>
-
-                {videos.length > 0 ? (
-                    <Grid templateColumns="repeat(auto-fill, minmax(280px, 1fr))" gap={6}>
-                        {videos.map((media) => (
-                            <PublishMediaCard
-                                key={media.id}
-                                media={media}
-                                onClick={() => handleMediaClick(media)}
-                                onEdit={handleEdit}
-                                onDelete={handleDelete}
-                            />
-                        ))}
-                    </Grid>
-                ) : (
-                    <EmptyState
-                        title="No published media"
-                        description="You haven't published any media yet. Use the form above to publish your first media."
-                        icon={BiVideo}
-                    />
-                )}
             </Box>
         </VStack>
     );

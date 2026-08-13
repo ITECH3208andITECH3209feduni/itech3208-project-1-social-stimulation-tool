@@ -16,25 +16,26 @@ const uploadAvatar = Joi.object({
 });
 
 const updateProfile = Joi.object({
-    firstName: Joi.string().allow("").optional(),
+    firstName: Joi.string().messages(UserMessages.validation.firstName),
 
-    lastName: Joi.string().allow("").optional(),
+    lastName: Joi.string().messages(UserMessages.validation.lastName),
 
-    username: Joi.string()
-        .min(5)
-        .max(20)
-        .optional()
-        .messages(UserMessages.validation.username),
+    email: Joi.string().email().messages(UserMessages.validation.email),
 
-    email: Joi.string()
-        .email()
-        .optional()
-        .messages(UserMessages.validation.email),
+    location: Joi.string().messages(UserMessages.validation.location),
+});
+
+const updateAccountStatus = Joi.object({
+    accountStatus: Joi.string()
+        .valid("active", "inactive", "suspended", "banned")
+        .required()
+        .messages(UserMessages.validation.accountStatus),
 });
 
 const UserSchema = {
     uploadAvatar,
     updateProfile,
+    updateAccountStatus,
 };
 
 export default UserSchema;
