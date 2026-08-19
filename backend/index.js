@@ -34,8 +34,8 @@ app.use(express.json());
 app.use(
     cors({
         origin: [
-            "http://localhost:5173", // Frontend Domain
-            "http://localhost:5174", // Admin Domain
+            envConfig.clientURL, // Frontend Domain
+            envConfig.adminURL, // Admin Domain
         ],
         credentials: true,
     }),
