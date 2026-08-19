@@ -95,7 +95,7 @@ const runApp = async () => {
     try {
         await mongoConfig.connect();
         app.listen(envConfig.port, () => {
-            loggerUtil.debug(`Server is run on port ${envConfig.port}`);
+            loggerUtil.debug(`Server is run on port ${envConfig.port} in ENV:${envConfig.nodeEnv}`);
         });
     } catch (error) {
         loggerUtil.error(`Application run failed: ${error}`);
