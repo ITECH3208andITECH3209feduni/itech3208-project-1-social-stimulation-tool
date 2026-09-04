@@ -4,10 +4,10 @@ import GeneralInfor from "./GeneralInfor";
 
 function Banner() {
     return (
-        <Box background="gray.300" width="100%">
-            <Flex gap={30}>
+        <Box width="100%" px={10} mt={50}>
+            <Flex gap={30} align={"center"} >
                 {/* Section1: Scenari-Aid Simulated Scenario System */}
-                <Flex justify={"center"} p="50px" flex={1} direction={"column"} gap={30}>
+                <Flex justify={"center"} flex={1} direction={"column"} gap={30}>
                     <Heading
                         position={"relative"}
                         color="brand.500"
@@ -33,24 +33,11 @@ function Banner() {
                         practice, build confidence, and improve at your own pace. Signup now to get
                         started.
                     </Text>
-                    <Button
-                        width={210}
-                        height={45}
-                        rounded={"full"}
-                        size="xl"
-                        background="brand.500"
-                        fontFamily="Sora"
-                    >
-                        Signup
-                    </Button>
-
-                    {/* Section2: General Information (e.g. active users, videos, happy customers)*/}
-                    <GeneralInfor />
                 </Flex>
 
                 {/* Section3: Landing Image */}
                 <Flex flex={1}>
-                    <Image src={testImg} fit={"cover"} w="full" h="100%" />
+                    <Image src={testImg} fit={"cover"} w="full" h="full" rounded={"md"}/>
                 </Flex>
             </Flex>
         </Box>
