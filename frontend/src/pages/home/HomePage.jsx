@@ -5,25 +5,16 @@ import UsersFeedbackGrid from "@/components/common/grids/UsersFeedbackGrid";
 import useGetFeedback from "@/hooks/custom-hooks/useGetFeedback";
 
 function HomePage() {
-    const feedbacks  = useGetFeedback();
+    const { feedbacks, loading } = useGetFeedback();
 
     return (
         <div style={{ background: "white" }}>
             <Banner />
-            <Container mt={"100px"} spaceY={10} background={"white"}>
-                <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={48}>
-                    NEW SCENARIOS
-                </Heading>
-                <VideoCarousel />
-                <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={48}>
+            <Container mt={"50px"} spaceY={5} background={"white"}>
+                <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={30}>
                     OUR USERS FEEDBACK
                 </Heading>
-                <Box spaceY={5}>
-                    <UsersFeedbackGrid feedbacks={feedbacks}/>
-                    <Button size={"sm"} color={"white"} bg={"brand.500"} fontFamily={"Sora"}>
-                        View All
-                    </Button>
-                </Box>
+                <UsersFeedbackGrid feedbacks={feedbacks} loading={loading} />
             </Container>
         </div>
     );
