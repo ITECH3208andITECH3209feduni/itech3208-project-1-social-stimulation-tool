@@ -5,7 +5,7 @@ import UsersFeedbackGrid from "@/components/common/grids/UsersFeedbackGrid";
 import useGetFeedback from "@/hooks/custom-hooks/useGetFeedback";
 
 function HomePage() {
-    const feedbacks = useGetFeedback();
+    const { feedbacks, loading } = useGetFeedback();
 
     return (
         <div style={{ background: "white" }}>
@@ -14,7 +14,7 @@ function HomePage() {
                 <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={30}>
                     OUR USERS FEEDBACK
                 </Heading>
-                <UsersFeedbackGrid feedbacks={feedbacks} />
+                <UsersFeedbackGrid feedbacks={feedbacks} loading={loading} />
             </Container>
         </div>
     );
