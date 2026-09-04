@@ -4,7 +4,7 @@ import loggerUtil from "@/utils/logger.utils";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    timeout: 10000,
+    timeout: 30000, // 30s for backend warm-up
     headers: {
         "Content-Type": "application/json",
     },
@@ -33,6 +33,14 @@ const extractErrorStatus = (error) => {
 const extractErrorMessage = (error) => {
     const status = extractErrorStatus(error);
     const data = error?.response?.data;
+
+    if (error?.code === "ECONNABORTED") {
+        return "Request timed out.";
+    }
+
+    if (!error?.response) {
+        return "Unable to connect to the server.";
+    }
 
     const possibleMessages = [data?.message, data?.details?.[0]?.message, error?.message];
 
