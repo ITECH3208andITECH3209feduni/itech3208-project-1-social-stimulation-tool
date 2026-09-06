@@ -7,7 +7,7 @@ function HomeLayout() {
     return (
         <Flex direction={"column"} minH={"100vh"}>
             <Navbar />
-            <Box flex={"1"}>
+            <Box px={"100px"} flex={"1"}>
                 <Outlet />
             </Box>
             <Footer />

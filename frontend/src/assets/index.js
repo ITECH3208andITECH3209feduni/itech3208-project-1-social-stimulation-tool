@@ -28,6 +28,7 @@ const imgBanner5 = "/images/image_40.png";
 const imgBanner6 = "/images/image_50.png";
 const imgBanner7 = "/images/image_51.png";
 const imgBanner8 = "/images/image_52.png";
+const footerImg = "/images/footer_img.png";
 
 export {
     federationLogo,
@@ -52,6 +53,7 @@ export {
     imgBanner6,
     imgBanner7,
     imgBanner8,
+    footerImg,
 };
 
 export { categories, levels };
