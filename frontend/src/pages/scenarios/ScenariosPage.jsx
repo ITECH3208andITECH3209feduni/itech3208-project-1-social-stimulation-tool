@@ -164,26 +164,29 @@ function ScenariosPage() {
                             page={page}
                             onPageChange={(e) => setPage(e.page)}
                         >
-                            <ButtonGroup variant="ghost" size="sm">
+                            <ButtonGroup variant="ghost" size="sm" wrap="wrap">
                                 <Pagination.PrevTrigger asChild>
-                                    <IconButton>
+                                    <IconButton onMouseEnter={() => handlePrefetchPage(page - 1)}>
                                         <LuChevronLeft />
                                     </IconButton>
                                 </Pagination.PrevTrigger>
 
                                 <Pagination.Items
-                                    render={(item) => (
+                                    render={(pageObj) => (
                                         <IconButton
-                                            variant={{ base: "ghost", _selected: "outline" }}
-                                            onMouseEnter={() => handlePrefetchPage(item.value)}
+                                            variant={pageObj.value === page ? "solid" : "ghost"}
+                                            bg={pageObj.value === page ? "brand.500" : "transparent"}
+                                            color={pageObj.value === page ? "white" : "inherit"}
+                                            borderRadius="full"
+                                            onMouseEnter={() => handlePrefetchPage(pageObj.value)}
                                         >
-                                            {item.value}
+                                            {pageObj.value}
                                         </IconButton>
                                     )}
                                 />
 
                                 <Pagination.NextTrigger asChild>
-                                    <IconButton>
+                                    <IconButton onMouseEnter={() => handlePrefetchPage(page + 1)}>
                                         <LuChevronRight />
                                     </IconButton>
                                 </Pagination.NextTrigger>
