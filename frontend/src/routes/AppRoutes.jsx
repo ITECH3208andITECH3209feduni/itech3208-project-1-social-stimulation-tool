@@ -21,6 +21,7 @@ import useAuthStore from "@/hooks/stores/useAuthStore";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import UpdateProfilePage from "@/pages/account/UpdateProfilePage";
 import SendFeedbackPage from "@/pages/account/SendFeebackPage";
+import ScenariosPage from "@/pages/scenarios/ScenariosPage";
 
 const DocumentTitle = ({ title, children }) => {
     useDocumentTitle(title);
@@ -44,6 +45,7 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route element={<HomeLayout />}>
+                {/* MARK: Home Page */}
                 <Route
                     path="/"
                     element={
@@ -52,6 +54,20 @@ const AppRoutes = () => {
                         </DocumentTitle>
                     }
                 />
+
+                {/* MARK: Scenarios Page — authenticated users only */}
+                <Route element={<ProtectedRoute />}>
+                    <Route
+                        path="/scenarios"
+                        element={
+                            <DocumentTitle title="Scenarios">
+                                <ScenariosPage />
+                            </DocumentTitle>
+                        }
+                    />
+                </Route>
+
+                {/* MARK: About Page */}
                 <Route path="/about">
                     <Route
                         index
@@ -64,6 +80,8 @@ const AppRoutes = () => {
                     <Route path="sub-page-1" />
                     <Route path="sub-page-2" />
                 </Route>
+
+                {/* MARK: Contact Page */}
                 <Route
                     path="/contact"
                     element={
@@ -72,6 +90,8 @@ const AppRoutes = () => {
                         </DocumentTitle>
                     }
                 />
+
+                {/* MARK: Terms and Conditions Page */}
                 <Route
                     path="/terms"
                     element={
@@ -80,6 +100,8 @@ const AppRoutes = () => {
                         </DocumentTitle>
                     }
                 />
+
+                {/* MARK: Account -> Update Profile Page */}
                 <Route element={<ProtectedRoute />}>
                     <Route
                         path="/account/update-profile"
@@ -90,6 +112,8 @@ const AppRoutes = () => {
                         }
                     />
                 </Route>
+
+                {/* MARK: Account -> Share Feedback Page */}
                 <Route element={<ProtectedRoute />}>
                     <Route
                         path="/account/send-feedback"
@@ -101,6 +125,8 @@ const AppRoutes = () => {
                     />
                 </Route>
             </Route>
+
+            {/* MARK: Tutorial Page */}
             <Route element={<TutorialLayout />}>
                 <Route
                     path="/tutorial"
@@ -111,6 +137,8 @@ const AppRoutes = () => {
                     }
                 />
             </Route>
+
+            {/* MARK: Account -> Login and Register Page */}
             <Route path="/account" element={<AccountLayout />}>
                 <Route index element={<Navigate to="login" />} />
                 <Route
