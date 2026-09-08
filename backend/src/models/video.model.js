@@ -91,6 +91,13 @@ const VideoSchema = new mongoose.Schema(
     },
 );
 
+// These match the public list's filters and createdAt sort order. They keep
+// pagination from scanning the whole videos collection as it grows.
+VideoSchema.index({ isDeleted: 1, createdAt: 1 });
+VideoSchema.index({ isDeleted: 1, status: 1, createdAt: 1 });
+VideoSchema.index({ isDeleted: 1, categoryId: 1, createdAt: 1 });
+VideoSchema.index({ isDeleted: 1, categoryId: 1, subCategoryId: 1, createdAt: 1 });
+
 // Auto-generate slug from title before saving
 VideoSchema.pre("save", async function () {
     if (this.isModified("title")) {
