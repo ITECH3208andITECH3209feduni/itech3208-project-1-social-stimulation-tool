@@ -1,17 +1,135 @@
-import { Box, Image } from "@chakra-ui/react";
+import {
+    Image,
+    Card,
+    HStack,
+    VStack,
+    Box,
+    Float,
+    IconButton,
+    Text,
+    Badge,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { FaPlay } from "react-icons/fa";
+import { formatDuration } from "@/utils/formatDuration";
+import VideoPlayerModal from "@/components/common/modals/VideoPlayerModal";
 
-function VideoCard({imgSrc}) {
+function VideoCard({ video }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const rawThumbnail =
+        typeof video.thumbnail === "object" ? video.thumbnail?.url : video.thumbnail;
+    const videoUrl = typeof video.video === "object" ? video.video?.url : video.video;
+    const thumbnailUrl = rawThumbnail || (videoUrl ? videoUrl.replace(/\.[^/.]+$/, ".jpg") : "");
+
     return (
-        <Box w={"100%"} h={"100%"} >
-            <Image 
-                src={imgSrc} 
-                w={"100%"}
-                borderRadius={10}
-                objectFit={"cover"}
-                objectPosition={"center"}
-                display={"block"}
-            /> 
-        </Box>
+        <>
+            <VStack
+                bg={"dark.800"}
+                rounded={"md"}
+                overflow={"hidden"}
+                transition="transform 0.2s, box-shadow 0.2s"
+                _hover={{ transform: "translateY(-2px)", boxShadow: "0 8px 30px rgba(0,0,0,0.5)" }}
+                cursor="pointer"
+                h={"100%"}
+            >
+                {/* Thumbnail + Play overlay */}
+                <Box position={"relative"} w="full" onClick={() => setIsModalOpen(true)}>
+                    <Image
+                        flex={1}
+                        w={"100%"}
+                        h={"auto"}
+                        aspectRatio={16 / 9}
+                        src={thumbnailUrl}
+                        objectFit={"cover"}
+                    />
+
+                    {/* Hover overlay */}
+                    <Box
+                        position="absolute"
+                        inset={0}
+                        bg="blackAlpha.400"
+                        opacity={0}
+                        _hover={{ opacity: 1 }}
+                        transition="opacity 0.2s"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <IconButton
+                            size={"2xl"}
+                            color={"whiteAlpha.900"}
+                            bg={"brand.300"}
+                            _hover={{ bg: "brand.400", transform: "scale(1.1)" }}
+                            rounded={"full"}
+                            transition="all 0.15s"
+                            aria-label="Play video"
+                        >
+                            <FaPlay />
+                        </IconButton>
+                    </Box>
+
+                    <Float placement={"bottom-end"} offsetX={8} offsetY={4}>
+                        <Text
+                            bg="blackAlpha.800"
+                            color="white"
+                            px={2}
+                            py={0.5}
+                            rounded="md"
+                            fontSize="sm"
+                            fontWeight="medium"
+                        >
+                            {formatDuration(video.duration)}
+                        </Text>
+                    </Float>
+                </Box>
+
+                <Card.Root flex={1} w={"100%"} bg="transparent" borderWidth={0}>
+                    <Card.Body gap="2" color={"whiteAlpha.900"}>
+                        <Card.Title fontSize={18} noOfLines={1} onClick={() => setIsModalOpen(true)}>
+                            {video.title}
+                        </Card.Title>
+                        <Card.Description color={"gray.400"} noOfLines={2}>
+                            {video.description}
+                        </Card.Description>
+                        <HStack align="start" gap={2} flex={1} overflow="hidden" mt={2}>
+                            {video.category?.name && (
+                                <Badge
+                                    bg="blue.500"
+                                    color="white"
+                                    fontSize="xs"
+                                    px={2}
+                                    py={0.5}
+                                    borderRadius="md"
+                                    fontWeight="semibold"
+                                >
+                                    {video.category.name}
+                                </Badge>
+                            )}
+                            {video.subCategory?.name && (
+                                <Badge
+                                    bg="purple.500"
+                                    color="white"
+                                    fontSize="xs"
+                                    px={2}
+                                    py={0.5}
+                                    borderRadius="md"
+                                    fontWeight="semibold"
+                                >
+                                    {video.subCategory.name}
+                                </Badge>
+                            )}
+                        </HStack>
+                    </Card.Body>
+                </Card.Root>
+            </VStack>
+
+            <VideoPlayerModal
+                video={video}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
+        </>
     );
 }
 
