@@ -82,7 +82,7 @@ function UserMenu() {
                                 Update Your Profile
                             </Menu.Item>
                             <Menu.Item value="send-feedback" cursor={"pointer"}>
-                                Send Feedback
+                                Share Your Feedback
                             </Menu.Item>
                             <Menu.Item
                                 value="logout"

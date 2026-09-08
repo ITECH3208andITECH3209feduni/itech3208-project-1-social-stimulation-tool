@@ -16,11 +16,13 @@ function SectionCard({ heading, title, terms, subTerms, highlights, color }) {
                         borderWidth="0"
                         borderColor="white"
                         borderRadius={"full"}
+                        spaceX={1}
                     >
                         <Tag.Label>{heading}</Tag.Label>
+                        <Tag.Label>{title}</Tag.Label>
                     </Tag.Root>
                 </Box>
-                <Heading
+                {/* <Heading
                     margin={"0"}
                     display={"flex"}
                     alignItems={"center"}
@@ -29,7 +31,7 @@ function SectionCard({ heading, title, terms, subTerms, highlights, color }) {
                     fontFamily="Sora"
                 >
                     {title}
-                </Heading>
+                </Heading> */}
             </Flex>
 
             <List.Root textAlign={"left"} mx={4}>

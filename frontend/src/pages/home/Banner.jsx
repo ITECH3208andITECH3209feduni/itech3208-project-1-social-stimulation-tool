@@ -4,8 +4,8 @@ import GeneralInfor from "./GeneralInfor";
 
 function Banner() {
     return (
-        <Box width="100%" px={10} mt={50}>
-            <Flex gap={30} align={"center"} >
+        <Box width="100%" mt={50}>
+            <Flex gap={30} align={"center"}>
                 {/* Section1: Scenari-Aid Simulated Scenario System */}
                 <Flex justify={"center"} flex={1} direction={"column"} gap={30}>
                     <Heading

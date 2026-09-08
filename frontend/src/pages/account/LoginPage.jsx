@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toaster } from "@/components/ui/toaster";
 import { loginFields } from "@/components/auth/authConfig";
 import AuthForm from "@/components/auth/AuthForm";
@@ -7,6 +7,8 @@ import useLogin from "@/hooks/custom-hooks/useLogin";
 function LoginPage() {
     const { login } = useLogin();
     const navigate = useNavigate();
+    const location = useLocation();
+    const redirectTo = location.state?.from?.pathname || "/scenarios";
     const handleLogin = async (input) => {
         await login(
             {
@@ -20,9 +22,7 @@ function LoginPage() {
                         type: "success",
                         duration: 3000,
                     });
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 3100);
+                    navigate(redirectTo, { replace: true });
                 },
                 onError: (msg) => {
                     toaster.create({
