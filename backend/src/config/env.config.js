@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
 
-dotenv.config({
-    path: ".env.dev",
-});
+if (process.env.NODE_ENV !== "production") {
+    dotenv.config({
+        path: ".env.dev",
+    });
+}
 
 const envConfig = {
     nodeEnv: process.env.NODE_ENV,
@@ -18,6 +20,8 @@ const envConfig = {
     cloudinaryName: process.env.CLOUDINARY_NAME,
     cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET_KEY,
+    clientURL: process.env.CLIENT_URL,
+    adminURL: process.env.ADMIN_URL,
 };
 
 export default envConfig;

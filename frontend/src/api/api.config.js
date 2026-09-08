@@ -4,6 +4,7 @@ const API_ROUTES = {
         VIDEOS: "/videos",
         VIDEO_DETAIL: (id) => `/videos/${id}`,
         CATEGORIES: "/categories",
+        SUBCATEGORIES: "/subcategories",
         LEVELS: "/levels",
         FEEDBACKS: (videoId) => `/feedbacks/${videoId}`,
         TOP_FEEDBACKS: "/feedbacks/top-feedbacks",

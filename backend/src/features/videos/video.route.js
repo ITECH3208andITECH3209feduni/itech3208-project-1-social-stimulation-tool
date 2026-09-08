@@ -8,13 +8,15 @@ const publicRouter = express.Router();
 const userRouter = express.Router();
 const adminRouter = express.Router();
 
-// MARK: - PUBLIC ROUTES
+// MARK: - SCENARIO VIEWING ROUTES
+// A valid access token is required to browse or open scenario videos. Role
+// checks are intentionally not applied: any authenticated user may view them.
 publicRouter.get(
     "/",
-    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
+    authMw.authenticateToken,
     VideoController.getVideos,
 );
-publicRouter.get("/:id", VideoController.getVideoById);
+publicRouter.get("/:id", authMw.authenticateToken, VideoController.getVideoById);
 
 // MARK: - USER ROUTES (Organization Management)
 userRouter.post(

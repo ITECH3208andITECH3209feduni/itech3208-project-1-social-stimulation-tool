@@ -37,21 +37,39 @@ const Navbar = () => {
                 />
             </Link>
             <HStack gap="8">
+                {/* MARK: Home */}
                 <NavLink to="/" style={navStyle}>
                     Home
                 </NavLink>
+
+                {/* MARK: Scenarios Videos — available after login */}
+                {accessToken && (
+                    <NavLink to="/scenarios" style={navStyle}>
+                        Scenarios
+                    </NavLink>
+                )}
+
+                {/* MARK: About */}
                 <NavLink to="/about" style={navStyle}>
                     About
                 </NavLink>
+
+                {/* MARK: Tutorial */}
                 <NavLink to="/tutorial" style={navStyle}>
                     Tutorial
                 </NavLink>
+
+                {/* MARK: Contact */}
                 <NavLink to="/contact" style={navStyle}>
                     Contact
                 </NavLink>
+
+                {/* MARK: Terms and Conditions */}
                 <NavLink to="/terms" style={navStyle}>
                     Terms & Conditions
                 </NavLink>
+
+                {/* MARK: Account -> Login / Register */}
                 {accessToken ? (
                     <> </>
                 ) : (
@@ -60,6 +78,7 @@ const Navbar = () => {
                     </NavLink>
                 )}
 
+                {/* MARK: Show User Menu */}
                 {accessToken && <UserMenu />}
             </HStack>
         </Flex>

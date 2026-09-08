@@ -19,7 +19,7 @@ const ourMission = "/images/about_page/our_mission.jpg";
 const ourTeam = "/images/about_page/our_team.jpg";
 const winNew = "/videos/WINNews.mp4";
 const requiredAuth = "/images/required_auth.svg";
-const testImg = "/images/image 10.jpg";
+const testImg = "/images/scenaio_banner.jpeg";
 const imgBanner1 = "/images/image_21.jpg";
 const imgBanner2 = "/images/image_22.jpg";
 const imgBanner3 = "/images/image_23.jpg";
@@ -28,6 +28,7 @@ const imgBanner5 = "/images/image_40.png";
 const imgBanner6 = "/images/image_50.png";
 const imgBanner7 = "/images/image_51.png";
 const imgBanner8 = "/images/image_52.png";
+const footerImg = "/images/footer_img.png";
 
 export {
     federationLogo,
@@ -52,6 +53,7 @@ export {
     imgBanner6,
     imgBanner7,
     imgBanner8,
+    footerImg,
 };
 
 export { categories, levels };

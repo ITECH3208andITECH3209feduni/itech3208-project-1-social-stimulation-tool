@@ -199,8 +199,9 @@ const VideoService = {
     },
 
     // MARK: - GET ALL VIDEOS (with optional filters)
-    getVideos: async ({ categoryId, subCategoryId, status = "draft", page = 1, limit = 10 } = {}) => {
-        const filter = { isDeleted: false, status };
+    getVideos: async ({ categoryId, subCategoryId, status, page = 1, limit = 10 } = {}) => {
+        const filter = { isDeleted: false };
+        if (status) filter.status = status;
 
         if (categoryId) filter.categoryId = categoryId;
         if (subCategoryId) filter.subCategoryId = subCategoryId;
@@ -209,6 +210,7 @@ const VideoService = {
 
         const [videos, total] = await Promise.all([
             VideoModel.find(filter)
+                .lean()
                 .populate("categoryId", "name")
                 .populate("subCategoryId", "name")
                 .populate("uploadedBy", "username avatar")

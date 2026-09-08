@@ -34,8 +34,8 @@ app.use(express.json());
 app.use(
     cors({
         origin: [
-            "http://localhost:5173", // Frontend Domain
-            "http://localhost:5174", // Admin Domain
+            envConfig.clientURL, // Frontend Domain
+            envConfig.adminURL, // Admin Domain
         ],
         credentials: true,
     }),
@@ -95,7 +95,7 @@ const runApp = async () => {
     try {
         await mongoConfig.connect();
         app.listen(envConfig.port, () => {
-            loggerUtil.debug(`Server is run on port ${envConfig.port}`);
+            loggerUtil.debug(`Server is run on port ${envConfig.port} in ENV:${envConfig.nodeEnv}`);
         });
     } catch (error) {
         loggerUtil.error(`Application run failed: ${error}`);
