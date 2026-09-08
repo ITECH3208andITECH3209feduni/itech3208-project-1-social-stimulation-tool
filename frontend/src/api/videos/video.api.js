@@ -12,7 +12,7 @@ const videoApi = {
                 ...(payload.subCategoryId && { subCategoryId: payload.subCategoryId }),
             },
         });
-        console.log(response)
+
         return {
             success: response.success,
             message: response.message,
