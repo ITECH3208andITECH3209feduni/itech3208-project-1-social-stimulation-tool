@@ -99,6 +99,7 @@ const runApp = async () => {
         });
     } catch (error) {
         loggerUtil.error(`Application run failed: ${error}`);
+        process.exitCode = 1;
     }
 };
 
