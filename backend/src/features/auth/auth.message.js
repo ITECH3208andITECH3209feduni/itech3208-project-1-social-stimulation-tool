@@ -36,8 +36,9 @@ const VALIDATION_MESSAGES = {
         "string.base": "Password must be a string",
         "string.empty": "Password is required",
         "any.required": "Password is required",
-        "string.min": "Password must be at least 5 characters",
+        "string.min": "Password must be at least 8 characters",
         "string.max": "Password must be at most 20 characters",
+        "string.pattern.base": "Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.",
     },
     confirmedPassword: {
         "string.base": "Password must be a string",
