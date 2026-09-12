@@ -4,6 +4,7 @@ import { Box, Field, Flex, Heading, Input, Image, Button, Checkbox, Text } from 
 import PasswordInput from "./PasswordInput";
 import SocialLogin from "./SocialLogin";
 import { federationLogo } from "@/assets";
+import { toaster } from "@/components/ui/toaster";
 
 const LOGIN_FIELDS_NUMBER = 2;
 
@@ -18,12 +19,40 @@ function AuthForm({ fields, onSubmit }) {
 
     const passwordValue = input.password || "";
     const passwordRequirements = [
-        { id: 1, label: "At least 8 characters", isValid: passwordValue.length >= 8 },
-        { id: 2, label: "At least one uppercase letter", isValid: /[A-Z]/.test(passwordValue) },
-        { id: 3, label: "At least one lowercase letter", isValid: /[a-z]/.test(passwordValue) },
-        { id: 4, label: "At least one number", isValid: /\d/.test(passwordValue) },
-        { id: 5, label: "At least one special character", isValid: /[^A-Za-z0-9]/.test(passwordValue) }
+        { id: 1, label: "at least 8 characters", isValid: passwordValue.length >= 8 },
+        { id: 2, label: "at least one uppercase letter", isValid: /[A-Z]/.test(passwordValue) },
+        { id: 3, label: "at least one lowercase letter", isValid: /[a-z]/.test(passwordValue) },
+        { id: 4, label: "at least one number", isValid: /\d/.test(passwordValue) },
+        { id: 5, label: "at least one special character", isValid: /[^A-Za-z0-9]/.test(passwordValue) }
     ];
+
+    const handleSubmit = () => {
+        if (isRegister) {
+            const missing = passwordRequirements.filter((req) => !req.isValid);
+
+            if (missing.length > 0) {
+                const missingLabels = missing.map((req) => req.label);
+                let errorMessage = "";
+
+                if (missingLabels.length === 1) {
+                    errorMessage = `Password must contain ${missingLabels[0]}.`;
+                } else {
+                    const lastRequirement = missingLabels.pop();
+                    errorMessage = `Password must contain ${missingLabels.join(", ")} and ${lastRequirement}.`;
+                }
+
+                toaster.create({
+                    description: errorMessage,
+                    type: "error",
+                    duration: 4000,
+                    placement: "top-end",
+                });
+                return;
+            }
+        }
+
+        onSubmit?.(input);
+    };
 
     return (
         <Flex
@@ -49,9 +78,9 @@ function AuthForm({ fields, onSubmit }) {
                 </Heading>
                 {fields.map((field) => (
                     <Field.Root key={field.label}>
-                    <Field.Label>
+                        <Field.Label>
                             {field.label} <Text as="span" color="red.500">*</Text>
-                    </Field.Label>
+                        </Field.Label>
                         {field.type === "password" ? (
                             <PasswordInput
                                 placeholder={field.placeholder}
@@ -83,7 +112,9 @@ function AuthForm({ fields, onSubmit }) {
                                         <Box as="span" mr={2} fontWeight="bold">
                                             {req.isValid ? "✓" : "✗"}
                                         </Box>
-                                        <Text>{req.label}</Text>
+                                        <Text capitalized={false}>
+                                            {req.label.charAt(0).toUpperCase() + req.label.slice(1)}
+                                        </Text>
                                     </Flex>
                                 ))}
                             </Box>
@@ -91,7 +122,7 @@ function AuthForm({ fields, onSubmit }) {
                     </Field.Root>
                 ))}
 
-                {/* Agree to terms and conitions fields */}
+                {/* Agree to terms and conditions fields */}
                 {isRegister && (
                     <Checkbox.Root
                         variant={"solid"}
@@ -106,7 +137,7 @@ function AuthForm({ fields, onSubmit }) {
                     </Checkbox.Root>
                 )}
 
-                <Button w={"100%"} bg={"skyblue.500"} onClick={() => onSubmit?.(input)}>
+                <Button w={"100%"} bg={"skyblue.500"} onClick={handleSubmit}>
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>
                 <SocialLogin isRegister={isRegister} />
