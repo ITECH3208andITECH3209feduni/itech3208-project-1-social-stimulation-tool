@@ -11,7 +11,6 @@ const AuthController = {
                 email: req.body.email,
                 password: req.body.password,
                 confirmedPassword: req.body.confirmedPassword,
-                phone: req.body.phone,
                 acceptedTerms: req.body.acceptedTerms,
             };
 
