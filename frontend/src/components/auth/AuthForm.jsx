@@ -132,7 +132,17 @@ function AuthForm({ fields, onSubmit }) {
                         <Checkbox.HiddenInput color="brand.500" />
                         <Checkbox.Control />
                         <Checkbox.Label color={"brand.500"}>
-                            I agree to receive terms and conditions from Federation University <Text as="span" color="red.500">*</Text>
+                            I agree to receive{" "}
+                            <Link
+                                to="/terms"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ textDecoration: "underline", fontWeight: "600" }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                terms and conditions from Federation University
+                            </Link>{" "}
+                            <Text as="span" color="red.500">*</Text>
                         </Checkbox.Label>
                     </Checkbox.Root>
                 )}
