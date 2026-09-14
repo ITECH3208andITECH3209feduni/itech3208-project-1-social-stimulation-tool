@@ -15,7 +15,6 @@ const registerUser = Joi.object({
         // .strip()
         .required()
         .messages(AuthMessages.validation.confirmedPassword),
-    phone: Joi.string().required().length(10).messages(AuthMessages.validation.phone),
     role: Joi.string()
         .valid("individual", "organization")
         .default("individual")

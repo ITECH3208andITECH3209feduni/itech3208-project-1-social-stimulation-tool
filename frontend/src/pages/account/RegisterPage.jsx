@@ -15,7 +15,6 @@ function RegisterPage() {
         const payload = {
             username: inputs.username,
             email: inputs.email,
-            phone: inputs.phone,
             password: inputs.password,
             confirmedPassword: inputs.confirmedPassword,
             acceptedTerms: inputs.acceptedTerms
