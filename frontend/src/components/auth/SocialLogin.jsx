@@ -8,10 +8,10 @@ function SocialLogin({ isRegister = false }) {
         <Box>
             <Separator />
 
-            <Button w={"full"} color={"white"} bg={"dark.900"}>
+            {/* <Button w={"full"} color={"white"} bg={"dark.900"}>
                 <FcGoogle />
                 {isRegister ? "Or sign up with Google" : "Or sign in with Google"}
-            </Button>
+            </Button> */}
 
             <Text textAlign={"center"} mt={"2"}>
                 {isRegister ? "Already had an account?" : "Don't have an account?"}{" "}
