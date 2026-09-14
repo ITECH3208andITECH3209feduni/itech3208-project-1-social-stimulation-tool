@@ -28,12 +28,6 @@ export const registerFields = [
         type: "email",
     },
     {
-        label: "Phone",
-        name: "phone",
-        placeholder: "Enter Phone Number",
-        type: "text",
-    },
-    {
         label: "Password",
         name: "password",
         placeholder: "Enter password",
