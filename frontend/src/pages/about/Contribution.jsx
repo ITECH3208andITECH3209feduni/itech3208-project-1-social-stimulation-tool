@@ -1,15 +1,54 @@
-import { Box, Heading, Text, Link, } from "@chakra-ui/react";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
 function Contribution() {
     return (
-        <Box mt={16} fontFamily={"Sora"}>
-            <Heading color={"brand.500"} fontSize={32} mb={6}>
-                Contribute
-            </Heading>
-            <Text color={"navy.500"} fontSize={18} mb={4}>
-                Scenari-Aid is an organic community driven project and we welcome personal contributions to the application in the form of ideas, video scenarios and donations. If you are interested in contributing to Scenari-Aid in any form please contact <Link color="brand.500" fontWeight="bold" href="/contact">Grant Meredith</Link> via{" "}
-                <Link color="brand.500" fontWeight="bold" href="/contact">this link</Link>.
-            </Text>
+        <Box
+            py={{ base: 8, md: 12 }}
+            px={{ base: 4, md: 8 }}
+            borderTop="1px solid"
+            borderBottom="1px solid"
+            borderColor="gray.200"
+        >
+            <Box>
+                <Text
+                    fontSize="sm"
+                    fontWeight="600"
+                    letterSpacing="wide"
+                    textTransform="uppercase"
+                    color="brand.500"
+                    mb={3}
+                >
+                    Get Involved
+                </Text>
+
+                <Heading
+                    fontFamily="Sora"
+                    fontSize={{ base: "3xl", md: "4xl" }}
+                    color="gray.800"
+                    mb={5}
+                >
+                    Contribute
+                </Heading>
+
+                <Text color="gray.600" fontSize={{ base: "md", md: "lg" }} lineHeight="1.8" mb={7}>
+                    Scenari-Aid is an organic community driven project and we welcome personal
+                    contributions to the application in the form of ideas, video scenarios and
+                    donations.
+                </Text>
+
+                <Button
+                    as="a"
+                    href="/contact"
+                    bg="brand.500"
+                    color="white"
+                    size="lg"
+                    _hover={{
+                        opacity: 0.9,
+                    }}
+                >
+                    Contact Grant Meredith
+                </Button>
+            </Box>
         </Box>
     );
 }
