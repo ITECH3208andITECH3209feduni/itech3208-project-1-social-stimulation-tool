@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, HStack, Text, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Button, Card, HStack, SkeletonCircle, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdVerified } from "react-icons/md";
 import RatingBar from "../ratingbar/RatingBar";
@@ -27,7 +27,7 @@ function FeedbackCard({ feedback }) {
                             <Card.Title>{feedback.user?.username || "Anonymous"}</Card.Title>
                             <MdVerified color="green" />
                         </HStack>
-                        <RatingBar rate={feedback.rating} />
+                        {/* <RatingBar rate={feedback.rating} /> */}
                     </VStack>
                 </HStack>
 
