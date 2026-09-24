@@ -1,44 +1,104 @@
 import { landingPage, star2, testImg } from "@/assets";
-import { Box, Button, Flex, Heading, HStack, Image, Text } from "@chakra-ui/react";
-import GeneralInfor from "./GeneralInfor";
+import { Box, Button, Flex, Heading, Image, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 function Banner() {
     return (
-        <Box width="100%" mt={50}>
-            <Flex gap={30} align={"center"}>
-                {/* Section1: Scenari-Aid Simulated Scenario System */}
-                <Flex justify={"center"} flex={1} direction={"column"} gap={30}>
-                    <Heading
-                        position={"relative"}
-                        color="brand.500"
+        <Box width="100%" mt={{ base: 10, md: 16, lg: 20 }}>
+            <Flex
+                direction={{ base: "column", lg: "row" }}
+                align="center"
+                gap={{ base: 8, lg: 10, xl: 12 }}
+            >
+                {/* Content */}
+                <Stack flex={1.1} spacing={6} maxW="680px">
+                    <Text
+                        textAlign={"justify"}
                         fontFamily="Sora"
-                        fontSize={64}
-                        textAlign={"left"}
+                        fontSize="sm"
+                        fontWeight="600"
+                        letterSpacing="0.15em"
+                        color="brand.500"
                     >
-                        <HStack>
-                            <Text>Scenari-Aid</Text>
-                            <Image src={star2} />
-                        </HStack>
-                        <HStack>
-                            <Image src={star2} />
-                            <Text>Simulated</Text>
-                        </HStack>
-
-                        <Text>Scenario System</Text>
-                    </Heading>
-                    <Text textAlign={"left"} fontFamily="Sora">
-                        Welcome to Scenari-Aid — Your Practice Space for Real-Life Skills Sharpen
-                        your social, interview, and communication skills through realistic,
-                        interactive scenarios. With 100+ recorded video situations, you can
-                        practice, build confidence, and improve at your own pace. Signup now to get
-                        started.
+                        PRACTICE • CONNECT • GROW
                     </Text>
-                </Flex>
-
-                {/* Section3: Landing Image */}
-                <Flex flex={1}>
-                    <Image src={testImg} fit={"cover"} w="full" h="full" rounded={"md"}/>
-                </Flex>
+                    <Heading
+                        textAlign={"justify"}
+                        fontFamily="Sora"
+                        color="brand.500"
+                        fontSize={{ base: "42px", md: "52px", lg: "58px", xl: "64px" }}
+                        lineHeight="1.08"
+                        letterSpacing="-0.02em"
+                    >
+                        Build confidence <br /> for real-life <br /> conversations.
+                    </Heading>
+                    <Text
+                        textAlign={"justify"}
+                        fontFamily="Sora"
+                        fontSize={{ base: "md", md: "lg" }}
+                        lineHeight="1.8"
+                        color="gray.600"
+                        maxW="600px"
+                    >
+                        Improve your social, interview and speech skills by practicing real life
+                        interactions with the free Scenari-Aid Simulated Scenario System.
+                    </Text>
+                    {/* CTA */}
+                    <Flex gap={4} pt={2} flexWrap="wrap">
+                        <Button
+                            as={Link}
+                            to="/account/register"
+                            size="lg"
+                            colorScheme="brand"
+                            borderRadius="full"
+                            px={8}
+                            fontFamily="Sora"
+                        >
+                            Get Started
+                        </Button>
+                        <Button
+                            as={Link}
+                            to="/scenarios"
+                            size="lg"
+                            variant="outline"
+                            borderRadius="full"
+                            px={8}
+                            fontFamily="Sora"
+                        >
+                            Explore Scenarios
+                        </Button>
+                    </Flex>
+                </Stack>
+                {/* Hero Image */}
+                <Box
+                    flex={0.9}
+                    width="100%"
+                    position="relative"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minH={{ base: "400px", md: "500px", lg: "560px" }}
+                >
+                    {/* Decorative background shape */}
+                    <Box
+                        position="absolute"
+                        width={{ base: "80%", md: "75%" }}
+                        height={{ base: "80%", md: "85%" }}
+                        bg="brand.50"
+                        borderRadius="3xl"
+                        transform="rotate(4deg)"
+                    />
+                    {/* Main image */}
+                    <Image
+                        src={testImg}
+                        position="relative"
+                        width={{ base: "90%", md: "82%", lg: "88%" }}
+                        maxW="520px"
+                        objectFit="cover"
+                        borderRadius="3xl"
+                        boxShadow="lg"
+                    />
+                </Box>
             </Flex>
         </Box>
     );
