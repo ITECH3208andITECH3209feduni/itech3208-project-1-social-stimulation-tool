@@ -8,12 +8,12 @@ const ContactController = {
     sendContact: async (req, res) => {
         try {
             const userId = req.user?._id || req.user?.id;
-            const { categoryId, subject, message } = req.body;
-            
+            const { name, email, message } = req.body;
+
             const result = await ContactService.sendContact({
                 userId,
-                categoryId,
-                subject,
+                name,
+                email,
                 message,
             });
 
