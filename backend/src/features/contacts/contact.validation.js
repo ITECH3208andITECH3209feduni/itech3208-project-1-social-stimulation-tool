@@ -2,19 +2,28 @@ import Joi from "joi";
 import ContactMessages from "./contact.message.js";
 
 const sendContact = Joi.object({
-    categoryId: Joi.string()
-        .hex()
-        .length(24)
+    name: Joi.string()
+        .trim()
         .required()
-        .messages(ContactMessages.validation.categoryId),
-    
-    subject: Joi.string()
-        .max(200)
-        .optional()
-        .allow("", null)
-        .messages(ContactMessages.validation.subject),
-    
+        .messages({
+            "string.base": "Name must be a string",
+            "string.empty": "Name is required",
+            "any.required": "Name is required",
+        }),
+
+    email: Joi.string()
+        .email()
+        .trim()
+        .required()
+        .messages({
+            "string.base": "Email must be a string",
+            "string.empty": "Email is required",
+            "string.email": "Please enter a valid email address",
+            "any.required": "Email is required",
+        }),
+
     message: Joi.string()
+        .trim()
         .max(2000)
         .required()
         .messages(ContactMessages.validation.message),
