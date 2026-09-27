@@ -26,17 +26,6 @@ const VALIDATION_MESSAGES = {
         "any.required": "Message is required",
         "string.max": "Message must be at most 2000 characters",
     },
-    subject: {
-        "string.base": "Subject must be a string",
-        "string.max": "Subject must be at most 200 characters",
-    },
-    categoryId: {
-        "string.base": "Category ID must be a string",
-        "string.empty": "Category Name (ID) is required",
-        "any.required": "Category ID is required",
-        "string.hex": "Invalid Category ID format",
-        "string.length": "Invalid Category ID format",
-    },
 };
 
 const ContactMessages = {
