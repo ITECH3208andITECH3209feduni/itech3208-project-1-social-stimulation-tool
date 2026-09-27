@@ -6,7 +6,7 @@ const ContactService = {
     _formatContact: (contact) => {
         if (!contact) return null;
 
-        const { _id, userId, categoryId, __v, status, ...rest } = contact;
+        const { _id, userId, __v, status, ...rest } = contact;
         
         // MARK: - STATUS CONFIGURATION FOR FRONTEND
         const statusMap = {
@@ -28,29 +28,23 @@ const ContactService = {
             formatted.user = { id: uId, ...uRest };
         }
 
-        if (categoryId) {
-            const { _id: cId, ...cRest } = categoryId;
-            formatted.category = { id: cId, ...cRest };
-        }
-
         return formatted;
     },
 
     // MARK: - SEND CONTACT
-    sendContact: async ({ userId, categoryId, subject, message }) => {
-        const newContact = await ContactModel.create({
-            userId,
-            categoryId,
-            subject,
-            message,
-        });
+    sendContact: async ({ userId, name, email, message }) => {
+    const newContact = await ContactModel.create({
+        userId,
+        name,
+        email,
+        message,
+    });
 
-        const contact = await ContactModel.findById(newContact._id)
-            .populate("userId", "username email")
-            .populate("categoryId", "name")
-            .lean();
+    const contact = await ContactModel.findById(newContact._id)
+        .populate("userId", "username email")
+        .lean();
 
-        return ContactService._formatContact(contact);
+    return ContactService._formatContact(contact);
     },
 
     // MARK: - GET CONTACTS (Admin)
