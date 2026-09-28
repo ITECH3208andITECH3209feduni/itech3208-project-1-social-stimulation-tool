@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Field, Flex, Heading, Input, Image, Button, Checkbox, Text } from "@chakra-ui/react";
+import { Box, Field, Flex, Heading, Input, Button, Checkbox, Text } from "@chakra-ui/react";
 import PasswordInput from "./PasswordInput";
 import SocialLogin from "./SocialLogin";
-import { federationLogo } from "@/assets";
 import { toaster } from "@/components/ui/toaster";
 
 const LOGIN_FIELDS_NUMBER = 2;
@@ -23,7 +22,11 @@ function AuthForm({ fields, onSubmit }) {
         { id: 2, label: "at least one uppercase letter", isValid: /[A-Z]/.test(passwordValue) },
         { id: 3, label: "at least one lowercase letter", isValid: /[a-z]/.test(passwordValue) },
         { id: 4, label: "at least one number", isValid: /\d/.test(passwordValue) },
-        { id: 5, label: "at least one special character", isValid: /[^A-Za-z0-9]/.test(passwordValue) }
+        {
+            id: 5,
+            label: "at least one special character",
+            isValid: /[^A-Za-z0-9]/.test(passwordValue),
+        },
     ];
 
     const handleSubmit = () => {
@@ -56,30 +59,32 @@ function AuthForm({ fields, onSubmit }) {
 
     return (
         <Flex
-            position={"relative"}
-            w={"100%"}
-            h={"100%"}
-            p="8px"
-            justify={"center"}
-            alignItems={"center"}
-            bg={"white"}
+            position="relative"
+            w="100%"
+            minH="70vh"
+            p={{ base: "4px", md: "8px", lg: "10px" }}
+            flexDirection="column"
+            justify="center"
+            align="center"
         >
-            <Box width="100%" p="8px" display="flex" flexDir={"column"} spaceY={"4"}>
-                <Link to="/">
-                    <Image
-                        src={federationLogo}
-                        alt="Federation University"
-                        h="60px"
-                        cursor={"pointer"}
-                    />
-                </Link>
-                <Heading color={"black"} mt={"4"}>
-                    {isRegister ? "Welcome to our Scenario aid system!" : "Nice to see you again!"}
+            <Box
+                width={{ base: "100%", md: "80%", lg: "50%" }}
+                display="flex"
+                flexDir={"column"}
+                spaceY={"3"}
+            >
+                <Heading color={"brand.500"}>
+                    {isRegister ? "Welcome to Scenario-Aid!" : "Welcome back!"}
                 </Heading>
+
+                {/* MARK: - Show fields */}
                 {fields.map((field) => (
                     <Field.Root key={field.label}>
                         <Field.Label>
-                            {field.label} <Text as="span" color="red.500">*</Text>
+                            {field.label}{" "}
+                            <Text as="span" color="red.500">
+                                *
+                            </Text>
                         </Field.Label>
                         {field.type === "password" ? (
                             <PasswordInput
@@ -97,16 +102,23 @@ function AuthForm({ fields, onSubmit }) {
                                 onChange={(e) => handleInputChange(field.name, e.target.value)}
                             />
                         )}
-                        
+
                         {/* Password Requirements Box */}
                         {isRegister && field.name === "password" && (
-                            <Box mt={2} p={3} bg="gray.50" borderRadius="md" borderWidth="1px" w="100%">
+                            <Box
+                                mt={2}
+                                p={3}
+                                bg="gray.50"
+                                borderRadius="md"
+                                borderWidth="1px"
+                                w="100%"
+                            >
                                 {passwordRequirements.map((req) => (
-                                    <Flex 
-                                        key={req.id} 
-                                        align="center" 
-                                        color={req.isValid ? "green.600" : "red.500"} 
-                                        fontSize="sm" 
+                                    <Flex
+                                        key={req.id}
+                                        align="center"
+                                        color={req.isValid ? "green.600" : "red.500"}
+                                        fontSize="sm"
                                         mb={1}
                                     >
                                         <Box as="span" mr={2} fontWeight="bold">
@@ -127,12 +139,14 @@ function AuthForm({ fields, onSubmit }) {
                     <Checkbox.Root
                         variant={"solid"}
                         color={"brand.500"}
-                        onCheckedChange={(details) => handleInputChange("acceptedTerms", details.checked)}
+                        onCheckedChange={(details) =>
+                            handleInputChange("acceptedTerms", details.checked)
+                        }
                     >
                         <Checkbox.HiddenInput color="brand.500" />
                         <Checkbox.Control />
                         <Checkbox.Label color={"brand.500"}>
-                            I agree to receive{" "}
+                            I agree to{" "}
                             <Link
                                 to="/terms"
                                 target="_blank"
@@ -140,16 +154,20 @@ function AuthForm({ fields, onSubmit }) {
                                 style={{ textDecoration: "underline", fontWeight: "600" }}
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                terms and conditions from Federation University
+                                Terms and Conditions
                             </Link>{" "}
-                            <Text as="span" color="red.500">*</Text>
+                            <Text as="span" color="red.500">
+                                *
+                            </Text>
                         </Checkbox.Label>
                     </Checkbox.Root>
                 )}
 
-                <Button w={"100%"} bg={"skyblue.500"} onClick={handleSubmit}>
+                {/* MARK: - SignIn/SignUp button */}
+                <Button w={"100%"} bg={"skyblue.500"} fontWeight="600" onClick={handleSubmit}>
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>
+
                 <SocialLogin isRegister={isRegister} />
             </Box>
         </Flex>
