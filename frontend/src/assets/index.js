@@ -2,7 +2,7 @@ import categories from "./scenariAidCategory";
 import levels from "./tutorialLevels";
 
 // MARK: - IMAGES
-const federationLogo = "/images/feduni_logo.svg";
+const federationLogo = "/images/scenari-aid-redflag.png";
 const landingPage = "/images/landing_page.svg";
 const registerImage = "/images/register.svg";
 const accountImage = "/images/account.svg";
