@@ -118,52 +118,40 @@ function ContactForm({ user, onSubmit }) {
 
                     {/* Name and Email */}
                     <Flex gap={"4"}>
-                        <Box flex="1">
+                        <Box flex={"1"}>
                             <NormalField
                                 fieldLabel={
                                     <>
-                                        Name{" "}
-                                        <Text as="span" color="red.500">
-                                            *
-                                        </Text>
+                                        Name <Text as="span" color="red.500">*</Text>
                                     </>
                                 }
                                 inputPlaceholder="Your name"
                                 name="name"
                                 value={inputs.name}
-                                onChange={(e) =>
-                                    handleInputChange("name", e.target.value)
-                                }
+                                onChange={(e) => handleInputChange("name", e.target.value)}
                             />
-
                             {errors.name && (
-                                <Text color="red.500" fontSize="sm" mt="1">
+                                <Text color="red.500" fontSize="sm" mt="1" textAlign="left">
                                     {errors.name}
                                 </Text>
                             )}
                         </Box>
 
-                        <Box flex="1">
+                        <Box flex={"1"}>
                             <NormalField
                                 fieldLabel={
                                     <>
-                                        Email{" "}
-                                        <Text as="span" color="red.500">
-                                            *
-                                        </Text>
+                                        Email <Text as="span" color="red.500">*</Text>
                                     </>
                                 }
                                 inputPlaceholder="Your email"
                                 type="email"
                                 name="email"
                                 value={inputs.email}
-                                onChange={(e) =>
-                                    handleInputChange("email", e.target.value)
-                                }
+                                onChange={(e) => handleInputChange("email", e.target.value)}
                             />
-
                             {errors.email && (
-                                <Text color="red.500" fontSize="sm" mt="1">
+                                <Text color="red.500" fontSize="sm" mt="1" textAlign="left">
                                     {errors.email}
                                 </Text>
                             )}
@@ -173,10 +161,7 @@ function ContactForm({ user, onSubmit }) {
                     {/* Message */}
                     <Field.Root>
                         <Field.Label>
-                            Message{" "}
-                            <Text as="span" color="red.500">
-                                *
-                            </Text>
+                            Message <Text as="span" color="red.500">*</Text>
                         </Field.Label>
 
                         <Textarea
@@ -186,13 +171,11 @@ function ContactForm({ user, onSubmit }) {
                             borderColor={"gray.400"}
                             value={inputs.message}
                             name="message"
-                            onChange={(e) =>
-                                handleInputChange("message", e.target.value)
-                            }
+                            onChange={(e) => handleInputChange("message", e.target.value)}
                         />
 
                         {errors.message && (
-                            <Text color="red.500" fontSize="sm" mt="1">
+                            <Text color="red.500" fontSize="sm" mt="1" textAlign="left">
                                 {errors.message}
                             </Text>
                         )}
