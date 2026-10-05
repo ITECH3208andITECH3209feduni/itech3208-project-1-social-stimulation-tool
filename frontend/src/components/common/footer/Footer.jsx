@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const footerUrl =
     "https://federation.edu.au/schools/school-of-engineering-information-technology-and-physical-sciences/research/computational-science-and-mathematics/ciao/research-groups/technologies-for-empowering-people-for-participation-in-society-tepps";
+const GrantMeredithInfoUrl =
+    "https://www.federation.edu.au/research/find-an-expert/grant-meredith/";
 
 function Footer() {
     const navigate = useNavigate();
@@ -25,9 +27,13 @@ function Footer() {
         >
             <VStack align={"center"}>
                 <HStack>
-                    <Text fontSize={"12px"} fontWeight={"semibold"}>
-                        Copyright © 2026. Grant Meredith |
-                    </Text>
+                    <HighlightText
+                        fontSize="12px"
+                        color="brand.500"
+                        lineHeight="tall"
+                        text="Copyright © 2026. Grant Meredith |"
+                        highlights={[{ text: "Grant Meredith", url: GrantMeredithInfoUrl }]}
+                    />
                     <HighlightText
                         color="skyblue.500"
                         fontSize="12px"

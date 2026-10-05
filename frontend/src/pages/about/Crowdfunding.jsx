@@ -2,7 +2,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 function Crowdfunding() {
     return (
-        <Box py={10} px={{ base: 6, md: 10 }} bg="gray.800" color="white" borderRadius="xl">
+        <Box py={10} px={{ base: 6, md: 10 }} bg="brand.600" color="white" borderRadius="xl">
             <Heading fontFamily="Sora" fontSize={{ base: "2xl", md: "3xl" }} mb={4} color="white">
                 Crowdfunding Success
             </Heading>

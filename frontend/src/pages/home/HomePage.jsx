@@ -19,10 +19,9 @@ function HomePage() {
                         <Heading
                             color="brand.500"
                             fontFamily="Sora"
-                            fontWeight={"bold"}
                             fontSize={30}
                         >
-                            OUR USERS FEEDBACK
+                            WHAT OUR USERS SAY
                         </Heading>
                         <UsersFeedbackGrid feedbacks={feedbacks} loading={loading} />
                     </>
