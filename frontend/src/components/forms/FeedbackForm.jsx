@@ -49,7 +49,7 @@ function FeedbackForm({ onSubmit }) {
                     borderRadius={"10px"}
                 >
                     {/* Rating field */}
-                    <Flex>
+                    {/* <Flex>
                         <VStack align={"start"}>
                             <Text fontSize="sm" fontWeight="medium">
                                 Your Rating
@@ -60,7 +60,7 @@ function FeedbackForm({ onSubmit }) {
                                 onChange={(newRate) => handleInputChange("rating", newRate)}
                             />
                         </VStack>
-                    </Flex>
+                    </Flex> */}
 
                     {/* Message fields */}
                     <Field.Root>
