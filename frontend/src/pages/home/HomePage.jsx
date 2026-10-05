@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import VideoCarousel from "@/components/common/carousels/VideoCarousel";
 import UsersFeedbackGrid from "@/components/common/grids/UsersFeedbackGrid";
 import useGetFeedback from "@/hooks/custom-hooks/useGetFeedback";
+import NoFeedback from "./NoFeedback";
 
 function HomePage() {
     const { feedbacks, loading } = useGetFeedback();
@@ -11,10 +12,21 @@ function HomePage() {
         <div style={{ background: "white" }}>
             <Banner />
             <Container mt={"50px"} spaceY={5} background={"white"}>
-                <Heading color="brand.500" fontFamily="Sora" fontWeight={"bold"} fontSize={30}>
-                    OUR USERS FEEDBACK
-                </Heading>
-                <UsersFeedbackGrid feedbacks={feedbacks} loading={loading} />
+                {!loading && feedbacks?.length === 0 ? (
+                    <NoFeedback />
+                ) : (
+                    <>
+                        <Heading
+                            color="brand.500"
+                            fontFamily="Sora"
+                            fontWeight={"bold"}
+                            fontSize={30}
+                        >
+                            OUR USERS FEEDBACK
+                        </Heading>
+                        <UsersFeedbackGrid feedbacks={feedbacks} loading={loading} />
+                    </>
+                )}
             </Container>
         </div>
     );

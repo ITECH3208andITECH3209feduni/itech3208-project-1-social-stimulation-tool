@@ -2,7 +2,7 @@ import categories from "./scenariAidCategory";
 import levels from "./tutorialLevels";
 
 // MARK: - IMAGES
-const federationLogo = "/images/feduni_logo.svg";
+const federationLogo = "/images/scenari-aid-redflag.png";
 const landingPage = "/images/landing_page.svg";
 const registerImage = "/images/register.svg";
 const accountImage = "/images/account.svg";
@@ -15,8 +15,8 @@ const food = "/images/tutorials/food.jpg";
 const sports = "/images/tutorials/sports.jpg";
 const aboutUs = "/images/about_page/about_us-1.jpeg";
 const aboutUs2 = "/images/about_page/about_us-2.jpg";
-const ourMission = "/images/about_page/our_mission.jpg";
-const ourTeam = "/images/about_page/our_team.jpg";
+const ourMission = "/images/about_page/our_mission.png";
+const ourTeam = "/images/about_page/our_team.png";
 const winNew = "/videos/WINNews.mp4";
 const requiredAuth = "/images/required_auth.svg";
 const testImg = "/images/scenaio_banner.jpeg";
@@ -28,7 +28,7 @@ const imgBanner5 = "/images/image_40.png";
 const imgBanner6 = "/images/image_50.png";
 const imgBanner7 = "/images/image_51.png";
 const imgBanner8 = "/images/image_52.png";
-const footerImg = "/images/footer_img.png";
+const footerImg = "/images/teppssquare.png";
 
 export {
     federationLogo,

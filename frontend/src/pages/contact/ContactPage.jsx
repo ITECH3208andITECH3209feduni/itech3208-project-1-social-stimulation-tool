@@ -1,5 +1,5 @@
 import ContactForm from "@/components/forms/ContactForm";
-import { Spinner, Flex, Box, Float } from "@chakra-ui/react";
+import { Spinner, Flex, Box } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
 import useSendContact from "@/hooks/custom-hooks/useSendContact";
 import useUserProfile from "@/hooks/custom-hooks/useUserProfile";
@@ -10,9 +10,11 @@ function ContactPage() {
 
     const handleSendContact = async (inputs) => {
         const payload = {
-            categoryId: inputs.categoryId,
+            name: inputs.name,
+            email: inputs.email,
             message: inputs.message,
         };
+
         const finished = await sendContact(payload, {
             onSuccess: (_, msg) => {
                 toaster.create({
@@ -28,6 +30,7 @@ function ContactPage() {
                 });
             },
         });
+
         return finished;
     };
 
@@ -42,6 +45,7 @@ function ContactPage() {
     return (
         <Box position="relative">
             <ContactForm user={user} onSubmit={handleSendContact} />
+
             {loading && (
                 <Flex
                     position="absolute"

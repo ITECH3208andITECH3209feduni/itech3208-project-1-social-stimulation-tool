@@ -66,11 +66,6 @@ const Navbar = () => {
                     Contact
                 </NavLink>
 
-                {/* MARK: Terms and Conditions */}
-                <NavLink to="/terms" style={navStyle}>
-                    Terms & Conditions
-                </NavLink>
-
                 {/* MARK: Account -> Login / Register */}
                 {isUserLoggedIn ? (
                     <> </>

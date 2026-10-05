@@ -139,7 +139,7 @@ const AppRoutes = () => {
             </Route>
 
             {/* MARK: Account -> Login and Register Page */}
-            <Route path="/account" element={<AccountLayout />}>
+            <Route path="/account" element={<HomeLayout />}>
                 <Route index element={<Navigate to="login" />} />
                 <Route
                     path="login"
