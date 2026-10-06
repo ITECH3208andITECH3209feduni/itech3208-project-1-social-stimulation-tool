@@ -5,7 +5,7 @@ function SelectionField({
     name = "",
     inputPlaceholder = "",
     fieldLabel,
-    inputColor = "dark.900",
+    inputColor = "whiteAlpha.500",
     borderColor = "whiteAlpha.500",
     h,
     onChange,
@@ -20,7 +20,7 @@ function SelectionField({
             <NativeSelect.Root w="fit-content" minW="250px">
                 <NativeSelect.Field
                     bg={inputColor}
-                    color={"whiteAlpha.700"}
+                    color={"black"}
                     borderWidth="1px"
                     borderColor={borderColor}
                     placeholder={inputPlaceholder}
