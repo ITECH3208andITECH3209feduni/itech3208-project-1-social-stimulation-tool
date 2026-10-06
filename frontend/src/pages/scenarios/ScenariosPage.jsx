@@ -56,8 +56,11 @@ function ScenariosPage() {
     const { categories } = useCategories();
     const { subCategories } = useSubCategories(categoryId);
     const selectedCategory = categories.find((category) => category.id === categoryId);
-    const selectedSubCategory = subCategories.find((subCategory) => subCategory.id === subCategoryId);
-    const selectedFilterName = selectedSubCategory?.name || selectedCategory?.name || "all categories";
+    const selectedSubCategory = subCategories.find(
+        (subCategory) => subCategory.id === subCategoryId,
+    );
+    const selectedFilterName =
+        selectedSubCategory?.name || selectedCategory?.name || "all categories";
 
     return (
         <Flex
@@ -93,7 +96,11 @@ function ScenariosPage() {
                             : `${pagination.total} ${pagination.total === 1 ? "video" : "videos"} in ${selectedFilterName}`}
                     </Text>
 
-                    <HStack gap={3} flexWrap="wrap" justify={{ base: "flex-start", md: "flex-end" }}>
+                    <HStack
+                        gap={3}
+                        flexWrap="wrap"
+                        justify={{ base: "flex-start", md: "flex-end" }}
+                    >
                         {/* Category filter */}
                         <Box position="relative">
                             <SelectionField
@@ -102,8 +109,8 @@ function ScenariosPage() {
                                 onChange={(e) => setCategoryId(e.target.value)}
                                 inputPlaceholder="All Categories"
                                 items={categories}
-                                inputColor="#1a1d26"
-                                borderColor="rgba(255,255,255,0.15)"
+                                inputColor="whiteAlpha.500"
+                                borderColor="#1a1d26"
                             />
                         </Box>
 
@@ -120,15 +127,21 @@ function ScenariosPage() {
                                             : "All Sub-Categories"
                                     }
                                     items={subCategories}
-                                    inputColor="#1a1d26"
-                                    borderColor="rgba(255,255,255,0.15)"
+                                    inputColor="whiteAlpha.500"
+                                    borderColor="#1a1d26"
                                 />
                             </Box>
                         )}
 
                         {/* Clear filters badge */}
                         {(status || categoryId || subCategoryId) && (
-                            <ClearFilterBadge h="40px" onClick={clearFilters} />
+                            <ClearFilterBadge
+                                h="40px"
+                                bg="whiteAlpha.500"
+                                color="black"
+                                borderColor="#1a1d26"
+                                onClick={clearFilters}
+                            />
                         )}
                     </HStack>
                 </HStack>
@@ -147,25 +160,45 @@ function ScenariosPage() {
                         w="full"
                         templateColumns={{
                             base: "1fr",
-                            lg: "7fr 3fr",
+                            lg: "6.5fr 3.5fr",
                         }}
-                        gap={6}
+                        gap={2}
                     >
                         {/* Main Video Player */}
                         <GridItem>
                             {videos[currentVideoIndex] && (
-                                <VStack align="start" w="full" bg="dark.900" rounded="xl" overflow="hidden" boxShadow="xl" gap={0}>
-                                    <Box position="relative" bg="black" w="full" aspectRatio={16 / 9}>
+                                <VStack
+                                    align="start"
+                                    w="full"
+                                    bg="dark.900"
+                                    rounded="xl"
+                                    overflow="hidden"
+                                    boxShadow="xl"
+                                    gap={0}
+                                >
+                                    <Box
+                                        position="relative"
+                                        bg="black"
+                                        w="full"
+                                        aspectRatio={16 / 9}
+                                    >
                                         {!isVideoEnded ? (
                                             <ReactPlayer
-                                                src={typeof videos[currentVideoIndex].video === "object" ? videos[currentVideoIndex].video?.url : videos[currentVideoIndex].video}
+                                                src={
+                                                    typeof videos[currentVideoIndex].video ===
+                                                    "object"
+                                                        ? videos[currentVideoIndex].video?.url
+                                                        : videos[currentVideoIndex].video
+                                                }
                                                 playing={isAutoPlay}
                                                 controls
                                                 width="100%"
                                                 height="100%"
                                                 onEnded={() => {
                                                     setIsVideoEnded(true);
-                                                    setMaxUnlockedIndex((prev) => Math.max(prev, currentVideoIndex + 1));
+                                                    setMaxUnlockedIndex((prev) =>
+                                                        Math.max(prev, currentVideoIndex + 1),
+                                                    );
                                                 }}
                                                 config={{
                                                     file: {
@@ -177,20 +210,45 @@ function ScenariosPage() {
                                                 }}
                                             />
                                         ) : (
-                                            <Center w="full" h="full" bg="blackAlpha.800" flexDirection="column" gap={6} textAlign="center" px={4}>
+                                            <Center
+                                                w="full"
+                                                h="full"
+                                                bg="blackAlpha.800"
+                                                flexDirection="column"
+                                                gap={6}
+                                                textAlign="center"
+                                                px={4}
+                                            >
                                                 {currentVideoIndex < videos.length - 1 ? (
                                                     <>
                                                         <VStack gap={2}>
-                                                            <Text color="gray.400" fontSize="sm" fontWeight="bold" textTransform="uppercase" letterSpacing="wider">Up Next</Text>
-                                                            <Heading color="white" size="md" noOfLines={2}>{videos[currentVideoIndex + 1].title}</Heading>
+                                                            <Text
+                                                                color="gray.400"
+                                                                fontSize="sm"
+                                                                fontWeight="bold"
+                                                                textTransform="uppercase"
+                                                                letterSpacing="wider"
+                                                            >
+                                                                Up Next
+                                                            </Text>
+                                                            <Heading
+                                                                color="white"
+                                                                size="md"
+                                                                noOfLines={2}
+                                                            >
+                                                                {
+                                                                    videos[currentVideoIndex + 1]
+                                                                        .title
+                                                                }
+                                                            </Heading>
                                                         </VStack>
                                                         <HStack gap={4} mt={2}>
-                                                            <Button 
+                                                            <Button
                                                                 variant="outline"
-                                                                color="white" 
+                                                                color="white"
                                                                 borderColor="whiteAlpha.400"
-                                                                size="lg" 
-                                                                _hover={{ bg: "whiteAlpha.200" }} 
+                                                                size="lg"
+                                                                _hover={{ bg: "whiteAlpha.200" }}
                                                                 onClick={() => {
                                                                     setIsVideoEnded(false);
                                                                     setIsAutoPlay(true);
@@ -198,13 +256,15 @@ function ScenariosPage() {
                                                             >
                                                                 Replay
                                                             </Button>
-                                                            <Button 
-                                                                bg="brand.500" 
-                                                                color="white" 
-                                                                size="lg" 
-                                                                _hover={{ bg: "brand.600" }} 
+                                                            <Button
+                                                                bg="brand.500"
+                                                                color="white"
+                                                                size="lg"
+                                                                _hover={{ bg: "brand.600" }}
                                                                 onClick={() => {
-                                                                    setCurrentVideoIndex(currentVideoIndex + 1);
+                                                                    setCurrentVideoIndex(
+                                                                        currentVideoIndex + 1,
+                                                                    );
                                                                     setIsVideoEnded(false);
                                                                     setIsAutoPlay(true);
                                                                 }}
@@ -215,14 +275,16 @@ function ScenariosPage() {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <Heading color="white" size="lg">You've finished the playlist!</Heading>
+                                                        <Heading color="white" size="lg">
+                                                            You've finished the playlist!
+                                                        </Heading>
                                                         <HStack gap={4} mt={2}>
-                                                            <Button 
+                                                            <Button
                                                                 variant="outline"
-                                                                color="white" 
+                                                                color="white"
                                                                 borderColor="whiteAlpha.400"
-                                                                size="lg" 
-                                                                _hover={{ bg: "whiteAlpha.200" }} 
+                                                                size="lg"
+                                                                _hover={{ bg: "whiteAlpha.200" }}
                                                                 onClick={() => {
                                                                     setIsVideoEnded(false);
                                                                     setIsAutoPlay(true);
@@ -230,11 +292,11 @@ function ScenariosPage() {
                                                             >
                                                                 Replay Video
                                                             </Button>
-                                                            <Button 
-                                                                bg="brand.500" 
-                                                                color="white" 
-                                                                size="lg" 
-                                                                _hover={{ bg: "brand.600" }} 
+                                                            <Button
+                                                                bg="brand.500"
+                                                                color="white"
+                                                                size="lg"
+                                                                _hover={{ bg: "brand.600" }}
                                                                 onClick={() => {
                                                                     setCurrentVideoIndex(0);
                                                                     setIsVideoEnded(false);
@@ -249,21 +311,38 @@ function ScenariosPage() {
                                             </Center>
                                         )}
                                     </Box>
-                                    <Box p={5} w="full" bg="gray.800">
-                                        <Heading color="white" size="lg" mb={2}>
+                                    <Box p={5} w="full" bg="white">
+                                        <Heading
+                                            color="dark.900"
+                                            size="lg"
+                                            mb={2}
+                                            textAlign={"left"}
+                                        >
                                             {videos[currentVideoIndex].title}
                                         </Heading>
-                                        <Text color="gray.300" fontSize="md">
+                                        <Text color="dark.500" fontSize="md" textAlign={"left"}>
                                             {videos[currentVideoIndex].description}
                                         </Text>
                                         <HStack mt={4} gap={2} flexWrap="wrap">
                                             {videos[currentVideoIndex].category?.name && (
-                                                <Badge bg="blue.500" color="white" px={2} py={1} borderRadius="md">
+                                                <Badge
+                                                    bg="blue.500"
+                                                    color="white"
+                                                    px={2}
+                                                    py={1}
+                                                    borderRadius="md"
+                                                >
                                                     {videos[currentVideoIndex].category.name}
                                                 </Badge>
                                             )}
                                             {videos[currentVideoIndex].subCategory?.name && (
-                                                <Badge bg="purple.500" color="white" px={2} py={1} borderRadius="md">
+                                                <Badge
+                                                    bg="purple.500"
+                                                    color="white"
+                                                    px={2}
+                                                    py={1}
+                                                    borderRadius="md"
+                                                >
                                                     {videos[currentVideoIndex].subCategory.name}
                                                 </Badge>
                                             )}
@@ -275,76 +354,127 @@ function ScenariosPage() {
 
                         {/* Playlist Sidebar */}
                         <GridItem position="relative" minH={{ base: "400px", lg: "auto" }}>
-                            <Box 
-                                position={{ base: "relative", lg: "absolute" }} 
-                                top={0} bottom={0} left={0} right={0}
+                            <Box
+                                position={{ base: "relative", lg: "absolute" }}
+                                top={0}
+                                bottom={0}
+                                left={0}
+                                right={0}
                                 h="100%"
                             >
-                                <VStack 
-                                    w="full" 
-                                    h="100%" 
-                                    overflowY="auto" 
-                                    bg="gray.50" 
-                                    rounded="xl" 
-                                    p={4} 
+                                <VStack
+                                    w="full"
+                                    h="100%"
+                                    overflowY="auto"
+                                    bg="white"
+                                    rounded="xl"
+                                    p={4}
                                     align="stretch"
                                     gap={3}
                                     boxShadow="md"
+                                    css={{
+                                        "&::-webkit-scrollbar": {
+                                            width: "14px",
+                                        },
+                                        "&::-webkit-scrollbar-track": {
+                                            background: "transparent",
+                                        },
+                                        "&::-webkit-scrollbar-thumb": {
+                                            background: "#E2E8F0",
+                                            borderRadius: "24px",
+                                            border: "4px solid transparent",
+                                            backgroundClip: "padding-box",
+                                        },
+                                        "&::-webkit-scrollbar-thumb:hover": {
+                                            background: "#CBD5E1",
+                                            border: "4px solid transparent",
+                                            backgroundClip: "padding-box",
+                                        },
+                                    }}
                                 >
-                                <Heading size="md" color="brand.500" pb={2} borderBottom="1px solid" borderColor="gray.200">
-                                    Playlist
-                                </Heading>
-                                {videos.map((vid, idx) => {
-                                    const isActive = idx === currentVideoIndex;
-                                    const isUnlocked = idx <= maxUnlockedIndex;
-                                    const rawThumbnail = typeof vid.thumbnail === "object" ? vid.thumbnail?.url : vid.thumbnail;
-                                    const videoUrl = typeof vid.video === "object" ? vid.video?.url : vid.video;
-                                    const thumbnailUrl = rawThumbnail || (videoUrl ? videoUrl.replace(/\.[^/.]+$/, ".jpg") : "");
+                                    <Heading
+                                        size="md"
+                                        color="brand.500"
+                                        pb={2}
+                                        borderBottom="1px solid"
+                                        borderColor="gray.200"
+                                    >
+                                        Playlist
+                                    </Heading>
+                                    {videos.map((vid, idx) => {
+                                        const isActive = idx === currentVideoIndex;
+                                        const isUnlocked = idx <= maxUnlockedIndex;
+                                        const rawThumbnail =
+                                            typeof vid.thumbnail === "object"
+                                                ? vid.thumbnail?.url
+                                                : vid.thumbnail;
+                                        const videoUrl =
+                                            typeof vid.video === "object"
+                                                ? vid.video?.url
+                                                : vid.video;
+                                        const thumbnailUrl =
+                                            rawThumbnail ||
+                                            (videoUrl ? videoUrl.replace(/\.[^/.]+$/, ".jpg") : "");
 
-                                    return (
-                                        <HStack 
-                                            key={vid.id} 
-                                            p={2} 
-                                            bg={isActive ? "white" : "transparent"} 
-                                            shadow={isActive ? "md" : "none"}
-                                            rounded="md"
-                                            opacity={isUnlocked ? 1 : 0.6}
-                                            border={isActive ? "2px solid" : "1px solid"}
-                                            borderColor={isActive ? "brand.500" : "transparent"}
-                                            cursor={isUnlocked ? "pointer" : "not-allowed"}
-                                            transition="all 0.2s"
-                                            alignItems="flex-start"
-                                            onClick={() => {
-                                                if (isUnlocked) {
-                                                    setCurrentVideoIndex(idx);
-                                                    setIsVideoEnded(false);
-                                                    setIsAutoPlay(true);
+                                        return (
+                                            <HStack
+                                                key={vid.id}
+                                                p={2}
+                                                bg={isActive ? "white" : "transparent"}
+                                                shadow={isActive ? "md" : "none"}
+                                                rounded="md"
+                                                opacity={isUnlocked ? 1 : 0.6}
+                                                border={isActive ? "2px solid" : "1px solid"}
+                                                borderColor={isActive ? "brand.500" : "transparent"}
+                                                cursor={isUnlocked ? "pointer" : "not-allowed"}
+                                                transition="all 0.2s"
+                                                alignItems="flex-start"
+                                                onClick={() => {
+                                                    if (isUnlocked) {
+                                                        setCurrentVideoIndex(idx);
+                                                        setIsVideoEnded(false);
+                                                        setIsAutoPlay(true);
+                                                    }
+                                                }}
+                                                _hover={
+                                                    isUnlocked && !isActive
+                                                        ? { bg: "gray.100" }
+                                                        : {}
                                                 }
-                                            }}
-                                            _hover={isUnlocked && !isActive ? { bg: "gray.100" } : {}}
-                                        >
-                                            <Box position="relative" w="120px" flexShrink={0}>
-                                                <Image 
-                                                    src={thumbnailUrl} 
-                                                    w="100%" 
-                                                    aspectRatio={16/9} 
-                                                    objectFit="cover" 
-                                                    rounded="sm" 
-                                                    alt={vid.title}
-                                                />
-                                            </Box>
-                                            <VStack align="start" gap={1} flex={1}>
-                                                <Text fontSize="sm" fontWeight={isActive ? "bold" : "medium"} color={isActive ? "brand.600" : "gray.700"} noOfLines={2}>
-                                                    {vid.title}
-                                                </Text>
-                                                <Text fontSize="xs" color="gray.500">
-                                                    {isActive ? (isVideoEnded ? "Finished" : "Playing now") : (isUnlocked ? "Available" : "Locked")}
-                                                </Text>
-                                            </VStack>
-                                        </HStack>
-                                    )
-                                })}
-                            </VStack>
+                                            >
+                                                <Box position="relative" w="120px" flexShrink={0}>
+                                                    <Image
+                                                        src={thumbnailUrl}
+                                                        w="100%"
+                                                        aspectRatio={16 / 9}
+                                                        objectFit="cover"
+                                                        rounded="sm"
+                                                        alt={vid.title}
+                                                    />
+                                                </Box>
+                                                <VStack align="start" gap={1} flex={1}>
+                                                    <Text
+                                                        fontSize="sm"
+                                                        fontWeight={isActive ? "bold" : "medium"}
+                                                        color={isActive ? "brand.600" : "gray.700"}
+                                                        noOfLines={2}
+                                                    >
+                                                        {vid.title}
+                                                    </Text>
+                                                    <Text fontSize="xs" color="gray.500">
+                                                        {isActive
+                                                            ? isVideoEnded
+                                                                ? "Finished"
+                                                                : "Playing now"
+                                                            : isUnlocked
+                                                              ? "Available"
+                                                              : "Locked"}
+                                                    </Text>
+                                                </VStack>
+                                            </HStack>
+                                        );
+                                    })}
+                                </VStack>
                             </Box>
                         </GridItem>
                     </Grid>
