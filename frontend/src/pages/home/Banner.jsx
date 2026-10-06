@@ -46,6 +46,7 @@ function Banner() {
                     {/* CTA */}
                     <Flex gap={4} pt={2} flexWrap="wrap">
                         <Button
+                            flex={1}
                             as={Link}
                             to="/account/register"
                             size="lg"
@@ -57,10 +58,12 @@ function Banner() {
                             Get Started
                         </Button>
                         <Button
+                            flex={1}
                             as={Link}
                             to="/scenarios"
                             size="lg"
                             variant="outline"
+                            borderColor={"gray.500"}
                             borderRadius="full"
                             px={8}
                             fontFamily="Sora"

@@ -1,12 +1,15 @@
 import { authApi } from "@/api";
 import useAuthStore from "../stores/useAuthStore";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 const useLogin = () => {
     const setAuth = useAuthStore((state) => state.setAuth);
     const queryClient = useQueryClient();
+    const [isLoading, setIsLoading] = useState(false);
 
     const login = async (payload, callback = {}) => {
+        setIsLoading(true);
         try {
             const res = await authApi.login({
                 username: payload.username,
@@ -22,11 +25,12 @@ const useLogin = () => {
         } catch (error) {
             callback.onError?.(error.message);
         } finally {
+            setIsLoading(false);
             callback.onFinally?.();
         }
     };
 
-    return { login };
+    return { login, isLoading };
 };
 
 export default useLogin;

@@ -5,7 +5,7 @@ import AuthForm from "@/components/auth/AuthForm";
 import useLogin from "@/hooks/custom-hooks/useLogin";
 
 function LoginPage() {
-    const { login } = useLogin();
+    const { login, isLoading } = useLogin();
     const navigate = useNavigate();
     const location = useLocation();
     const redirectTo = location.state?.from?.pathname || "/scenarios";
@@ -37,7 +37,7 @@ function LoginPage() {
 
     return (
         <>
-            <AuthForm fields={loginFields} onSubmit={handleLogin} />
+            <AuthForm fields={loginFields} onSubmit={handleLogin} isLoading={isLoading} />
         </>
     );
 }
