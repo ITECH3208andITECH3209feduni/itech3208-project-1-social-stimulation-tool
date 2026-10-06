@@ -1,7 +1,11 @@
 import { userApi } from "@/api";
 import { useQuery } from "@tanstack/react-query";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import isUserAccessToken from "@/utils/isUserAccessToken";
 
 const useUserProfile = () => {
+    const accessToken = useAuthStore((state) => state.accessToken);
+
     return useQuery({
         queryKey: ["user-profile"],
         queryFn: async () => {
@@ -17,6 +21,7 @@ const useUserProfile = () => {
         gcTime: 1000 * 60 * 10, // optional (v5)
         retry: 1,
         refetchOnWindowFocus: false,
+        enabled: isUserAccessToken(accessToken),
     });
 };
 

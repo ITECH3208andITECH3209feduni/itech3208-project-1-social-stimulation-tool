@@ -2,6 +2,7 @@ import { Flex, HStack, Box, Image } from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import { federationLogo } from "@/assets";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import isUserAccessToken from "@/utils/isUserAccessToken";
 import UserMenu from "./menu/UserMenu";
 
 const Navbar = () => {
@@ -13,6 +14,7 @@ const Navbar = () => {
     });
 
     const accessToken = useAuthStore((state) => state.accessToken);
+    const isUserLoggedIn = isUserAccessToken(accessToken);
 
     return (
         <Flex
@@ -43,7 +45,7 @@ const Navbar = () => {
                 </NavLink>
 
                 {/* MARK: Scenarios Videos — available after login */}
-                {accessToken && (
+                {isUserLoggedIn && (
                     <NavLink to="/scenarios" style={navStyle}>
                         Scenarios
                     </NavLink>
@@ -65,7 +67,7 @@ const Navbar = () => {
                 </NavLink>
 
                 {/* MARK: Account -> Login / Register */}
-                {accessToken ? (
+                {isUserLoggedIn ? (
                     <> </>
                 ) : (
                     <NavLink to="/account" style={navStyle}>
@@ -74,7 +76,7 @@ const Navbar = () => {
                 )}
 
                 {/* MARK: Show User Menu */}
-                {accessToken && <UserMenu />}
+                {isUserLoggedIn && <UserMenu />}
             </HStack>
         </Flex>
     );

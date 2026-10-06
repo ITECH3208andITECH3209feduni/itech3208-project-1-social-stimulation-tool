@@ -9,14 +9,18 @@ const userRouter = express.Router();
 const adminRouter = express.Router();
 
 // MARK: - SCENARIO VIEWING ROUTES
-// A valid access token is required to browse or open scenario videos. Role
-// checks are intentionally not applied: any authenticated user may view them.
+// Scenario viewing belongs to the user frontend. Admin accounts use the admin
+// application and are intentionally excluded from these routes.
 publicRouter.get(
     "/",
-    authMw.authenticateToken,
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
     VideoController.getVideos,
 );
-publicRouter.get("/:id", authMw.authenticateToken, VideoController.getVideoById);
+publicRouter.get(
+    "/:id",
+    authMw.authorizeRole([authMw.UserRole.individual, authMw.UserRole.organization]),
+    VideoController.getVideoById,
+);
 
 // MARK: - USER ROUTES (Organization Management)
 userRouter.post(

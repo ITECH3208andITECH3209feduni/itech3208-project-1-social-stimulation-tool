@@ -5,6 +5,7 @@ import useUserProfile from "./useUserProfile";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import loggerUtil from "@/utils/logger.utils";
 import { useQueryClient } from "@tanstack/react-query";
+import isUserAccessToken from "@/utils/isUserAccessToken";
 
 const ONE_MINUTE = 60 * 1000;
 const DISMISS_COOLDOWN = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -24,7 +25,7 @@ const useFeedback = () => {
     const { data: user } = useUserProfile();
     const { accessToken } = useAuthStore();
     const location = useLocation();
-    const isLoggedIn = !!accessToken;
+    const isLoggedIn = isUserAccessToken(accessToken);
 
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
