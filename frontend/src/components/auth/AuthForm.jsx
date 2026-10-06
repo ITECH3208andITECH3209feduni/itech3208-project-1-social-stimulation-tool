@@ -7,7 +7,7 @@ import { toaster } from "@/components/ui/toaster";
 
 const LOGIN_FIELDS_NUMBER = 2;
 
-function AuthForm({ fields, onSubmit }) {
+function AuthForm({ fields, onSubmit, isLoading }) {
     const isRegister = fields.length > LOGIN_FIELDS_NUMBER;
 
     const [input, setInput] = useState({});
@@ -68,6 +68,11 @@ function AuthForm({ fields, onSubmit }) {
             align="center"
         >
             <Box
+                as="form"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                }}
                 width={{ base: "100%", md: "80%", lg: "50%" }}
                 display="flex"
                 flexDir={"column"}
@@ -164,7 +169,14 @@ function AuthForm({ fields, onSubmit }) {
                 )}
 
                 {/* MARK: - SignIn/SignUp button */}
-                <Button w={"100%"} bg={"skyblue.500"} fontWeight="600" onClick={handleSubmit}>
+                <Button 
+                    type="submit"
+                    w={"100%"} 
+                    bg={"skyblue.500"} 
+                    fontWeight="600" 
+                    loading={isLoading}
+                    loadingText={isRegister ? "Signing up..." : "Signing in..."}
+                >
                     {isRegister ? "Sign up" : "Sign in"}
                 </Button>
 

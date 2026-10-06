@@ -12,24 +12,23 @@ import {
     ButtonGroup,
     IconButton,
     Pagination,
-    Image,
-    Badge,
-    Button,
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { videoQueries } from "@/api/videos/video.queries";
+import VideoCard from "@/components/common/cards/VideoCard";
 import SelectionField from "@/components/common/fields/SelectionField";
 import ClearFilterBadge from "@/components/common/filters/ClearFilterBadge";
 import { useQueryClient } from "@tanstack/react-query";
 import useCategories from "@/hooks/custom-hooks/useCategories";
 import useSubCategories from "@/hooks/custom-hooks/useSubCategories";
 import useVideo from "@/hooks/custom-hooks/useVideo";
-import { useState, useEffect } from "react";
-import ReactPlayer from "react-player";
 
 function ScenariosPage() {
     const queryClient = useQueryClient();
     const {
+        page,
+        setPage,
+        limit,
         status,
         categoryId,
         setCategoryId,
@@ -39,28 +38,20 @@ function ScenariosPage() {
         videos,
         pagination,
         isLoading,
-    } = useVideo({ initialLimit: 100 });
-
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-    const [maxUnlockedIndex, setMaxUnlockedIndex] = useState(0);
-    const [isVideoEnded, setIsVideoEnded] = useState(false);
-    const [isAutoPlay, setIsAutoPlay] = useState(false);
-
-    useEffect(() => {
-        setCurrentVideoIndex(0);
-        setMaxUnlockedIndex(0);
-        setIsVideoEnded(false);
-        setIsAutoPlay(false);
-    }, [videos, categoryId, subCategoryId]);
+    } = useVideo({ initialLimit: 12 });
 
     const { categories } = useCategories();
     const { subCategories } = useSubCategories(categoryId);
     const selectedCategory = categories.find((category) => category.id === categoryId);
-    const selectedSubCategory = subCategories.find(
-        (subCategory) => subCategory.id === subCategoryId,
-    );
-    const selectedFilterName =
-        selectedSubCategory?.name || selectedCategory?.name || "all categories";
+    const selectedSubCategory = subCategories.find((subCategory) => subCategory.id === subCategoryId);
+    const selectedFilterName = selectedSubCategory?.name || selectedCategory?.name || "all categories";
+
+    const handlePrefetchPage = (targetNumber) => {
+        if (targetNumber < 1 || targetNumber > pagination.totalPages) return;
+        queryClient.prefetchQuery(
+            videoQueries.list({ page: targetNumber, limit, status, categoryId, subCategoryId }),
+        );
+    };
 
     return (
         <Flex
@@ -96,11 +87,7 @@ function ScenariosPage() {
                             : `${pagination.total} ${pagination.total === 1 ? "video" : "videos"} in ${selectedFilterName}`}
                     </Text>
 
-                    <HStack
-                        gap={3}
-                        flexWrap="wrap"
-                        justify={{ base: "flex-start", md: "flex-end" }}
-                    >
+                    <HStack gap={3} flexWrap="wrap" justify={{ base: "flex-start", md: "flex-end" }}>
                         {/* Category filter */}
                         <Box position="relative">
                             <SelectionField
@@ -109,8 +96,8 @@ function ScenariosPage() {
                                 onChange={(e) => setCategoryId(e.target.value)}
                                 inputPlaceholder="All Categories"
                                 items={categories}
-                                inputColor="whiteAlpha.500"
-                                borderColor="#1a1d26"
+                                inputColor="#1a1d26"
+                                borderColor="rgba(255,255,255,0.15)"
                             />
                         </Box>
 
@@ -127,26 +114,20 @@ function ScenariosPage() {
                                             : "All Sub-Categories"
                                     }
                                     items={subCategories}
-                                    inputColor="whiteAlpha.500"
-                                    borderColor="#1a1d26"
+                                    inputColor="#1a1d26"
+                                    borderColor="rgba(255,255,255,0.15)"
                                 />
                             </Box>
                         )}
 
                         {/* Clear filters badge */}
                         {(status || categoryId || subCategoryId) && (
-                            <ClearFilterBadge
-                                h="40px"
-                                bg="whiteAlpha.500"
-                                color="black"
-                                borderColor="#1a1d26"
-                                onClick={clearFilters}
-                            />
+                            <ClearFilterBadge h="40px" onClick={clearFilters} />
                         )}
                     </HStack>
                 </HStack>
 
-                {/* Playlist Layout */}
+                {/* Video Grid */}
                 {isLoading ? (
                     <Center py={10}>
                         <Spinner size="xl" color="brand.500" />
@@ -160,9 +141,10 @@ function ScenariosPage() {
                         w="full"
                         templateColumns={{
                             base: "1fr",
-                            lg: "6.5fr 3.5fr",
+                            md: "repeat(2, 1fr)",
+                            lg: "repeat(3, 1fr)",
                         }}
-                        gap={2}
+                        gap={6}
                     >
                         {videos.map((video) => (
                             <GridItem key={video.id}>
@@ -182,29 +164,26 @@ function ScenariosPage() {
                             page={page}
                             onPageChange={(e) => setPage(e.page)}
                         >
-                            <ButtonGroup variant="ghost" size="sm" wrap="wrap">
+                            <ButtonGroup variant="ghost" size="sm">
                                 <Pagination.PrevTrigger asChild>
-                                    <IconButton onMouseEnter={() => handlePrefetchPage(page - 1)}>
+                                    <IconButton>
                                         <LuChevronLeft />
                                     </IconButton>
                                 </Pagination.PrevTrigger>
 
                                 <Pagination.Items
-                                    render={(pageObj) => (
+                                    render={(item) => (
                                         <IconButton
-                                            variant={pageObj.value === page ? "solid" : "ghost"}
-                                            bg={pageObj.value === page ? "brand.500" : "transparent"}
-                                            color={pageObj.value === page ? "white" : "inherit"}
-                                            borderRadius="full"
-                                            onMouseEnter={() => handlePrefetchPage(pageObj.value)}
+                                            variant={{ base: "ghost", _selected: "outline" }}
+                                            onMouseEnter={() => handlePrefetchPage(item.value)}
                                         >
-                                            {pageObj.value}
+                                            {item.value}
                                         </IconButton>
                                     )}
                                 />
 
                                 <Pagination.NextTrigger asChild>
-                                    <IconButton onMouseEnter={() => handlePrefetchPage(page + 1)}>
+                                    <IconButton>
                                         <LuChevronRight />
                                     </IconButton>
                                 </Pagination.NextTrigger>
